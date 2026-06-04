@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	medium.DeleteNodeInABST()
+	medium.LongestZigZagPathInABinaryTree()
 }

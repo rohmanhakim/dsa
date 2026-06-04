@@ -50,10 +50,6 @@ func dfsZigzag(root *lib.TreeNode, dir int, count int, maxCount *int) {
 		*maxCount = count
 	}
 
-	fmt.Printf("-> v: %d, dir: %d,\n", root.Val, dir)
-
-	// *count++
-
 	if dir == -1 {
 		dfsZigzag(root.Left, 1, count+1, maxCount)
 		dfsZigzag(root.Right, -1, 1, maxCount)
@@ -64,12 +60,10 @@ func dfsZigzag(root *lib.TreeNode, dir int, count int, maxCount *int) {
 }
 
 func longestZigZag(root *lib.TreeNode) int {
-	count := 0
-	// zigzagDFS(root, &count)
-	dfsZigzag(root, -1, 0, &count)
-	dfsZigzag(root, 1, 0, &count)
-
-	return count
+	maxCount := 0
+	dfsZigzag(root, -1, 0, &maxCount)
+	dfsZigzag(root, 1, 0, &maxCount)
+	return maxCount
 }
 
 func LongestZigZagPathInABinaryTree() {
@@ -91,19 +85,19 @@ func LongestZigZagPathInABinaryTree() {
 	// 	lib.Ptr(8),
 	// }) //3
 
-	root := lib.SliceToBinaryTreeNodes([]*int{
-		lib.Ptr(1),
-		lib.Ptr(2),
-		lib.Ptr(3),
-		nil,
-		lib.Ptr(4),
-		nil,
-		nil,
-		lib.Ptr(5),
-		lib.Ptr(6),
-		nil,
-		lib.Ptr(7),
-	}) // 4
+	// root := lib.SliceToBinaryTreeNodes([]*int{
+	// 	lib.Ptr(1),
+	// 	lib.Ptr(2),
+	// 	lib.Ptr(3),
+	// 	nil,
+	// 	lib.Ptr(4),
+	// 	nil,
+	// 	nil,
+	// 	lib.Ptr(5),
+	// 	lib.Ptr(6),
+	// 	nil,
+	// 	lib.Ptr(7),
+	// }) // 4
 
 	// root := lib.SliceToBinaryTreeNodes([]*int{
 	// 	lib.Ptr(1),
@@ -128,6 +122,25 @@ func LongestZigZagPathInABinaryTree() {
 	// 	lib.Ptr(7),
 	// }) // 3
 
+	root := lib.SliceToBinaryTreeNodes([]*int{
+		lib.Ptr(1),
+		nil,
+		lib.Ptr(2),
+		lib.Ptr(3),
+		lib.Ptr(4),
+		nil,
+		nil,
+		lib.Ptr(5),
+		lib.Ptr(6),
+		nil,
+		lib.Ptr(7),
+		nil,
+		nil,
+		nil,
+		lib.Ptr(8),
+	}) // 4
+
 	out := longestZigZag(root)
 	fmt.Println(out)
+	lib.PrintTreeASCII(root)
 }
