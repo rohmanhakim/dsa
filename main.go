@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/rohmanhakim/leetcode/problems/cf/d800"
+	"github.com/rohmanhakim/leetcode/problems/lc/easy"
 )
 
 func main() {
-	d800.BitPlusPlus()
+	easy.GuessNumberHigherOrLower()
 }
