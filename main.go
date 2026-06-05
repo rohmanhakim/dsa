@@ -1,13 +1,11 @@
 package main
 
-import (
-	"github.com/rohmanhakim/leetcode/problems/lc/medium"
-)
+import "github.com/rohmanhakim/leetcode/problems/lc/hard"
 
 func findPeakElement(nums []int) int {
 	return 0
 }
 
 func main() {
-	medium.KokoEatingBananas()
+	hard.TotalWavinessOfNumbersInRangeII()
 }
