@@ -9,5 +9,5 @@ func findPeakElement(nums []int) int {
 }
 
 func main() {
-	medium.FindPeakElement()
+	medium.KokoEatingBananas()
 }
