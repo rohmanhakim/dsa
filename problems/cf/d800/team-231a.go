@@ -1,4 +1,4 @@
-package main
+package d800
 
 import (
 	"fmt"
@@ -7,18 +7,14 @@ import (
 func Team() {
 	var n, num, p, v, t int
 
-	fmt.Scanf("%d", &n)
+	fmt.Scan(&n)
 	for range n {
 
-		fmt.Scanf("%d %d %d", &p, &v, &t)
+		fmt.Scan(&p, &v, &t)
 		sure := p + v + t
 		if sure >= 2 {
 			num++
 		}
 	}
 	fmt.Println(num)
-}
-
-func main() {
-	Team()
 }

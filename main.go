@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/rohmanhakim/leetcode/problems/lc/medium"
+	"github.com/rohmanhakim/leetcode/problems/cf/d800"
 )
 
 func main() {
-	medium.LongestZigZagPathInABinaryTree()
+	d800.BitPlusPlus()
 }
