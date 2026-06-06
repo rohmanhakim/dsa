@@ -9,5 +9,5 @@ func findPeakElement(nums []int) int {
 }
 
 func main() {
-	easy.NthTribonacciNumber()
+	easy.LeftAndRightSumDifferences()
 }
