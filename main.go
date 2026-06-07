@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	medium.CreateBinaryTreeFromDescriptions()
+	medium.HouseRobber()
 }
