@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	medium.HouseRobber()
+	medium.DominoAndTrominoTiling()
 }
