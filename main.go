@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	easy.ClimbingStairs()
+	easy.FibonacciNumber()
 }
