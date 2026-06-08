@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	medium.PartitionArrayAccordingToGivenPivot()
+	medium.KthLargestElementInAnArray()
 }
