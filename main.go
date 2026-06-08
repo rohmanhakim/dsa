@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	medium.KthLargestElementInAnArray()
+	medium.SmallestNumberInInfiniteSet()
 }
