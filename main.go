@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	medium.MaximumTotalSubarrayValueI()
+	medium.MaximumSubsequenceScore()
 }
