@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	medium.MaximumSubsequenceScore()
+	medium.TotalCostToHireKWorkers()
 }
