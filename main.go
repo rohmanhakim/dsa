@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/rohmanhakim/leetcode/problems/lc/hard"
+	"github.com/rohmanhakim/leetcode/problems/lc/medium"
 )
 
 func main() {
-	hard.ConstructTargetArrayWithMultipleSums()
+	medium.NonOverlappingIntervals()
 }
