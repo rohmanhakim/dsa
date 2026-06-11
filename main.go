@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	medium.NonOverlappingIntervals()
+	medium.NumberOfWaysToAssignEdgeWeightsI()
 }
