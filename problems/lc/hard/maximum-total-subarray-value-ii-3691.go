@@ -11,15 +11,15 @@ type candidate struct {
 	right int
 }
 
-type maxHeap []candidate
+type candidateMaxHeap []candidate
 
-func (h maxHeap) Len() int           { return len(h) }
-func (h maxHeap) Less(i, j int) bool { return h[i].value > h[j].value }
-func (h maxHeap) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
-func (h *maxHeap) Push(x any) {
+func (h candidateMaxHeap) Len() int           { return len(h) }
+func (h candidateMaxHeap) Less(i, j int) bool { return h[i].value > h[j].value }
+func (h candidateMaxHeap) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
+func (h *candidateMaxHeap) Push(x any) {
 	*h = append(*h, x.(candidate))
 }
-func (h *maxHeap) Pop() any {
+func (h *candidateMaxHeap) Pop() any {
 	old := *h
 	n := len(old)
 	val := old[n-1]
@@ -33,7 +33,7 @@ func maxTotalValue(nums []int, k int) int64 {
 	right := n - 1
 	minItem := nums[right]
 	maxitem := nums[right]
-	h := &maxHeap{}
+	h := &candidateMaxHeap{}
 	heap.Init(h)
 
 	// --------------------- using heap to track top largest scores among candidates
