@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/rohmanhakim/leetcode/problems/lc/medium"
+	"github.com/rohmanhakim/leetcode/temp"
 )
 
 func main() {
-	medium.NumberOfProvinces()
+	temp.UnionFind()
 }
