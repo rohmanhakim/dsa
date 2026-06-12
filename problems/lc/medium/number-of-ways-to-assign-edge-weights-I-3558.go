@@ -106,6 +106,7 @@ func assignEdgeWeights(edges [][]int) int {
 
 	length := getMaxDepth(tree, 1, -1) - 1
 
+	fmt.Println(length)
 	return modpow(2, length-1, MOD_10_9_7)
 }
 
@@ -123,12 +124,7 @@ func modpow(base, exp, mod int) int {
 }
 
 func NumberOfWaysToAssignEdgeWeightsI() {
-	edges := [][]int{
-		{1, 2},
-		{1, 3},
-		{3, 4},
-		{3, 5},
-	}
+	edges := [][]int{{1, 2}, {2, 3}, {3, 4}}
 	out := assignEdgeWeights(edges)
 	fmt.Println(out)
 }

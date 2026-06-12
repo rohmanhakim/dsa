@@ -1,9 +1,8 @@
 package main
 
-import (
-	"github.com/rohmanhakim/leetcode/problems/lc/medium"
-)
+import "github.com/rohmanhakim/leetcode/problems/lc/hard"
 
 func main() {
-	medium.MinimumNumberOfArrowsToBurstBalloons()
+	hard.NumberOfWaysToAssignEdgeWeightsII()
+	// medium.NumberOfWaysToAssignEdgeWeightsI()
 }

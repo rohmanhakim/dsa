@@ -21,6 +21,11 @@ func TestNumberOfWaysToAssignEdgeWeightsI(t *testing.T) {
 			edges: [][]int{{1, 2}, {1, 3}, {3, 4}, {3, 5}},
 			want:  2,
 		},
+		{
+			name:  "test 3",
+			edges: [][]int{{1, 2}, {2, 3}, {3, 4}},
+			want:  4,
+		},
 	}
 
 	for _, tt := range tests {
