@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	medium.KeysAndRooms()
+	medium.NumberOfProvinces()
 }
