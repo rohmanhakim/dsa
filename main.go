@@ -1,8 +1,9 @@
 package main
 
-import "github.com/rohmanhakim/leetcode/problems/lc/hard"
+import (
+	"github.com/rohmanhakim/leetcode/problems/lc/medium"
+)
 
 func main() {
-	hard.NumberOfWaysToAssignEdgeWeightsII()
-	// medium.NumberOfWaysToAssignEdgeWeightsI()
+	medium.KeysAndRooms()
 }
