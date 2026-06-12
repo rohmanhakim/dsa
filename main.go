@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	medium.NumberOfWaysToAssignEdgeWeightsI()
+	medium.MinimumNumberOfArrowsToBurstBalloons()
 }
