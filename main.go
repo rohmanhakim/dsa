@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/rohmanhakim/leetcode/temp"
+	"github.com/rohmanhakim/leetcode/problems/lc/easy"
 )
 
 func main() {
-	temp.UnionFind()
+	easy.WeightedWordMapping()
 }
