@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/rohmanhakim/leetcode/problems/lc/easy"
+	"github.com/rohmanhakim/leetcode/problems/lc/hard"
 )
 
 func main() {
-	easy.WeightedWordMapping()
+	hard.ProcessStringWithSpecialOperationsII()
 }
