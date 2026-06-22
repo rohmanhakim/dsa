@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	medium.NearestExitFromEntranceInMaze()
+	medium.RottingOranges()
 }
