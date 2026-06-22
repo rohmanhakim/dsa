@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/rohmanhakim/leetcode/problems/lc/medium"
+	"github.com/rohmanhakim/leetcode/problems/lc/easy"
 )
 
 func main() {
-	medium.MaximumIceCreamBar()
+	easy.MaximumNumberOfBaloons()
 }
