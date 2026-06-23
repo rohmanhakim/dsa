@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/rohmanhakim/leetcode/problems/lc/medium"
+	"github.com/rohmanhakim/leetcode/problems/lc/hard"
 )
 
 func main() {
-	medium.RottingOranges()
+	hard.NumberofZigZagArraysI()
 }
