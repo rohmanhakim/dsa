@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	hard.NumberofZigZagArraysI()
+	hard.NumberOfZigZagArraysII()
 }

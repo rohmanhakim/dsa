@@ -384,3 +384,16 @@ func zigZagArrays(n int, l int, r int) int {
 
 The bottom-up approach is both **faster** and **more memory-efficient** because
 we only keep the previous layer's values, not the entire memo table.
+
+## Next Step: Matrix Exponentiation for Large n
+
+Both approaches above have time complexity O(n × range), which works when n ≤
+2000. But when n grows to 10^9 (with range ≤ 75), even O(n × range) is too
+slow.
+
+The key insight: since the transition is **the same at every step**, we can
+represent it as a matrix and use **fast exponentiation** (repeated squaring) to
+compute M^(n-2) in O(range³ × log n) time.
+
+See [Problem II: Matrix Exponentiation](number-of-zigzag-arrays-ii-3700.md) for
+the full approach.
