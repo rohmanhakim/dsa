@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	medium.UniquePaths()
+	medium.CountSubarraysWithMajorityElementI()
 }
