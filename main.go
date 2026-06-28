@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/rohmanhakim/leetcode/problems/lc/medium/lc1143"
+	"github.com/rohmanhakim/leetcode/problems/lc/medium/lc714"
 )
 
 func main() {
-	lc1143.LongestCommonSubsequence()
+	lc714.BestTimetoBuyandSellStockWithTransactionFee()
 }
