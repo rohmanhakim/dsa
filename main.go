@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/rohmanhakim/leetcode/problems/lc/medium/lc714"
+	"github.com/rohmanhakim/leetcode/problems/lc/medium/lc72"
 )
 
 func main() {
-	lc714.BestTimetoBuyandSellStockWithTransactionFee()
+	lc72.EditDistance()
 }
