@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/rohmanhakim/leetcode/problems/lc/medium/lc1846"
+	"github.com/rohmanhakim/leetcode/problems/lc/medium/lc1143"
 )
 
 func main() {
-	lc1846.MaximumElementAfterDecreasingandRearranging()
+	lc1143.LongestCommonSubsequence()
 }
