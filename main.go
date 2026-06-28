@@ -1,7 +1,9 @@
 package main
 
-import "github.com/rohmanhakim/leetcode/problems/lc/medium/lc3020"
+import (
+	"github.com/rohmanhakim/leetcode/problems/lc/medium/lc1846"
+)
 
 func main() {
-	lc3020.FindTheMaximumNumberOfElementsInSubset()
+	lc1846.MaximumElementAfterDecreasingandRearranging()
 }
