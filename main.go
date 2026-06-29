@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/rohmanhakim/leetcode/problems/lc/easy/lc1967"
+	"github.com/rohmanhakim/leetcode/problems/lc/easy/lc14"
 )
 
 func main() {
-	lc1967.NumberofStringsThatAppearasSubstringsinWord()
+	lc14.LongestCommonPrefix()
 }
