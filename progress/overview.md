@@ -4,15 +4,17 @@
 
 ### Patterns Mastered
 - **2D Dynamic Programming** — Understand DP table setup, base cases, and recurrence relations for string problems (e.g., Edit Distance). Comfortable with the idea of subproblems building on each other via a 2D table.
+- **Trie / Prefix Tree** — Implemented standard 26-child trie. Understand the character-by-character navigation pattern shared across insert/search/startsWith. Differentiate between Search (checks `isEnd`) and StartsWith (just checks path existence). Applied to a second problem (LC 1268) with DFS traversal for collecting words — can now build and query tries independently. Starting to recognize over-engineering in DFS and self-correct.
 
 ### Patterns In Progress
-- **Trie / Prefix Tree** — Implemented standard 26-child trie. Understand the character-by-character navigation pattern shared across insert/search/startsWith. Differentiate between Search (checks `isEnd`) and StartsWith (just checks path existence). Applied to a second problem (LC 1268) with DFS traversal for collecting words — can now build and query tries independently. Starting to recognize over-engineering in DFS and self-correct.
+- **Sliding Window (Two Pointers)** — First application via LC 1358. Understand the core idea: maintain a window, expand right, shrink left when valid. Key insight: when a window is valid, all extensions are also valid (superset property). Used `count[3]` array for O(1) validity checks instead of re-scanning. Two counting perspectives learned: count extensions right (`n-right`) or count extensions left (`left`). Need more practice to solidify pattern recognition.
 
 ### Weaknesses to Watch
 - **DP case completeness** — Tendency to forget the "match" case in DP recurrences (only handling mismatches). Always ask: "what happens when the condition IS met?"
 - **Index alignment in DP** — Confusing table indices (1-indexed) with string indices (0-indexed). Remember: `dp[i][j]` uses `word1[i-1]` and `word2[j-1]`.
 - **Deriving recurrence from invariant** — Currently guessing recurrence from the example tables rather than deriving it from the invariant. Practice habit: define invariant → derive recurrence → verify with examples.
 - **Over-engineering / Overthinking** — Tendency to build data structures (maps, arrays) when a simpler built-in function would suffice. Before coding, ask: "What's the minimum I need to compute?" Use `strings.Contains` directly when the problem doesn't require custom substring search. Also reinforced in LC 14 — used 4 state variables when 1 sufficed. Practice: count your variables before submitting, and ask if each one is truly necessary. **Positive signal:** In LC 1268, self-corrected the over-engineered DFS without guidance — pattern recognition is improving.
+- **Pattern misidentification** — In LC 1358, initially tried prefix/suffix sum when sliding window was the right tool. Need to ask: "Is this a range query problem or a window property problem?" before committing to an approach. **Positive signal:** After hints, successfully implemented sliding window with correct counting logic.
 
 ### Practice Plan
 - LC 1143 - Longest Common Subsequence (2D DP, similar structure to Edit Distance)
@@ -35,6 +37,7 @@
 | 2D DP (Strings) | 1 |
 | String Manipulation | 2 |
 | Trie / Prefix Tree | 2 |
+| Sliding Window | 1 |
 
 ### Monthly Progress
 - [June 2026](2026-06.md)

@@ -7,3 +7,8 @@ after each session, you will take notes on my progress so far. where's my weakne
 each progress document will track my progress per month, inside it is structured per day. so each document may have 0 or 30 entries. each entry may have one or more problems depending upon how many problem i solved that day.
 there is also progress/overview.md which is the summary over all of my progress so far. this is where you can see how good/bad is my current skill. it's a regular document and not a logs document. use it as to quick reference about my current progress. after each consulting session, you will also update this document.
 the progress documents will guide both you and me to achieve my goals.
+
+# rules for the mentor (you)
+
+- before presenting an algorithm or pseudocode, always trace through a small example first. if the proposed approach differs from the final implementation, acknowledge the discrepancy and explain why.
+- never present unverified pseudocode. a 30-second trace on paper saves a confusing back-and-forth.
