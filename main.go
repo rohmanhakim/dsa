@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/rohmanhakim/leetcode/problems/lc/easy/lc14"
+	"github.com/rohmanhakim/leetcode/problems/lc/medium/lc208"
 )
 
 func main() {
-	lc14.LongestCommonPrefix()
+	lc208.ImplementTriePrefixTree()
 }

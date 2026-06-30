@@ -6,7 +6,7 @@
 - **2D Dynamic Programming** — Understand DP table setup, base cases, and recurrence relations for string problems (e.g., Edit Distance). Comfortable with the idea of subproblems building on each other via a 2D table.
 
 ### Patterns In Progress
-- None currently tracked
+- **Trie / Prefix Tree** — Implemented standard 26-child trie. Understand the character-by-character navigation pattern shared across insert/search/startsWith. Differentiate between Search (checks `isEnd`) and StartsWith (just checks path existence).
 
 ### Weaknesses to Watch
 - **DP case completeness** — Tendency to forget the "match" case in DP recurrences (only handling mismatches). Always ask: "what happens when the condition IS met?"
@@ -18,7 +18,7 @@
 - LC 1143 - Longest Common Subsequence (2D DP, similar structure to Edit Distance)
 - LC 5 - Longest Palindromic Substring (2D DP, different recurrence)
 - LC 64 - Minimum Path Sum (2D DP, simpler)
-- **String Matching Algorithms** — Learn Rabin-Karp (rolling hash), KMP, Trie basics, and Aho-Corasick. Practice when to choose which based on constraints.
+- **String Matching Algorithms** — Learn Rabin-Karp (rolling hash), KMP, and Aho-Corasick. Practice when to choose which based on constraints. ~~Trie basics~~ ✓ Done (LC 208)
 
 ### Constraint-Based Algorithm Selection (Reference)
 | Constraint Size | Complexity Target | Algorithm Family |
@@ -34,6 +34,7 @@
 |----------|-------|
 | 2D DP (Strings) | 1 |
 | String Manipulation | 2 |
+| Trie / Prefix Tree | 1 |
 
 ### Monthly Progress
 - [June 2026](2026-06.md)
