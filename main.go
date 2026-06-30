@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/rohmanhakim/leetcode/problems/lc/medium/lc208"
+	"github.com/rohmanhakim/leetcode/problems/lc/medium/lc1268"
 )
 
 func main() {
-	lc208.ImplementTriePrefixTree()
+	lc1268.SearchSuggestionsSystem()
 }
