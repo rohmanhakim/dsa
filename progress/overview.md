@@ -8,6 +8,7 @@
 
 ### Patterns In Progress
 - **Sliding Window (Two Pointers)** — First application via LC 1358. Understand the core idea: maintain a window, expand right, shrink left when valid. Key insight: when a window is valid, all extensions are also valid (superset property). Used `count[3]` array for O(1) validity checks instead of re-scanning. Two counting perspectives learned: count extensions right (`n-right`) or count extensions left (`left`). Need more practice to solidify pattern recognition.
+- **Multi-source BFS + Binary Search** — First application via LC 2812. Understand the "maximize the minimum" pattern: binary search on the answer + feasibility check (BFS/DFS). Multi-source BFS from all thieves simultaneously computes minimum distances in O(n²). Need more practice to internalize when to use binary search on the answer vs. other approaches.
 
 ### Weaknesses to Watch
 - **DP case completeness** — Tendency to forget the "match" case in DP recurrences (only handling mismatches). Always ask: "what happens when the condition IS met?"
@@ -15,6 +16,7 @@
 - **Deriving recurrence from invariant** — Currently guessing recurrence from the example tables rather than deriving it from the invariant. Practice habit: define invariant → derive recurrence → verify with examples.
 - **Over-engineering / Overthinking** — Tendency to build data structures (maps, arrays) when a simpler built-in function would suffice. Before coding, ask: "What's the minimum I need to compute?" Use `strings.Contains` directly when the problem doesn't require custom substring search. Also reinforced in LC 14 — used 4 state variables when 1 sufficed. Practice: count your variables before submitting, and ask if each one is truly necessary. **Positive signal:** In LC 1268, self-corrected the over-engineered DFS without guidance — pattern recognition is improving.
 - **Pattern misidentification** — In LC 1358, initially tried prefix/suffix sum when sliding window was the right tool. Need to ask: "Is this a range query problem or a window property problem?" before committing to an approach. **Positive signal:** After hints, successfully implemented sliding window with correct counting logic.
+- **Greedy instinct** — In LC 2812, initially tried greedy pathfinding (pick highest-safety neighbor) which fails for "maximize the minimum" problems. Need to ask: "Is the locally optimal choice also globally optimal?" before committing to a greedy approach.
 
 ### Practice Plan
 - LC 1143 - Longest Common Subsequence (2D DP, similar structure to Edit Distance)
@@ -38,6 +40,8 @@
 | String Manipulation | 2 |
 | Trie / Prefix Tree | 2 |
 | Sliding Window | 1 |
+| Graph / Grid BFS | 1 |
 
 ### Monthly Progress
 - [June 2026](2026-06.md)
+- [July 2026](2026-07.md)

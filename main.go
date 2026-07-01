@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/rohmanhakim/leetcode/problems/lc/medium/lc1358"
+	"github.com/rohmanhakim/leetcode/problems/lc/medium/lc2812"
 )
 
 func main() {
-	lc1358.NumberofSubstringsContainingAllThreeCharacters()
+	lc2812.FindtheSafestPathinaGrid()
 }
