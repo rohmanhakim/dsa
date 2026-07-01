@@ -5,6 +5,7 @@
 ### Patterns Mastered
 - **2D Dynamic Programming** — Understand DP table setup, base cases, and recurrence relations for string problems (e.g., Edit Distance). Comfortable with the idea of subproblems building on each other via a 2D table.
 - **Trie / Prefix Tree** — Implemented standard 26-child trie. Understand the character-by-character navigation pattern shared across insert/search/startsWith. Differentiate between Search (checks `isEnd`) and StartsWith (just checks path existence). Applied to a second problem (LC 1268) with DFS traversal for collecting words — can now build and query tries independently. Starting to recognize over-engineering in DFS and self-correct.
+- **Backtracking** — Learned the standard `append → recurse → pop` pattern via LC 17. Each level of recursion is a decision point, each branch is a choice. Base case saves the result. Applied independently to Letter Combinations of a Phone Number (both iterative cartesian product and backtracking). This pattern generalizes to permutations, subsets, N-Queens, Sudoku, etc.
 
 ### Patterns In Progress
 - **Sliding Window (Two Pointers)** — First application via LC 1358. Understand the core idea: maintain a window, expand right, shrink left when valid. Key insight: when a window is valid, all extensions are also valid (superset property). Used `count[3]` array for O(1) validity checks instead of re-scanning. Two counting perspectives learned: count extensions right (`n-right`) or count extensions left (`left`). Need more practice to solidify pattern recognition.
@@ -41,6 +42,7 @@
 | Trie / Prefix Tree | 2 |
 | Sliding Window | 1 |
 | Graph / Grid BFS | 1 |
+| Backtracking | 1 |
 
 ### Monthly Progress
 - [June 2026](2026-06.md)

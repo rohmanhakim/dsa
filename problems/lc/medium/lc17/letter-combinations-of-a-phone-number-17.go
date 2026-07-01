@@ -1,49 +1,91 @@
+/*
+Given a string containing digits from `2-9` inclusive, return all possible letter combinations that the number could represent. Return the answer in **any order**.
+
+A mapping of digits to letters (just like on the telephone buttons) is given below. Note that 1 does not map to any letters.
+
+```
+1        2(abc)  3(def)
+4(ghi)   5(jkl)  6(mno)
+7(pqrs)  8(tuv)  9(wxyz)
+*        0       #
+```
+
+**Example 1:**
+
+```
+Input: digits = "23"
+Output: ["ad","ae","af","bd","be","bf","cd","ce","cf"]
+```
+
+**Example 2:**
+
+```
+Input: digits = "2"
+Output: ["a","b","c"]
+```
+
+**Constraints:**
+
+- `1 <= digits.length <= 4`
+- `digits[i]` is a digit in the range `['2', '9']`.
+*/
+
 package lc17
 
 import (
 	"fmt"
+	"strconv"
+	"strings"
 )
 
-func phoneDigitCartesian(res *[]string, pools [][]rune, path *[]rune) {
-	if len(pools) == len(*path) {
-		*res = append(*res, string(*path))
-		return
-	}
-
-	for _, item := range pools[len(*path)] {
-		*path = append(*path, item)
-		phoneDigitCartesian(res, pools, path)
-		a := *path
-		*path = a[:len(a)-1]
-	}
-}
-
 func letterCombinations(digits string) []string {
-	keypad := make(map[rune][]rune)
-	keypad['2'] = []rune{'a', 'b', 'c'}
-	keypad['3'] = []rune{'d', 'e', 'f'}
-	keypad['4'] = []rune{'g', 'h', 'i'}
-	keypad['5'] = []rune{'j', 'k', 'l'}
-	keypad['6'] = []rune{'m', 'n', 'o'}
-	keypad['7'] = []rune{'p', 'q', 'r', 's'}
-	keypad['8'] = []rune{'t', 'u', 'v'}
-	keypad['9'] = []rune{'w', 'x', 'y', 'z'}
+	pool := [][]rune{}
+	curr := 'a'
+	for i := range 9 {
+		pool = append(pool, []rune{})
 
-	pools := [][]rune{}
-	path := []rune{}
-	res := []string{}
-
-	for _, d := range digits {
-		pools = append(pools, keypad[d])
+		if i == 0 {
+			continue
+		}
+		for range 3 {
+			pool[i] = append(pool[i], curr)
+			curr++
+		}
+		if i == 6 || i == 8 {
+			pool[i] = append(pool[i], curr)
+			curr++
+		}
 	}
 
-	phoneDigitCartesian(&res, pools, &path)
+	prevDigit, _ := strconv.Atoi(string(digits[0]))
 
-	return res
+	prevChars := pool[prevDigit-1]
+	result := []string{}
+	for _, ch := range prevChars {
+		result = append(result, string(ch))
+	}
+
+	for i := 1; i < len(digits); i++ {
+		currDigit, _ := strconv.Atoi(string(digits[i]))
+		currChars := pool[currDigit-1]
+		product := []string{}
+		n := len(result)
+		for x := 0; x < n; x++ {
+			for y := 0; y < len(currChars); y++ {
+				var sb strings.Builder
+
+				sb.WriteString(result[x])
+				sb.WriteRune(currChars[y])
+				product = append(product, sb.String())
+			}
+		}
+		result = product
+	}
+	return result
 }
 
-func LetterCombinationsOfPhoneNumber() {
-	digits := "23"
-	out := letterCombinations(digits)
+func LetterCombinationsOfAPhoneNumber() {
+	digits := "2"
+	out := letterCombinationsBacktracking(digits)
 	fmt.Println(out)
 }

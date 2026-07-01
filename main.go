@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/rohmanhakim/leetcode/problems/lc/medium/lc2812"
+	"github.com/rohmanhakim/leetcode/problems/lc/medium/lc17"
 )
 
 func main() {
-	lc2812.FindtheSafestPathinaGrid()
+	lc17.LetterCombinationsOfAPhoneNumber()
 }
