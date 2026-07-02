@@ -1,9 +1,7 @@
 package main
 
-import (
-	"github.com/rohmanhakim/leetcode/problems/lc/medium/lc3286"
-)
+import "github.com/rohmanhakim/leetcode/problems/lc/medium/lc739"
 
 func main() {
-	lc3286.FindaSafeWalkThroughaGrid()
+	lc739.DailyTemperatures()
 }

@@ -115,6 +115,58 @@ Because: rise by 1 from left, fall by 1 from right
 
 ---
 
+## 5. Monotonic Stack (Next Greater/Smaller Element)
+
+### When to Use
+When you need to find, for each element, the **next greater** or **next smaller** element in the array. Classic signal: "for each day/bar/element, when does something [warmer/taller/smaller] come next?"
+
+### How It Works
+Maintain a stack that is monotonic (either decreasing or increasing). Process elements left to right:
+1. For each new element, pop all stack elements that are "resolved" by this element.
+2. Set their answer (e.g., distance/index).
+3. Push the current element onto the stack.
+
+### Key Decision: Decreasing vs Increasing?
+
+| You want... | Stack holds... | Stack is... | Pop when... |
+|---|---|---|---|
+| Next **greater** | items waiting for bigger | **Decreasing** (top is smallest) | `curr > top` |
+| Next **smaller** | items waiting for smaller | **Increasing** (top is largest) | `curr < top` |
+
+**Mnemonic:** The stack stores a "monotonic reserve" of unresolved elements. An element gets resolved when something *opposite* to the stack's order arrives.
+
+### Example: LC 739 (Decreasing Stack)
+```
+temperatures = [73, 74, 75, 71, 69, 72, 76, 73]
+
+Stack (bottom→top)  |  Current  |  Action
+[(73)]              |  74       |  74>73, pop 73, res[0]=1
+[(74)]              |  75       |  75>74, pop 74, res[1]=1
+[(75)]              |  71       |  71<75, push → [(75,71)]
+[(75,71)]           |  69       |  69<71, push → [(75,71,69)]
+[(75,71,69)]        |  72       |  72>69→pop, res[4]=1; 72>71→pop, res[3]=2
+[(75,72)]           |  76       |  76>72→pop, res[5]=1; 76>75→pop, res[2]=4
+[(76)]              |  73       |  73<76, push → [(76,73)]
+Done → remaining elements get 0
+Result: [1,1,4,2,1,1,0,0] ✓
+```
+
+### Classic Problems to Practice
+| Problem | Key Idea |
+|---|---|
+| **Daily Temperatures (LC 739)** | Decreasing stack: next warmer day |
+| **Next Greater Element I (LC 496)** | Decreasing stack on nums2, map for nums1 |
+| **Next Greater Element II (LC 503)** | Circular array: process 2× to simulate wrap-around |
+| **Largest Rectangle in Histogram (LC 84)** | Increasing stack: next smaller bar (left & right boundaries) |
+| **Online Stock Span (LC 901)** | Decreasing stack: consecutive days with ≤ price |
+| **Asteroid Collision (LC 735)** | Stack for simulating collision resolution |
+
+### Complexity
+- **Time:** O(n) — each element pushed and popped at most once
+- **Space:** O(n) — stack size
+
+---
+
 ## Quick Reference: Pattern Recognition
 
 | If the problem involves... | Consider... |
@@ -123,3 +175,4 @@ Because: rise by 1 from left, fall by 1 from right
 | Huge input with few events | Sparse point processing + formula |
 | Edge cases that need special handling | Virtual/sentinel points |
 | An optimal shape that's geometrically obvious | Greedy geometric formula |
+| Next greater/smaller element for each item | Monotonic stack |

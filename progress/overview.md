@@ -10,6 +10,7 @@
 ### Patterns In Progress
 - **Sliding Window (Two Pointers)** — First application via LC 1358. Understand the core idea: maintain a window, expand right, shrink left when valid. Key insight: when a window is valid, all extensions are also valid (superset property). Used `count[3]` array for O(1) validity checks instead of re-scanning. Two counting perspectives learned: count extensions right (`n-right`) or count extensions left (`left`). Need more practice to solidify pattern recognition.
 - **Multi-source BFS + Binary Search** — First application via LC 2812. Understand the "maximize the minimum" pattern: binary search on the answer + feasibility check (BFS/DFS). Multi-source BFS from all thieves simultaneously computes minimum distances in O(n²). Need more practice to internalize when to use binary search on the answer vs. other approaches.
+- **Monotonic Stack** — First application via LC 739. Understand the "next greater/smaller element" pattern. Key decision framework: "next greater" → decreasing stack (pop when `curr > top`), "next smaller" → increasing stack (pop when `curr < top`). Each element pushed and popped at most once → O(n). Recognized this as the same pattern as LC 84 (Largest Rectangle in Histogram). Need to practice the "next smaller" variant to solidify both directions.
 
 ### Weaknesses to Watch
 - **DP case completeness** — Tendency to forget the "match" case in DP recurrences (only handling mismatches). Always ask: "what happens when the condition IS met?"
@@ -43,6 +44,7 @@
 | Sliding Window | 1 |
 | Graph / Grid BFS | 1 |
 | Backtracking | 2 |
+| Monotonic Stack | 1 |
 
 ### Monthly Progress
 - [June 2026](2026-06.md)
