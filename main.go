@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/rohmanhakim/leetcode/problems/lc/medium/lc216"
+	"github.com/rohmanhakim/leetcode/problems/lc/medium/lc3286"
 )
 
 func main() {
-	lc216.CombinationSumIII()
+	lc3286.FindaSafeWalkThroughaGrid()
 }
