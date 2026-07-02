@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/rohmanhakim/leetcode/problems/lc/medium/lc17"
+	"github.com/rohmanhakim/leetcode/problems/lc/medium/lc216"
 )
 
 func main() {
-	lc17.LetterCombinationsOfAPhoneNumber()
+	lc216.CombinationSumIII()
 }
