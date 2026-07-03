@@ -7,10 +7,10 @@
 - **Trie / Prefix Tree** — Implemented standard 26-child trie. Understand the character-by-character navigation pattern shared across insert/search/startsWith. Differentiate between Search (checks `isEnd`) and StartsWith (just checks path existence). Applied to a second problem (LC 1268) with DFS traversal for collecting words — can now build and query tries independently. Starting to recognize over-engineering in DFS and self-correct.
 - **Backtracking** — Learned the standard `append → recurse → pop` pattern via LC 17. Each level of recursion is a decision point, each branch is a choice. Base case saves the result. Applied independently to Letter Combinations of a Phone Number (both iterative cartesian product and backtracking). Applied to a second problem (LC 216) with sum constraint — same pattern, different base case. This pattern generalizes to permutations, subsets, N-Queens, Sudoku, etc.
 - **Monotonic Stack** — Solved 2 problems (LC 739, LC 901). Understand the "next greater/smaller element" pattern. Key decision framework: "next greater" → decreasing stack (pop when `curr >= top`), "next smaller" → increasing stack (pop when `curr <= top`). Two implementation styles: *span-based* (store value+span, absorb popped spans) for count/distance answers, and *index-based* (store indices, compute from index arithmetic) for identifying actual barrier elements. Invariant-first design principle: state the stack invariant before coding. Recognized as the same pattern family as LC 84 (Largest Rectangle in Histogram). Ready for "next smaller" variant practice.
-
 ### Patterns In Progress
 - **Sliding Window (Two Pointers)** — First application via LC 1358. Understand the core idea: maintain a window, expand right, shrink left when valid. Key insight: when a window is valid, all extensions are also valid (superset property). Used `count[3]` array for O(1) validity checks instead of re-scanning. Two counting perspectives learned: count extensions right (`n-right`) or count extensions left (`left`). Need more practice to solidify pattern recognition.
-- **Multi-source BFS + Binary Search** — First application via LC 2812. Understand the "maximize the minimum" pattern: binary search on the answer + feasibility check (BFS/DFS). Multi-source BFS from all thieves simultaneously computes minimum distances in O(n²). Need more practice to internalize when to use binary search on the answer vs. other approaches.
+- **Binary Search on Answer ("maximize the minimum")** — Applied twice with guidance: LC 2812 (BFS + binary search) and LC 3620 (topo sort + DP + binary search). Core idea: binary search on the answer + feasibility check. Monotonicity property: if threshold `mid` works, then `mid-1` also works. The feasibility check can use any reachability/search algorithm (BFS, DFS, DP). **Still requires guidance to recognize** — need to internalize: ask "am I maximizing the minimum?" before choosing an approach.
+- **DAG Topo Sort + DP** — First application via LC 3620 (with guidance). Post-order DFS topo sort: push node after visiting all neighbors, pop from stack = topological order (no reverse needed). Forward DP: `dp[v] = min over predecessors u of (dp[u] + edge_cost(u,v))`. Combined with binary search for optimization problems on DAGs. **Needs independent practice.**
 
 ### Weaknesses to Watch
 - **DP case completeness** — Tendency to forget the "match" case in DP recurrences (only handling mismatches). Always ask: "what happens when the condition IS met?"
@@ -20,6 +20,9 @@
 - **Over-engineering / Overthinking** — Tendency to build data structures (maps, arrays) when a simpler built-in function would suffice. Before coding, ask: "What's the minimum I need to compute?" Use `strings.Contains` directly when the problem doesn't require custom substring search. Also reinforced in LC 14 — used 4 state variables when 1 sufficed. Practice: count your variables before submitting, and ask if each one is truly necessary. **Positive signal:** In LC 1268, self-corrected the over-engineered DFS without guidance — pattern recognition is improving.
 - **Pattern misidentification** — In LC 1358, initially tried prefix/suffix sum when sliding window was the right tool. Need to ask: "Is this a range query problem or a window property problem?" before committing to an approach. **Positive signal:** After hints, successfully implemented sliding window with correct counting logic.
 - **Greedy instinct** — In LC 2812, initially tried greedy pathfinding (pick highest-safety neighbor) which fails for "maximize the minimum" problems. Need to ask: "Is the locally optimal choice also globally optimal?" before committing to a greedy approach.
+- **DP objective misidentification** — In LC 3620, initially computed min-cost path (shortest path DP) instead of recognizing the "maximize the minimum" binary search pattern. Need to ask: "What am I optimizing — total cost, or the weakest link?" before choosing a DP approach.
+- **Consistent filtering across components** — In LC 3620, DFS filtered edges by threshold but DP didn't, causing subtle bugs. When a filter applies in one place, it must apply everywhere.
+- **Map vs slice for performance** — In LC 3620, using `map[int][]edge` and `map[int]bool` for adjacency/visited caused TLE on large inputs. Slice-based data structures are significantly faster for dense integer-keyed access.
 
 ### Practice Plan
 - LC 1143 - Longest Common Subsequence (2D DP, similar structure to Edit Distance)
@@ -44,6 +47,7 @@
 | Trie / Prefix Tree | 2 |
 | Sliding Window | 1 |
 | Graph / Grid BFS | 1 |
+| Graph / DAG (Binary Search + DP) | 1 |
 | Backtracking | 2 |
 | Monotonic Stack | 2 |
 

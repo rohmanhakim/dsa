@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/rohmanhakim/leetcode/problems/lc/medium/lc901"
+	"github.com/rohmanhakim/leetcode/problems/lc/hard/lc3620"
 )
 
 func main() {
-	lc901.OnlineStockSpan()
+	lc3620.NetworkRecoveryPathways()
 }
