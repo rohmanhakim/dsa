@@ -11,6 +11,7 @@
 - **Sliding Window (Two Pointers)** — First application via LC 1358. Understand the core idea: maintain a window, expand right, shrink left when valid. Key insight: when a window is valid, all extensions are also valid (superset property). Used `count[3]` array for O(1) validity checks instead of re-scanning. Two counting perspectives learned: count extensions right (`n-right`) or count extensions left (`left`). Need more practice to solidify pattern recognition.
 - **Binary Search on Answer ("maximize the minimum")** — Applied twice with guidance: LC 2812 (BFS + binary search) and LC 3620 (topo sort + DP + binary search). Core idea: binary search on the answer + feasibility check. Monotonicity property: if threshold `mid` works, then `mid-1` also works. The feasibility check can use any reachability/search algorithm (BFS, DFS, DP). **Still requires guidance to recognize** — need to internalize: ask "am I maximizing the minimum?" before choosing an approach.
 - **DAG Topo Sort + DP** — First application via LC 3620 (with guidance). Post-order DFS topo sort: push node after visiting all neighbors, pop from stack = topological order (no reverse needed). Forward DP: `dp[v] = min over predecessors u of (dp[u] + edge_cost(u,v))`. Combined with binary search for optimization problems on DAGs. **Needs independent practice.**
+- **BFS / Connected Component Traversal** — Solved LC 2492 with BFS. Key template learned: `if !visited[neighbor] { enqueue }` instead of `if visited[neighbor] { continue }` — separates edge processing from enqueue control. Understand when BFS suffices (component-level properties like min/max edge weight) vs when backtracking is needed (enumerating distinct paths).
 
 ### Weaknesses to Watch
 - **DP case completeness** — Tendency to forget the "match" case in DP recurrences (only handling mismatches). Always ask: "what happens when the condition IS met?"
@@ -23,6 +24,8 @@
 - **DP objective misidentification** — In LC 3620, initially computed min-cost path (shortest path DP) instead of recognizing the "maximize the minimum" binary search pattern. Need to ask: "What am I optimizing — total cost, or the weakest link?" before choosing a DP approach.
 - **Consistent filtering across components** — In LC 3620, DFS filtered edges by threshold but DP didn't, causing subtle bugs. When a filter applies in one place, it must apply everywhere.
 - **Map vs slice for performance** — In LC 3620, using `map[int][]edge` and `map[int]bool` for adjacency/visited caused TLE on large inputs. Slice-based data structures are significantly faster for dense integer-keyed access.
+- **TLE debugging instinct** — When facing TLE, check if your algorithm visits too much work first (wrong complexity class) before changing data structures. In LC 2492, first instinct was to change the map key type, which didn't address the root cause (map vs array for visited). Ask: "Is my visited check O(1) per call?"
+- **`continue` vs `if !visited` in BFS** — The `if visited[neighbor] { continue }` pattern conflates edge processing with enqueue control. Adopt `if !visited[neighbor] { enqueue }` as default — it separates the two concerns and avoids missing edge-level work for already-visited nodes.
 
 ### Practice Plan
 - LC 1143 - Longest Common Subsequence (2D DP, similar structure to Edit Distance)
@@ -48,6 +51,7 @@
 | Sliding Window | 1 |
 | Graph / Grid BFS | 1 |
 | Graph / DAG (Binary Search + DP) | 1 |
+| Graph / Connected Component (BFS) | 1 |
 | Backtracking | 2 |
 | Monotonic Stack | 2 |
 

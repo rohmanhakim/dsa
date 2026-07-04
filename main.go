@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/rohmanhakim/leetcode/problems/lc/hard/lc3620"
+	"github.com/rohmanhakim/leetcode/problems/lc/medium/lc2492"
 )
 
 func main() {
-	lc3620.NetworkRecoveryPathways()
+	lc2492.MinimumScoreofaPathBetweenTwoCities()
 }
