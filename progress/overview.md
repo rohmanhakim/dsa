@@ -14,6 +14,7 @@
 - **BFS / Connected Component Traversal** — Solved LC 2492 with BFS. Key template learned: `if !visited[neighbor] { enqueue }` instead of `if visited[neighbor] { continue }` — separates edge processing from enqueue control. Understand when BFS suffices (component-level properties like min/max edge weight) vs when backtracking is needed (enumerating distinct paths).
 
 ### Weaknesses to Watch
+- **Library function shortcut in interviews** — Tendency to reach for built-in functions (e.g., `bits.OnesCount`) when the problem is designed to teach an algorithmic pattern. For interview prep, always try to find the DP/algorithmic pattern first, then mention the built-in as a follow-up. Distinguish between "efficient solution" and "solution that demonstrates understanding."
 - **DP case completeness** — Tendency to forget the "match" case in DP recurrences (only handling mismatches). Always ask: "what happens when the condition IS met?"
 - **Index alignment in DP** — Confusing table indices (1-indexed) with string indices (0-indexed). Remember: `dp[i][j]` uses `word1[i-1]` and `word2[j-1]`.
 - **Deriving recurrence from invariant** — Currently guessing recurrence from the example tables rather than deriving it from the invariant. Practice habit: define invariant → derive recurrence → verify with examples.
@@ -54,6 +55,7 @@
 | Graph / Connected Component (BFS) | 1 |
 | Backtracking | 2 |
 | Monotonic Stack | 2 |
+| Bit Manipulation / DP | 1 |
 
 ### Monthly Progress
 - [June 2026](2026-06.md)

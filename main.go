@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/rohmanhakim/leetcode/problems/lc/medium/lc2492"
+	"github.com/rohmanhakim/leetcode/problems/lc/easy/lc338"
 )
 
 func main() {
-	lc2492.MinimumScoreofaPathBetweenTwoCities()
+	lc338.CountingBits()
 }
