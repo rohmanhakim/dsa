@@ -30,7 +30,7 @@
 - **TLE debugging instinct** — When facing TLE, check if your algorithm visits too much work first (wrong complexity class) before changing data structures. In LC 2492, first instinct was to change the map key type, which didn't address the root cause (map vs array for visited). Ask: "Is my visited check O(1) per call?"
 - **`continue` vs `if !visited` in BFS** — The `if visited[neighbor] { continue }` pattern conflates edge processing with enqueue control. Adopt `if !visited[neighbor] { enqueue }` as default — it separates the two concerns and avoids missing edge-level work for already-visited nodes.
 - **XOR pattern recognition** — Couldn't independently identify that XOR is the key for "pairs cancel with O(1) space" problems. Had seen the problem before (map solution) but couldn't bridge to the XOR solution. Need to internalize: "When pairs should cancel and space is O(1) → XOR." Build mental connection: `x ⊕ x = 0` is the cancellation invariant.
-- **Debug print left in (recurring)** — `fmt.Println` / `fmt.Printf` left in code after solving. Same issue in LC 216 and LC 66. Before submission, always scan for debug prints and remove them. This is a code hygiene habit that needs to become automatic.
+- **Debug print left in (recurring, 3 occurrences)** — `fmt.Println` / `fmt.Printf` left in code after solving. Occurred in LC 216, LC 66, and LC 941. Before submission, **always scan every line** for `fmt.Print` and remove them. This is the most persistent code hygiene issue — it needs to become automatic. Consider adding a mental checklist: "Did I leave any debug prints?"
 - **Shallow copy confusion** — In Go, `res := digits` copies the slice header but shares the underlying array. Modifying `res[i]` also modifies `digits[i]`. Use `slices.Clone(digits)` or `make` + `copy` when you need to avoid mutating the input.
 
 ### Practice Plan
@@ -62,6 +62,7 @@
 | Monotonic Stack | 2 |
 | Bit Manipulation / DP | 3 |
 | Array Manipulation / Carry Propagation | 1 |
+| Array Traversal / Linear Scan | 1 |
 
 ### Monthly Progress
 - [June 2026](2026-06.md)
