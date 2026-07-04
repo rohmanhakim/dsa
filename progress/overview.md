@@ -7,6 +7,7 @@
 - **Trie / Prefix Tree** — Implemented standard 26-child trie. Understand the character-by-character navigation pattern shared across insert/search/startsWith. Differentiate between Search (checks `isEnd`) and StartsWith (just checks path existence). Applied to a second problem (LC 1268) with DFS traversal for collecting words — can now build and query tries independently. Starting to recognize over-engineering in DFS and self-correct.
 - **Backtracking** — Learned the standard `append → recurse → pop` pattern via LC 17. Each level of recursion is a decision point, each branch is a choice. Base case saves the result. Applied independently to Letter Combinations of a Phone Number (both iterative cartesian product and backtracking). Applied to a second problem (LC 216) with sum constraint — same pattern, different base case. This pattern generalizes to permutations, subsets, N-Queens, Sudoku, etc.
 - **Monotonic Stack** — Solved 2 problems (LC 739, LC 901). Understand the "next greater/smaller element" pattern. Key decision framework: "next greater" → decreasing stack (pop when `curr >= top`), "next smaller" → increasing stack (pop when `curr <= top`). Two implementation styles: *span-based* (store value+span, absorb popped spans) for count/distance answers, and *index-based* (store indices, compute from index arithmetic) for identifying actual barrier elements. Invariant-first design principle: state the stack invariant before coding. Recognized as the same pattern family as LC 84 (Largest Rectangle in Histogram). Ready for "next smaller" variant practice.
+- **Bit Manipulation / DP** — Applied via LC 338 (Counting Bits). Recurrence: `dp[i] = dp[i>>1] + (i&1)` — count 1s in i/2 plus last bit. Also learned XOR as cancellation operator via LC 136 (Single Number): `x ⊕ x = 0`, `x ⊕ 0 = x`. XOR is the go-to for "pairs cancel" problems. First XOR problem — need more practice to internalize.
 ### Patterns In Progress
 - **Sliding Window (Two Pointers)** — First application via LC 1358. Understand the core idea: maintain a window, expand right, shrink left when valid. Key insight: when a window is valid, all extensions are also valid (superset property). Used `count[3]` array for O(1) validity checks instead of re-scanning. Two counting perspectives learned: count extensions right (`n-right`) or count extensions left (`left`). Need more practice to solidify pattern recognition.
 - **Binary Search on Answer ("maximize the minimum")** — Applied twice with guidance: LC 2812 (BFS + binary search) and LC 3620 (topo sort + DP + binary search). Core idea: binary search on the answer + feasibility check. Monotonicity property: if threshold `mid` works, then `mid-1` also works. The feasibility check can use any reachability/search algorithm (BFS, DFS, DP). **Still requires guidance to recognize** — need to internalize: ask "am I maximizing the minimum?" before choosing an approach.
@@ -27,6 +28,7 @@
 - **Map vs slice for performance** — In LC 3620, using `map[int][]edge` and `map[int]bool` for adjacency/visited caused TLE on large inputs. Slice-based data structures are significantly faster for dense integer-keyed access.
 - **TLE debugging instinct** — When facing TLE, check if your algorithm visits too much work first (wrong complexity class) before changing data structures. In LC 2492, first instinct was to change the map key type, which didn't address the root cause (map vs array for visited). Ask: "Is my visited check O(1) per call?"
 - **`continue` vs `if !visited` in BFS** — The `if visited[neighbor] { continue }` pattern conflates edge processing with enqueue control. Adopt `if !visited[neighbor] { enqueue }` as default — it separates the two concerns and avoids missing edge-level work for already-visited nodes.
+- **XOR pattern recognition** — Couldn't independently identify that XOR is the key for "pairs cancel with O(1) space" problems. Had seen the problem before (map solution) but couldn't bridge to the XOR solution. Need to internalize: "When pairs should cancel and space is O(1) → XOR." Build mental connection: `x ⊕ x = 0` is the cancellation invariant.
 
 ### Practice Plan
 - LC 1143 - Longest Common Subsequence (2D DP, similar structure to Edit Distance)
@@ -55,7 +57,7 @@
 | Graph / Connected Component (BFS) | 1 |
 | Backtracking | 2 |
 | Monotonic Stack | 2 |
-| Bit Manipulation / DP | 1 |
+| Bit Manipulation / DP | 2 |
 
 ### Monthly Progress
 - [June 2026](2026-06.md)

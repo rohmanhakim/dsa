@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/rohmanhakim/leetcode/problems/lc/easy/lc338"
+	"github.com/rohmanhakim/leetcode/problems/lc/easy/lc136"
 )
 
 func main() {
-	lc338.CountingBits()
+	lc136.SingleNumber()
 }
