@@ -8,6 +8,7 @@
 - **Backtracking** — Learned the standard `append → recurse → pop` pattern via LC 17. Each level of recursion is a decision point, each branch is a choice. Base case saves the result. Applied independently to Letter Combinations of a Phone Number (both iterative cartesian product and backtracking). Applied to a second problem (LC 216) with sum constraint — same pattern, different base case. This pattern generalizes to permutations, subsets, N-Queens, Sudoku, etc.
 - **Monotonic Stack** — Solved 2 problems (LC 739, LC 901). Understand the "next greater/smaller element" pattern. Key decision framework: "next greater" → decreasing stack (pop when `curr >= top`), "next smaller" → increasing stack (pop when `curr <= top`). Two implementation styles: *span-based* (store value+span, absorb popped spans) for count/distance answers, and *index-based* (store indices, compute from index arithmetic) for identifying actual barrier elements. Invariant-first design principle: state the stack invariant before coding. Recognized as the same pattern family as LC 84 (Largest Rectangle in Histogram). Ready for "next smaller" variant practice.
 - **Bit Manipulation / DP** — Applied via LC 338 (Counting Bits). Recurrence: `dp[i] = dp[i>>1] + (i&1)` — count 1s in i/2 plus last bit. Also learned XOR as cancellation operator via LC 136 (Single Number): `x ⊕ x = 0`, `x ⊕ 0 = x`. XOR is the go-to for "pairs cancel" problems. First XOR problem — need more practice to internalize.
+- **Array Manipulation / Carry Propagation** — Applied via LC 66 (Plus One). Initialize carry to the value being added (1), propagate through digits using `sum % 10` (digit) and `sum / 10` (carry). Eliminates special-casing the first iteration. Also learned immutability habit: `slices.Clone(digits)` to avoid mutating input, and read consistency (read from and write to the same slice).
 ### Patterns In Progress
 - **Sliding Window (Two Pointers)** — First application via LC 1358. Understand the core idea: maintain a window, expand right, shrink left when valid. Key insight: when a window is valid, all extensions are also valid (superset property). Used `count[3]` array for O(1) validity checks instead of re-scanning. Two counting perspectives learned: count extensions right (`n-right`) or count extensions left (`left`). Need more practice to solidify pattern recognition.
 - **Binary Search on Answer ("maximize the minimum")** — Applied twice with guidance: LC 2812 (BFS + binary search) and LC 3620 (topo sort + DP + binary search). Core idea: binary search on the answer + feasibility check. Monotonicity property: if threshold `mid` works, then `mid-1` also works. The feasibility check can use any reachability/search algorithm (BFS, DFS, DP). **Still requires guidance to recognize** — need to internalize: ask "am I maximizing the minimum?" before choosing an approach.
@@ -29,6 +30,8 @@
 - **TLE debugging instinct** — When facing TLE, check if your algorithm visits too much work first (wrong complexity class) before changing data structures. In LC 2492, first instinct was to change the map key type, which didn't address the root cause (map vs array for visited). Ask: "Is my visited check O(1) per call?"
 - **`continue` vs `if !visited` in BFS** — The `if visited[neighbor] { continue }` pattern conflates edge processing with enqueue control. Adopt `if !visited[neighbor] { enqueue }` as default — it separates the two concerns and avoids missing edge-level work for already-visited nodes.
 - **XOR pattern recognition** — Couldn't independently identify that XOR is the key for "pairs cancel with O(1) space" problems. Had seen the problem before (map solution) but couldn't bridge to the XOR solution. Need to internalize: "When pairs should cancel and space is O(1) → XOR." Build mental connection: `x ⊕ x = 0` is the cancellation invariant.
+- **Debug print left in (recurring)** — `fmt.Println` / `fmt.Printf` left in code after solving. Same issue in LC 216 and LC 66. Before submission, always scan for debug prints and remove them. This is a code hygiene habit that needs to become automatic.
+- **Shallow copy confusion** — In Go, `res := digits` copies the slice header but shares the underlying array. Modifying `res[i]` also modifies `digits[i]`. Use `slices.Clone(digits)` or `make` + `copy` when you need to avoid mutating the input.
 
 ### Practice Plan
 - LC 1143 - Longest Common Subsequence (2D DP, similar structure to Edit Distance)
@@ -58,6 +61,7 @@
 | Backtracking | 2 |
 | Monotonic Stack | 2 |
 | Bit Manipulation / DP | 3 |
+| Array Manipulation / Carry Propagation | 1 |
 
 ### Monthly Progress
 - [June 2026](2026-06.md)
