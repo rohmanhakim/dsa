@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/rohmanhakim/leetcode/problems/lc/easy/lc136"
+	"github.com/rohmanhakim/leetcode/problems/lc/medium/lc1318"
 )
 
 func main() {
-	lc136.SingleNumber()
+	lc1318.MinimumFlipstoMakeaORbEqualtoc()
 }

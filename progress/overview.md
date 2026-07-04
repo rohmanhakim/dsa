@@ -57,7 +57,7 @@
 | Graph / Connected Component (BFS) | 1 |
 | Backtracking | 2 |
 | Monotonic Stack | 2 |
-| Bit Manipulation / DP | 2 |
+| Bit Manipulation / DP | 3 |
 
 ### Monthly Progress
 - [June 2026](2026-06.md)
