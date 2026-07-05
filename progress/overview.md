@@ -9,6 +9,7 @@
 - **Monotonic Stack** — Solved 2 problems (LC 739, LC 901). Understand the "next greater/smaller element" pattern. Key decision framework: "next greater" → decreasing stack (pop when `curr >= top`), "next smaller" → increasing stack (pop when `curr <= top`). Two implementation styles: *span-based* (store value+span, absorb popped spans) for count/distance answers, and *index-based* (store indices, compute from index arithmetic) for identifying actual barrier elements. Invariant-first design principle: state the stack invariant before coding. Recognized as the same pattern family as LC 84 (Largest Rectangle in Histogram). Ready for "next smaller" variant practice.
 - **Bit Manipulation / DP** — Applied via LC 338 (Counting Bits). Recurrence: `dp[i] = dp[i>>1] + (i&1)` — count 1s in i/2 plus last bit. Also learned XOR as cancellation operator via LC 136 (Single Number): `x ⊕ x = 0`, `x ⊕ 0 = x`. XOR is the go-to for "pairs cancel" problems. First XOR problem — need more practice to internalize.
 - **Array Manipulation / Carry Propagation** — Applied via LC 66 (Plus One). Initialize carry to the value being added (1), propagate through digits using `sum % 10` (digit) and `sum / 10` (carry). Eliminates special-casing the first iteration. Also learned immutability habit: `slices.Clone(digits)` to avoid mutating input, and read consistency (read from and write to the same slice).
+- **2D Grid DP** — Applied via LC 1301 (Number of Paths with Max Score). Can compute optimal values (max sum) and count optimal solutions simultaneously using a DP table with `(maxSum, pathCount)` pairs. Path counting rule: sum counts of all predecessors that tie for the best value. Two iteration directions both work: forward (S→E, iterate from end to start) and backward (E→S, iterate from start to end). 1-based indexing with border simplifies boundary handling. Successfully converted from brute-force DFS to DP after recognizing exponential complexity.
 ### Patterns In Progress
 - **Sliding Window (Two Pointers)** — First application via LC 1358. Understand the core idea: maintain a window, expand right, shrink left when valid. Key insight: when a window is valid, all extensions are also valid (superset property). Used `count[3]` array for O(1) validity checks instead of re-scanning. Two counting perspectives learned: count extensions right (`n-right`) or count extensions left (`left`). Need more practice to solidify pattern recognition.
 - **Binary Search on Answer ("maximize the minimum")** — Applied twice with guidance: LC 2812 (BFS + binary search) and LC 3620 (topo sort + DP + binary search). Core idea: binary search on the answer + feasibility check. Monotonicity property: if threshold `mid` works, then `mid-1` also works. The feasibility check can use any reachability/search algorithm (BFS, DFS, DP). **Still requires guidance to recognize** — need to internalize: ask "am I maximizing the minimum?" before choosing an approach.
@@ -32,6 +33,7 @@
 - **XOR pattern recognition** — Couldn't independently identify that XOR is the key for "pairs cancel with O(1) space" problems. Had seen the problem before (map solution) but couldn't bridge to the XOR solution. Need to internalize: "When pairs should cancel and space is O(1) → XOR." Build mental connection: `x ⊕ x = 0` is the cancellation invariant.
 - **Debug print left in (recurring, 3 occurrences)** — `fmt.Println` / `fmt.Printf` left in code after solving. Occurred in LC 216, LC 66, and LC 941. Before submission, **always scan every line** for `fmt.Print` and remove them. This is the most persistent code hygiene issue — it needs to become automatic. Consider adding a mental checklist: "Did I leave any debug prints?"
 - **Shallow copy confusion** — In Go, `res := digits` copies the slice header but shares the underlying array. Modifying `res[i]` also modifies `digits[i]`. Use `slices.Clone(digits)` or `make` + `copy` when you need to avoid mutating the input.
+- **DFS as default for path problems** — In LC 1301, reached for brute-force DFS/backtracking when the problem involves "count paths with max score." DFS enumerates all paths (exponential) when DP can compute the same information in O(N²). Need to ask: "Do I need to enumerate paths, or just compute their properties?" If the latter, DP is the right tool.
 
 ### Practice Plan
 - LC 1143 - Longest Common Subsequence (2D DP, similar structure to Edit Distance)
@@ -52,6 +54,7 @@
 | Category | Count |
 |----------|-------|
 | 2D DP (Strings) | 1 |
+| 2D DP (Grid) | 1 |
 | String Manipulation | 2 |
 | Trie / Prefix Tree | 2 |
 | Sliding Window | 1 |

@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/rohmanhakim/leetcode/problems/lc/easy/lc66"
+	"github.com/rohmanhakim/leetcode/problems/lc/hard/lc1301"
 )
 
 func main() {
-	lc66.PlusOne()
+	lc1301.NumberofPathswithMaxScore()
 }
