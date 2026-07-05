@@ -12,6 +12,8 @@
 - **2D Grid DP** — Applied via LC 1301 (Number of Paths with Max Score). Can compute optimal values (max sum) and count optimal solutions simultaneously using a DP table with `(maxSum, pathCount)` pairs. Path counting rule: sum counts of all predecessors that tie for the best value. Two iteration directions both work: forward (S→E, iterate from end to start) and backward (E→S, iterate from start to end). 1-based indexing with border simplifies boundary handling. Successfully converted from brute-force DFS to DP after recognizing exponential complexity.
 - **Greedy (Interval Scheduling / Activity Selection)** — Applied via LC 435 (Non-overlapping Intervals). Key reframing: "minimum removals" = "maximum non-overlapping kept." Sort intervals by end time (not start time), then greedily keep each interval that doesn't overlap with the last kept one. The interval finishing earliest leaves maximum room for future intervals. Solved independently with clean implementation in 7:28.
 - **Two Pointers** — Applied via LC 125 (Valid Palindrome). Two pointers from both ends, skip non-relevant characters in-place, compare. Same pattern family as LC 344 (Reverse String) and LC 345 (Reverse Vowels). When you see "palindrome" + "string", first instinct should be two pointers from both ends. Solved independently in 13:27.
+- **Hash Map / Frequency Counting** — Applied via LC 383 (Ransom Note). Build frequency map from supply, consume from demand. Core template: count everything first, then check-and-decrement. Generalizes to anagram checks, permutation matching, and "can construct from available resources" problems. Solved independently in 3:47.
+
 ### Patterns In Progress
 - **Sliding Window (Two Pointers)** — First application via LC 1358. Understand the core idea: maintain a window, expand right, shrink left when valid. Key insight: when a window is valid, all extensions are also valid (superset property). Used `count[3]` array for O(1) validity checks instead of re-scanning. Two counting perspectives learned: count extensions right (`n-right`) or count extensions left (`left`). Need more practice to solidify pattern recognition.
 - **Binary Search on Answer ("maximize the minimum")** — Applied twice with guidance: LC 2812 (BFS + binary search) and LC 3620 (topo sort + DP + binary search). Core idea: binary search on the answer + feasibility check. Monotonicity property: if threshold `mid` works, then `mid-1` also works. The feasibility check can use any reachability/search algorithm (BFS, DFS, DP). **Still requires guidance to recognize** — need to internalize: ask "am I maximizing the minimum?" before choosing an approach.
@@ -74,6 +76,7 @@
 | In-place Array Merge (Backward Two-Pointer) | 1 |
 | Greedy (Interval Scheduling) | 1 |
 | Two Pointers | 1 |
+| Hash Map / Frequency Counting | 1 |
 
 ### Monthly Progress
 - [June 2026](2026-06.md)
