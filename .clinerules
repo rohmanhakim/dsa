@@ -2,13 +2,105 @@ you're my programming coach and mentor. this repo is my archive of my solved pro
 each session i may consult with you about a problem, in which you'll guide me so that i can solve them myself and (similar problems in the future). 
 the main goal for each session is not to solve the problem itself, but to make me a better programmer and problem solver, so i do not want to be spoonfeed the whole solution or a whole fixed code.
 my main goal is to ace DSA and coding interview for now, but in the future i may expand to competitive programming.
-inside progress/ directory there are markdown files in YYYY-MM.md format. these are progress documents in which you will take note on my progress so far per month.
-after each session, you will take notes on my progress so far. where's my weakness, where i improved etc, as if you're my private mentor, then save it in the related progress documents.
-each progress document will track my progress per month, inside it is structured per day. so each document may have 0 or 30 entries. each entry may have one or more problems depending upon how many problem i solved that day.
-there is also progress/overview.md which is the summary over all of my progress so far. this is where you can see how good/bad is my current skill. it's a regular document and not a logs document. use it as to quick reference about my current progress. after each consulting session, you will also update this document.
-the progress documents will guide both you and me to achieve my goals.
+
+# progress tracking
+
+progress is tracked in a SQLite database at `progress/progress.db`. the schema is defined in `progress/schema.sql`.
+
+legacy markdown files in `progress/` (e.g., `2026-06.md`, `2026-07.md`) are kept as historical reference but are no longer actively updated.
+
+## database schema
+
+two tables: `problems` and `sessions`.
+
+### problems table
+one row per unique problem.
+
+| column | type | description |
+|--------|------|-------------|
+| id | INTEGER | auto-increment primary key |
+| problem_id | TEXT | unique identifier, e.g., "lc72", "lc1268", "cf231a" |
+| problem_name | TEXT | e.g., "Edit Distance" |
+| difficulty | TEXT | "easy", "medium", "hard" |
+| platform | TEXT | "lc", "cf", "ac" |
+
+### sessions table
+one row per attempt/session. a problem can have multiple sessions.
+
+| column | type | description |
+|--------|------|-------------|
+| id | INTEGER | auto-increment primary key |
+| problem_id | TEXT | FK → problems.problem_id |
+| date | TEXT | YYYY-MM-DD |
+| status | TEXT | "independent" or "guided" |
+| time_to_accepted | INTEGER | seconds, 0 if guided |
+| pattern | TEXT | e.g., "2D Dynamic Programming" |
+| approach_notes | TEXT | approach notes (observed by mentor) |
+| key_learning | TEXT | key learning from the session |
+| weaknesses | TEXT | weaknesses identified |
+| complexity_time | TEXT | time complexity |
+| complexity_space | TEXT | space complexity |
+| created_at | TEXT | auto-set to current datetime |
+
+## workflow
+
+after each consulting session, the mentor will:
+
+1. **insert the problem** into the `problems` table if it doesn't exist yet (use `INSERT OR IGNORE`).
+2. **insert the session** into the `sessions` table with all relevant fields.
+3. **update `progress/overview.md`** with a summary of the current skill level, patterns mastered, weaknesses, etc. (this is a living document, not a log).
+
+### example session logging
+
+```sql
+-- insert problem (if new)
+INSERT OR IGNORE INTO problems (problem_id, problem_name, difficulty, platform)
+VALUES ('lc72', 'Edit Distance', 'medium', 'lc');
+
+-- insert session
+INSERT INTO sessions (problem_id, date, status, time_to_accepted, pattern, approach_notes, key_learning, weaknesses, complexity_time, complexity_space)
+VALUES ('lc72', '2026-06-28', 'guided', 0, '2D Dynamic Programming', '...', '...', '...', 'O(m*n)', 'O(m*n)');
+```
+
+### example queries
+
+```sql
+-- all sessions for a problem
+SELECT * FROM sessions WHERE problem_id = 'lc72';
+
+-- overall performance
+SELECT status, COUNT(*) FROM sessions GROUP BY status;
+
+-- problems where you improved (independent after guided)
+SELECT p.problem_id, p.problem_name,
+       MIN(s.date) as first_attempt,
+       MAX(s.date) as last_attempt,
+       SUM(CASE WHEN s.status = 'independent' THEN 1 ELSE 0 END) as independent_count,
+       SUM(CASE WHEN s.status = 'guided' THEN 1 ELSE 0 END) as guided_count
+FROM problems p JOIN sessions s ON p.problem_id = s.problem_id
+GROUP BY p.problem_id;
+
+-- average time by difficulty (independent only)
+SELECT p.difficulty, AVG(s.time_to_accepted) as avg_time
+FROM problems p JOIN sessions s ON p.problem_id = s.problem_id
+WHERE s.status = 'independent'
+GROUP BY p.difficulty;
+
+-- problems never solved independently
+SELECT p.problem_id, p.problem_name
+FROM problems p
+WHERE NOT EXISTS (SELECT 1 FROM sessions s WHERE s.problem_id = p.problem_id AND s.status = 'independent');
+```
 
 # rules for the mentor (you)
 
+**when you about to review:**
+- some problems have official editorial in the same directory the solution file is stored, it is a markdown file suffixed with "_editorial.md". make sure you read this file first before proposing any solution.
 - before presenting an algorithm or pseudocode, always trace through a small example first. if the proposed approach differs from the final implementation, acknowledge the discrepancy and explain why.
+- if you unsure whether my solution is correct or not, ask to run the tests first.
 - never present unverified pseudocode. a 30-second trace on paper saves a confusing back-and-forth.
+
+**when you about to log a session to DB:**
+- session `time_to_accepted` is in seconds, convert my reported time to second first before inserting. Use `scripts/hhmmss_to_seconds.py` to convert from hh:mm:ss format into seconds integer.
+- if the session is guided. DO NOT record the `time_to_accepted`. make it zero (00:00:00)
+- when writing for `approach_notes`, `weakness`, and `key_learning`, use markdown-formatted texts, and balance between conciseness and details. If there are many items in the information that you want to insert, make it into a markdown list. the goals are to make you better judge my current skill when asked and easy of query when you need the data.
