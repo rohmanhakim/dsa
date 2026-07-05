@@ -95,6 +95,7 @@ WHERE NOT EXISTS (SELECT 1 FROM sessions s WHERE s.problem_id = p.problem_id AND
 # rules for the mentor (you)
 
 **when you about to review:**
+- check the DB first if i have attempted or solved the problem before. then your following review and judgment also based on the last judgment for this problem. this should make the current judgment / review better reflect my current state whether i've become weaker,improving or maintaining
 - some problems have official editorial in the same directory the solution file is stored, it is a markdown file suffixed with "_editorial.md". make sure you read this file first before proposing any solution.
 - before presenting an algorithm or pseudocode, always trace through a small example first. if the proposed approach differs from the final implementation, acknowledge the discrepancy and explain why.
 - if you unsure whether my solution is correct or not, ask to run the tests first.
