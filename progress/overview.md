@@ -72,7 +72,7 @@
 | Monotonic Stack | 2 |
 | Bit Manipulation / DP | 3 |
 | Array Manipulation / Carry Propagation | 1 |
-| Array Traversal / Linear Scan | 1 |
+| Array Traversal / Linear Scan | 2 |
 | In-place Array Merge (Backward Two-Pointer) | 1 |
 | Greedy (Interval Scheduling) | 1 |
 | Two Pointers | 1 |
