@@ -15,6 +15,7 @@
 - **Binary Search on Answer ("maximize the minimum")** — Applied twice with guidance: LC 2812 (BFS + binary search) and LC 3620 (topo sort + DP + binary search). Core idea: binary search on the answer + feasibility check. Monotonicity property: if threshold `mid` works, then `mid-1` also works. The feasibility check can use any reachability/search algorithm (BFS, DFS, DP). **Still requires guidance to recognize** — need to internalize: ask "am I maximizing the minimum?" before choosing an approach.
 - **DAG Topo Sort + DP** — First application via LC 3620 (with guidance). Post-order DFS topo sort: push node after visiting all neighbors, pop from stack = topological order (no reverse needed). Forward DP: `dp[v] = min over predecessors u of (dp[u] + edge_cost(u,v))`. Combined with binary search for optimization problems on DAGs. **Needs independent practice.**
 - **BFS / Connected Component Traversal** — Solved LC 2492 with BFS. Key template learned: `if !visited[neighbor] { enqueue }` instead of `if visited[neighbor] { continue }` — separates edge processing from enqueue control. Understand when BFS suffices (component-level properties like min/max edge weight) vs when backtracking is needed (enumerating distinct paths).
+- **Backward Two-Pointer Merge** — First applied via LC 88 (with guidance). When merging sorted data into a buffer with trailing empty space, fill from the back to avoid O(n) shifting per insert. Each element placed exactly once → O(m+n) time, O(1) space. Key insight: empty slots at the end are unused, so writing there never overwrites valid data. Need more practice to recognize when "fill from back" is applicable.
 
 ### Weaknesses to Watch
 - **Library function shortcut in interviews** — Tendency to reach for built-in functions (e.g., `bits.OnesCount`) when the problem is designed to teach an algorithmic pattern. For interview prep, always try to find the DP/algorithmic pattern first, then mention the built-in as a follow-up. Distinguish between "efficient solution" and "solution that demonstrates understanding."
@@ -34,12 +35,14 @@
 - **Debug print left in (recurring, 3 occurrences)** — `fmt.Println` / `fmt.Printf` left in code after solving. Occurred in LC 216, LC 66, and LC 941. Before submission, **always scan every line** for `fmt.Print` and remove them. This is the most persistent code hygiene issue — it needs to become automatic. Consider adding a mental checklist: "Did I leave any debug prints?"
 - **Shallow copy confusion** — In Go, `res := digits` copies the slice header but shares the underlying array. Modifying `res[i]` also modifies `digits[i]`. Use `slices.Clone(digits)` or `make` + `copy` when you need to avoid mutating the input.
 - **DFS as default for path problems** — In LC 1301, reached for brute-force DFS/backtracking when the problem involves "count paths with max score." DFS enumerates all paths (exponential) when DP can compute the same information in O(N²). Need to ask: "Do I need to enumerate paths, or just compute their properties?" If the latter, DP is the right tool.
+- **Ignoring shifting cost in array operations** — In LC 88, used sort.Search + shifting loop which appears O(n log n) but is actually O(n*m) due to the O(m) shift per insert. Before coding, always analyze the full cost including data movement, not just the "clever" part. Ask: "What's the cost of the non-obvious operations (shifts, copies, allocations)?"
 
 ### Practice Plan
 - LC 1143 - Longest Common Subsequence (2D DP, similar structure to Edit Distance)
 - LC 5 - Longest Palindromic Substring (2D DP, different recurrence)
 - LC 64 - Minimum Path Sum (2D DP, simpler)
 - **String Matching Algorithms** — Learn Rabin-Karp (rolling hash), KMP, and Aho-Corasick. Practice when to choose which based on constraints. ~~Trie basics~~ ✓ Done (LC 208) ✓ Applied (LC 1268)
+- ~~LC 977 - Squares of a Sorted Array~~ — Backward two-pointer merge practice (same pattern as LC 88)
 
 ### Constraint-Based Algorithm Selection (Reference)
 | Constraint Size | Complexity Target | Algorithm Family |
@@ -66,6 +69,7 @@
 | Bit Manipulation / DP | 3 |
 | Array Manipulation / Carry Propagation | 1 |
 | Array Traversal / Linear Scan | 1 |
+| In-place Array Merge (Backward Two-Pointer) | 1 |
 
 ### Monthly Progress
 - [June 2026](2026-06.md)
