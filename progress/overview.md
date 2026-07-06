@@ -14,6 +14,7 @@
 - **Greedy (Interval Covering / Removal)** — Applied via LC 1288 (Remove Covered Intervals). Sort intervals by start ascending. Track the max end seen so far (best). If current end ≤ max_end → covered (skip). If current end > max_end → not covered, update max_end. If same start and larger end → old best is covered. Single-pass O(n log n) greedy. Solved independently in 55:54 — initially tried binary search before falling back to brute force, then optimized to greedy.
 - **Two Pointers** — Applied via LC 125 (Valid Palindrome). Two pointers from both ends, skip non-relevant characters in-place, compare. Same pattern family as LC 344 (Reverse String) and LC 345 (Reverse Vowels). When you see "palindrome" + "string", first instinct should be two pointers from both ends. Solved independently in 13:27.
 - **Hash Map / Frequency Counting** — Applied via LC 383 (Ransom Note). Build frequency map from supply, consume from demand. Core template: count everything first, then check-and-decrement. Generalizes to anagram checks, permutation matching, and "can construct from available resources" problems. Solved independently in 3:47.
+- **1D Dynamic Programming** — Applied via LC 70 (Climbing Stairs). Fibonacci-style recurrence: `dp[i] = dp[i-1] + dp[i-2]`. Learned the "last step" framework for deriving recurrences directly from problem statements: (1) define `dp[i]`, (2) ask "what was the last move?", (3) each possible move reduces to a smaller subproblem, (4) combine via sum (counting) or min/max (optimization). This eliminates the need to enumerate forward to discover the pattern. Solved independently in 15:30.
 
 ### Patterns In Progress
 - **Sliding Window (Two Pointers)** — First application via LC 1358. Understand the core idea: maintain a window, expand right, shrink left when valid. Key insight: when a window is valid, all extensions are also valid (superset property). Used `count[3]` array for O(1) validity checks instead of re-scanning. Two counting perspectives learned: count extensions right (`n-right`) or count extensions left (`left`). Need more practice to solidify pattern recognition.
@@ -80,6 +81,7 @@
 | Greedy (Interval Covering) | 1 |
 | Two Pointers | 1 |
 | Hash Map / Frequency Counting | 1 |
+| 1D Dynamic Programming | 1 |
 
 ### Monthly Progress
 - [June 2026](2026-06.md)

@@ -1,67 +1,53 @@
 package lc70
 
-import "fmt"
+/*
+You are climbing a staircase. It takes n steps to reach the top.
 
-func climbStairsTopDown(n int) int {
+Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?
 
-	memo := make([]int, n+1)
-	for i := range memo {
-		memo[i] = -1
-	}
+Example 1:
 
-	var dp func(n int) int
-	dp = func(n int) int {
-		if n == 0 {
-			return 0
-		}
-		if n == 1 {
-			return 1
-		}
-		if n == 2 {
-			return 2
-		} else {
-			if memo[n] != -1 {
-				return memo[n]
-			}
-			res := dp(n-2) + dp(n-1)
-			memo[n] = res
-			return res
-		}
-	}
+Input: n = 2
+Output: 2
+Explanation: There are two ways to climb to the top.
+1. 1 step + 1 step
+2. 2 steps
 
-	return dp(n)
-}
+Example 2:
 
-func climbStairsBottomUp(n int) int {
-	// start from initial state, iterate to the final state
+Input: n = 3
+Output: 3
+Explanation: There are three ways to climb to the top.
+1. 1 step + 1 step + 1 step
+2. 1 step + 2 steps
+3. 2 steps + 1 step
 
-	if n == 0 {
-		return 0
-	}
+
+Constraints:
+
+1 <= n <= 45
+*/
+
+func climbStairs(n int) int {
 	if n == 1 {
 		return 1
 	}
-	if n == 2 {
-		return 2
-	}
+	step := make([]int, n)
 
-	one, two := 1, 2
-	climb := 0
+	/*
+			1 = 1
+			2 = [1], [2]
+		    3 = [1,1,1], [1,2], [2,1]
+			4 = [1,1,1,1], [1,1,2], [1,2,1], [2,1,1], [2,2]
+			5 = [1,1,1,1,1], [1,1,1,2], [1,2,2], [2,1,1,1], [2,2,1], [2,1,2]
+
+	*/
+	step[0] = 1
+	step[1] = 2
+
 	for i := 2; i < n; i++ {
-		climb = one + two
-		one, two = two, climb
+		step[i] = step[i-1] + step[i-2]
 	}
 
-	return climb
-}
-
-func climbStairs(n int) int {
-	out := climbStairsBottomUp(n)
-	return out
-}
-
-func ClimbingStairs() {
-	n := 44
-	out := climbStairs(n)
-	fmt.Println(out)
+	return step[n-1]
 }
