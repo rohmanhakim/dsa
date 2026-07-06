@@ -17,6 +17,7 @@
 - **1D Dynamic Programming** — Applied via LC 70 (Climbing Stairs). Fibonacci-style recurrence: `dp[i] = dp[i-1] + dp[i-2]`. Learned the "last step" framework for deriving recurrences directly from problem statements: (1) define `dp[i]`, (2) ask "what was the last move?", (3) each possible move reduces to a smaller subproblem, (4) combine via sum (counting) or min/max (optimization). This eliminates the need to enumerate forward to discover the pattern. Solved independently in 15:30.
 
 ### Patterns In Progress
+- **Binary Search** — Solved 1 problem (LC 35). Understand the two templates: **closed interval** (`left <= right`, `right = len(nums) - 1`) for searching known elements, and **half-open interval** (`left < right`, `right = len(nums)`) for lower bound / insertion point. Key insight: never overshoot the answer — if `mid` could be the answer, assign `right = mid` (not `mid - 1`). The closed vs half-open distinction determines all other choices (loop condition, init, shrink direction). Need more practice to build speed.
 - **Sliding Window (Two Pointers)** — First application via LC 1358. Understand the core idea: maintain a window, expand right, shrink left when valid. Key insight: when a window is valid, all extensions are also valid (superset property). Used `count[3]` array for O(1) validity checks instead of re-scanning. Two counting perspectives learned: count extensions right (`n-right`) or count extensions left (`left`). Need more practice to solidify pattern recognition.
 - **Binary Search on Answer ("maximize the minimum")** — Applied twice with guidance: LC 2812 (BFS + binary search) and LC 3620 (topo sort + DP + binary search). Core idea: binary search on the answer + feasibility check. Monotonicity property: if threshold `mid` works, then `mid-1` also works. The feasibility check can use any reachability/search algorithm (BFS, DFS, DP). **Still requires guidance to recognize** — need to internalize: ask "am I maximizing the minimum?" before choosing an approach.
 - **DAG Topo Sort + DP** — First application via LC 3620 (with guidance). Post-order DFS topo sort: push node after visiting all neighbors, pop from stack = topological order (no reverse needed). Forward DP: `dp[v] = min over predecessors u of (dp[u] + edge_cost(u,v))`. Combined with binary search for optimization problems on DAGs. **Needs independent practice.**
@@ -33,6 +34,7 @@
 - **Pattern misidentification** — In LC 1358, initially tried prefix/suffix sum when sliding window was the right tool. Need to ask: "Is this a range query problem or a window property problem?" before committing to an approach. **Positive signal:** After hints, successfully implemented sliding window with correct counting logic.
 - **Greedy instinct** — In LC 2812, initially tried greedy pathfinding (pick highest-safety neighbor) which fails for "maximize the minimum" problems. Need to ask: "Is the locally optimal choice also globally optimal?" before committing to a greedy approach.
 - **Binary search instinct for interval problems** — In LC 1288, spent significant time trying binary search before falling back to brute force. Binary search is useful for finding specific intervals in a sorted list, but not for checking coverage against all other intervals. When you see an interval problem, first ask: "Can I sort and do a single pass?" before reaching for binary search.
+- **Binary search template confusion** — Spent significant time deciding between `left <= right` vs `left < right`, `right = mid` vs `right = mid - 1`, etc. Root cause: not internalizing the "closed vs half-open interval" framework. Once you pick the template, all other details follow deterministically. **Action:** Practice LC 704 (Template 1), LC 34 (both templates), LC 278 (Template 2 variant) back-to-back to build muscle memory.
 - **DP objective misidentification** — In LC 3620, initially computed min-cost path (shortest path DP) instead of recognizing the "maximize the minimum" binary search pattern. Need to ask: "What am I optimizing — total cost, or the weakest link?" before choosing a DP approach.
 - **Consistent filtering across components** — In LC 3620, DFS filtered edges by threshold but DP didn't, causing subtle bugs. When a filter applies in one place, it must apply everywhere.
 - **Map vs slice for performance** — In LC 3620, using `map[int][]edge` and `map[int]bool` for adjacency/visited caused TLE on large inputs. Slice-based data structures are significantly faster for dense integer-keyed access.
@@ -82,6 +84,7 @@
 | Two Pointers | 1 |
 | Hash Map / Frequency Counting | 1 |
 | 1D Dynamic Programming | 1 |
+| Binary Search | 1 |
 
 ### Monthly Progress
 - [June 2026](2026-06.md)
