@@ -101,6 +101,9 @@ WHERE NOT EXISTS (SELECT 1 FROM sessions s WHERE s.problem_id = p.problem_id AND
 - if you unsure whether my solution is correct or not, ask to run the tests first.
 - never present unverified pseudocode. a 30-second trace on paper saves a confusing back-and-forth.
 
+**when you're reviewing**
+- anytime I solved a problem using your guidance, check the overview document. if the pattern used to solve is already in the "Pattern Mastered" section, move it to "Pattern in progress" because that means i failed to maintain it. if i haven't mastered it, do not put it under "Pattern Mastered" because that means i still need your help to solve this problem (not independently).
+
 **when you about to log a session to DB:**
 - session `time_to_accepted` is in seconds, convert my reported time to second first before inserting. Use `scripts/hhmmss_to_seconds.py` to convert from hh:mm:ss format into seconds integer.
 - if the session is guided. DO NOT record the `time_to_accepted`. make it zero (00:00:00)
