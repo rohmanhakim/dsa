@@ -1,30 +1,15 @@
 package lc26
 
-import (
-	"fmt"
-)
-
 func removeDuplicates(nums []int) int {
-	slow := 0
+	occ := make(map[int]bool)
 
-	for fast := 1; fast < len(nums); fast++ {
-		if nums[fast] != nums[slow] {
-			slow++
-			nums[slow] = nums[fast]
+	k := -1
+	for _, num := range nums {
+		if !occ[num] {
+			k++
+			nums[k] = num
+			occ[num] = true
 		}
 	}
-
-	return slow + 1
-}
-
-func RemoveDuplicatesFromSortedArray() {
-	nums := []int{1, 1, 2}
-
-	k := removeDuplicates(nums)
-
-	fmt.Printf("%d, [", k)
-	for _, num := range nums[:k] {
-		fmt.Printf("%d,", num)
-	}
-	fmt.Print("]\n")
+	return k + 1
 }
