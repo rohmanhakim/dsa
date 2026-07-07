@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS sessions (
     date TEXT NOT NULL,                -- YYYY-MM-DD
     status TEXT NOT NULL,              -- "independent" or "guided"
     time_to_accepted INTEGER,          -- minutes, 0 if guided
-    pattern TEXT,                      -- e.g., "2D Dynamic Programming"
+    pattern TEXT,                      -- ONE primary pattern (single value, never comma-separated). Canonical names: progress/patterns-registry.md
     approach_notes TEXT,               -- approach notes (observed by mentor)
     key_learning TEXT,                 -- key learning from the session
     weaknesses TEXT,                   -- weaknesses identified

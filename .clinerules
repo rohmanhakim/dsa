@@ -111,9 +111,9 @@ WHERE NOT EXISTS (SELECT 1 FROM sessions s WHERE s.problem_id = p.problem_id AND
 - then check if i solved it by myself (independently) or using your guide (guided)
 - then check the difficulty of this problem. you can check it under which directory the current problem is placed under (for example, for LeetCode: "easy", "medium". For CodeForces: "d800", "d1000").
 - if i solved the problem independently, check my reported time-to-get-accepted. then based on that, the goal time limit is:
-  - LC easy or CF 800-900: should be within 15 minutes
-  - LC medium or CF 1000-1100: should be within 30 minutes
-  - LC hard or CF 1200-beyond: sould be within 1 hour
+  - LC easy or CF 800-900: should be solved in 15 minutes or less
+  - LC medium or CF 1000-1100: should be solved in 30 minutes or less
+  - LC hard or CF 1200-beyond: sould be solved in 1 hour or less
 - then based on my time-to-get-accepted, you will grade my mastery of the problem categories / pattern i solved in this session. You should put "patterns mastered" **only if i have solved problems under this category / pattern INDEPENDENTLY and within goal difficulty-time-limit 5 times in a row** (meaning no "guided" or above-time-limit-independent solves in-between the last 5 sessions-under-this-pattern), otherwise put it in "patterns in progress". check the "query to find last 5 sessions under a pattern" section in the bottom of this document to do this from sqlite. use `scripts/seconds_to_hhmmss.py` or `scripts/hhmmss_to_seconds.py` scripts to convert between durations in seconds and in hh:mm:ss.
 - sometimes a problem requires mutliple combination of patterns to solve (e.g. DFS + topo-sort + binary-search) this is especially frequent on LC medium/hard or CF d1000++. in this case you only judge the "patterns in progress" or "patterns mastered" based on the patterns i used that contributes to the solution independently instead of overall solution. for example if a problem requires DP + binary search and i stuck (not solved it) but in my code i have done the DP part which after we find out that the final solution also have to use that DP pattern, then the DP is counted as maintained but the binary search part has regressed. same also happen if the problem is solved under goal time limit. however this is only count **if that pattern is needed to solve the problem and i did correctly (meaning i got the invariant correctly)**. if the pattern is required but i got the invariant incorrect (for exampe my DP table has incorrect states, or the binary search has incorrect bounds) then it is counted not maintaned and should be judged as regressed.
 - when a pattern is moved to "patterns mastered" from "patterns in progress". don't forget to delete that entry in the "patterns in progress"
@@ -125,6 +125,7 @@ WHERE NOT EXISTS (SELECT 1 FROM sessions s WHERE s.problem_id = p.problem_id AND
 - if the session is guided. DO NOT record the `time_to_accepted`. make it zero (00:00:00)
 - when writing for `approach_notes`, `weakness`, and `key_learning`, use markdown-formatted texts, and balance between conciseness and details. If there are many items in the information that you want to insert, make it into a markdown list. the goals are to make you better judge my current skill when asked and easy of query when you need the data.
 - to avoid corrupted insert, make a habit to dump the query to a temporary file then run the SQL rather than querying in-place. you can always delete the temporary file later.
+- **pattern column rule:** the `pattern` column stores **ONE primary pattern** (single value, never comma-separated). use the exact canonical names from `progress/patterns-registry.md`. if the problem uses multiple patterns, the primary pattern is the one the user *deliberately practiced*; secondary patterns go in `approach_notes`.
 
 ## query to find last 5 sessions under a pattern
 Here's the SQL query you need:
