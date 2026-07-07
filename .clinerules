@@ -96,15 +96,88 @@ WHERE NOT EXISTS (SELECT 1 FROM sessions s WHERE s.problem_id = p.problem_id AND
 
 **when you about to review:**
 - check the DB first if i have attempted or solved the problem before. then your following review and judgment also based on the last judgment for this problem. this should make the current judgment / review better reflect my current state whether i've become weaker,improving or maintaining
+- then check the overview document to get the context about my current state of mastery. your current judgment will also compare to the current skill i possess. 
 - some problems have official editorial in the same directory the solution file is stored, it is a markdown file suffixed with "_editorial.md". make sure you read this file first before proposing any solution.
+
+
+**when you're reviewing**
+- anytime I solved a problem using your guidance, check the overview document. if the pattern used to solve is already in the "Pattern Mastered" section, move it to "Pattern in progress" because that means i failed to maintain it (it counts a regression). if i haven't mastered it, do not put it under "Pattern Mastered" because that means i still need your help to solve this problem (not independently).
 - before presenting an algorithm or pseudocode, always trace through a small example first. if the proposed approach differs from the final implementation, acknowledge the discrepancy and explain why.
 - if you unsure whether my solution is correct or not, ask to run the tests first.
 - never present unverified pseudocode. a 30-second trace on paper saves a confusing back-and-forth.
 
-**when you're reviewing**
-- anytime I solved a problem using your guidance, check the overview document. if the pattern used to solve is already in the "Pattern Mastered" section, move it to "Pattern in progress" because that means i failed to maintain it. if i haven't mastered it, do not put it under "Pattern Mastered" because that means i still need your help to solve this problem (not independently).
+**when you about to update the overview document**
+- first, take note of the pattern i used in this session to solve the problem.
+- then check if i solved it by myself (independently) or using your guide (guided)
+- then check the difficulty of this problem. you can check it under which directory the current problem is placed under (for example, for LeetCode: "easy", "medium". For CodeForces: "d800", "d1000").
+- if i solved the problem independently, check my reported time-to-get-accepted. then based on that, the goal time limit is:
+  - LC easy or CF 800-900: should be within 15 minutes
+  - LC medium or CF 1000-1100: should be within 30 minutes
+  - LC hard or CF 1200-beyond: sould be within 1 hour
+- then based on my time-to-get-accepted, you will grade my mastery of the problem categories / pattern i solved in this session. You should put "patterns mastered" **only if i have solved problems under this category / pattern INDEPENDENTLY and within goal difficulty-time-limit 5 times in a row** (meaning no "guided" or above-time-limit-independent solves in-between the last 5 sessions-under-this-pattern), otherwise put it in "patterns in progress". check the "query to find last 5 sessions under a pattern" section in the bottom of this document to do this from sqlite. use `scripts/seconds_to_hhmmss.py` or `scripts/hhmmss_to_seconds.py` scripts to convert between durations in seconds and in hh:mm:ss.
+- when a pattern is moved to "patterns mastered" from "patterns in progress". don't forget to delete that entry in the "patterns in progress"
 
 **when you about to log a session to DB:**
 - session `time_to_accepted` is in seconds, convert my reported time to second first before inserting. Use `scripts/hhmmss_to_seconds.py` to convert from hh:mm:ss format into seconds integer.
+- if i solved the problem by myself but above my time limit goals or using inefficient solution, **log it as is**, even if i ended up being guided by you to reach more efficient solution, and mark it as "independent".
+- only mark as guided if i stuck or get TLE and ended up beuing guided by you.
 - if the session is guided. DO NOT record the `time_to_accepted`. make it zero (00:00:00)
 - when writing for `approach_notes`, `weakness`, and `key_learning`, use markdown-formatted texts, and balance between conciseness and details. If there are many items in the information that you want to insert, make it into a markdown list. the goals are to make you better judge my current skill when asked and easy of query when you need the data.
+- to avoid corrupted insert, make a habit to dump the query to a temporary file then run the SQL rather than querying in-place. you can always delete the temporary file later.
+
+## query to find last 5 sessions under a pattern
+Here's the SQL query you need:
+
+```sql
+SELECT 
+    s.date,
+    s.problem_id,
+    p.difficulty,
+    s.status,
+    s.pattern,
+    s.time_to_accepted
+FROM sessions s
+JOIN problems p ON s.problem_id = p.problem_id
+WHERE p.platform = 'lc'
+  AND s.pattern LIKE '%Dynamic Programming%'
+ORDER BY s.date DESC
+LIMIT 5;
+```
+
+**Breaking it down:**
+
+1. **JOIN** — `sessions` joins with `problems` to get `difficulty` (which lives in the problems table)
+2. **WHERE platform = 'lc'** — filters to LeetCode only
+3. **AND s.pattern LIKE '%...%'** — the `LIKE` operator with `%` wildcards matches any pattern containing your keyword(s). Replace the text inside the quotes with whatever you're looking for.
+4. **ORDER BY s.date DESC** — most recent first
+5. **LIMIT 5** — last 5 sessions
+
+**Notes on `LIKE` pattern matching:**
+
+- For exact word match: `AND s.pattern LIKE '%Dynamic Programming%'`
+- For multiple patterns (OR): `AND (s.pattern LIKE '%Dynamic%' OR s.pattern LIKE '%Binary Search%')`
+- Case-insensitive by default in SQLite (SQLite's `LIKE` is case-insensitive for ASCII letters)
+
+**Example with multiple keywords:**
+
+```sql
+SELECT 
+    s.date,
+    s.problem_id,
+    p.difficulty,
+    s.status,
+    s.pattern,
+    s.time_to_accepted
+FROM sessions s
+JOIN problems p ON s.problem_id = p.problem_id
+WHERE p.platform = 'lc'
+  AND (s.pattern LIKE '%Dynamic%' OR s.pattern LIKE '%Binary%')
+ORDER BY s.date DESC
+LIMIT 5;
+```
+
+You can run this directly in the SQLite shell with:
+
+```bash
+sqlite3 progress/progress.db "SELECT s.date, p.difficulty, s.status, s.pattern, s.time_to_accepted FROM sessions s JOIN problems p ON s.problem_id = p.problem_id WHERE p.platform = 'lc' AND s.pattern LIKE '%Dynamic%' ORDER BY s.date DESC LIMIT 5;"
+```

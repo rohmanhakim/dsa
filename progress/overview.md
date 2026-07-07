@@ -3,18 +3,7 @@
 ## Current Skill Level
 
 ### Patterns Mastered
-- **2D Dynamic Programming** — Understand DP table setup, base cases, and recurrence relations for string problems (e.g., Edit Distance). Comfortable with the idea of subproblems building on each other via a 2D table.
-- **Trie / Prefix Tree** — Implemented standard 26-child trie. Understand the character-by-character navigation pattern shared across insert/search/startsWith. Differentiate between Search (checks `isEnd`) and StartsWith (just checks path existence). Applied to a second problem (LC 1268) with DFS traversal for collecting words — can now build and query tries independently. Starting to recognize over-engineering in DFS and self-correct.
-- **Backtracking** — Learned the standard `append → recurse → pop` pattern via LC 17. Each level of recursion is a decision point, each branch is a choice. Base case saves the result. Applied independently to Letter Combinations of a Phone Number (both iterative cartesian product and backtracking). Applied to a second problem (LC 216) with sum constraint — same pattern, different base case. This pattern generalizes to permutations, subsets, N-Queens, Sudoku, etc.
-- **Monotonic Stack** — Solved 2 problems (LC 739, LC 901). Understand the "next greater/smaller element" pattern. Key decision framework: "next greater" → decreasing stack (pop when `curr >= top`), "next smaller" → increasing stack (pop when `curr <= top`). Two implementation styles: *span-based* (store value+span, absorb popped spans) for count/distance answers, and *index-based* (store indices, compute from index arithmetic) for identifying actual barrier elements. Invariant-first design principle: state the stack invariant before coding. Recognized as the same pattern family as LC 84 (Largest Rectangle in Histogram). Ready for "next smaller" variant practice.
-- **Bit Manipulation / DP** — Applied via LC 338 (Counting Bits). Recurrence: `dp[i] = dp[i>>1] + (i&1)` — count 1s in i/2 plus last bit. Also learned XOR as cancellation operator via LC 136 (Single Number): `x ⊕ x = 0`, `x ⊕ 0 = x`. XOR is the go-to for "pairs cancel" problems. First XOR problem — need more practice to internalize.
-- **Array Manipulation / Carry Propagation** — Applied via LC 66 (Plus One). Initialize carry to the value being added (1), propagate through digits using `sum % 10` (digit) and `sum / 10` (carry). Eliminates special-casing the first iteration. Also learned immutability habit: `slices.Clone(digits)` to avoid mutating input, and read consistency (read from and write to the same slice).
-- **2D Grid DP** — Applied via LC 1301 (Number of Paths with Max Score). Can compute optimal values (max sum) and count optimal solutions simultaneously using a DP table with `(maxSum, pathCount)` pairs. Path counting rule: sum counts of all predecessors that tie for the best value. Two iteration directions both work: forward (S→E, iterate from end to start) and backward (E→S, iterate from start to end). 1-based indexing with border simplifies boundary handling. Successfully converted from brute-force DFS to DP after recognizing exponential complexity.
-- **Greedy (Interval Scheduling / Activity Selection)** — Applied via LC 435 (Non-overlapping Intervals). Key reframing: "minimum removals" = "maximum non-overlapping kept." Sort intervals by end time (not start time), then greedily keep each interval that doesn't overlap with the last kept one. The interval finishing earliest leaves maximum room for future intervals. Solved independently with clean implementation in 7:28.
-- **Greedy (Interval Covering / Removal)** — Applied via LC 1288 (Remove Covered Intervals). Sort intervals by start ascending. Track the max end seen so far (best). If current end ≤ max_end → covered (skip). If current end > max_end → not covered, update max_end. If same start and larger end → old best is covered. Single-pass O(n log n) greedy. Solved independently in 55:54 — initially tried binary search before falling back to brute force, then optimized to greedy.
-- **Two Pointers** — Applied via LC 125 (Valid Palindrome). Two pointers from both ends, skip non-relevant characters in-place, compare. Same pattern family as LC 344 (Reverse String) and LC 345 (Reverse Vowels). When you see "palindrome" + "string", first instinct should be two pointers from both ends. Solved independently in 13:27. **Read/Write variant** applied via LC 26 (Remove Duplicates from Sorted Array) with guidance — `read` scans forward, `write` tracks placement position; copy when `nums[read] != nums[write]`. Used hash map instead of exploiting sorted property; key lesson: sorted data means duplicates are adjacent, no external tracking needed.
-- **Hash Map / Frequency Counting** — Applied via LC 383 (Ransom Note). Build frequency map from supply, consume from demand. Core template: count everything first, then check-and-decrement. Generalizes to anagram checks, permutation matching, and "can construct from available resources" problems. Solved independently in 3:47.
-- **1D Dynamic Programming** — Applied via LC 70 (Climbing Stairs). Fibonacci-style recurrence: `dp[i] = dp[i-1] + dp[i-2]`. Learned the "last step" framework for deriving recurrences directly from problem statements: (1) define `dp[i]`, (2) ask "what was the last move?", (3) each possible move reduces to a smaller subproblem, (4) combine via sum (counting) or min/max (optimization). This eliminates the need to enumerate forward to discover the pattern. Solved independently in 15:30.
+- (None)
 
 ### Patterns In Progress
 - **Binary Search** — Solved 1 problem (LC 35). Understand the two templates: **closed interval** (`left <= right`, `right = len(nums) - 1`) for searching known elements, and **half-open interval** (`left < right`, `right = len(nums)`) for lower bound / insertion point. Key insight: never overshoot the answer — if `mid` could be the answer, assign `right = mid` (not `mid - 1`). The closed vs half-open distinction determines all other choices (loop condition, init, shrink direction). Need more practice to build speed.
@@ -62,33 +51,3 @@
 | n ≤ 10⁶ | O(n) | Sliding window, hash map, BFS/DFS |
 | n ≤ 10⁷ | O(n) | Linear scan, monotonic stack |
 | n ≤ 10⁸ | O(n log n) | Rare, usually requires optimization tricks |
-
-### Problem Categories Solved
-| Category | Count |
-|----------|-------|
-| 2D DP (Strings) | 1 |
-| 2D DP (Grid) | 1 |
-| String Manipulation | 2 |
-| Trie / Prefix Tree | 2 |
-| Sliding Window | 1 |
-| Graph / Grid BFS | 1 |
-| Graph / DAG (Binary Search + DP) | 1 |
-| Graph / Connected Component (BFS) | 1 |
-| Backtracking | 2 |
-| Monotonic Stack | 2 |
-| Bit Manipulation / DP | 3 |
-| Array Manipulation / Carry Propagation | 1 |
-| Array Traversal / Linear Scan | 2 |
-| In-place Array Merge (Backward Two-Pointer) | 1 |
-| Greedy (Interval Scheduling) | 1 |
-| Greedy (Interval Covering) | 1 |
-| Two Pointers (Both Ends) | 1 |
-| Two Pointers (Read/Write) | 1 |
-| Hash Map / Frequency Counting | 1 |
-| 1D Dynamic Programming | 1 |
-| Binary Search | 1 |
-| Digit Manipulation / Linear Scan | 1 |
-
-### Monthly Progress
-- [June 2026](2026-06.md)
-- [July 2026](2026-07.md)
