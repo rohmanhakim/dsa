@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/rohmanhakim/leetcode/problems/lc/easy/lc3754"
+	"github.com/rohmanhakim/leetcode/problems/lc/easy/lc704"
 )
 
 func main() {
-	lc3754.LC3754()
+	lc704.LC704()
 }
