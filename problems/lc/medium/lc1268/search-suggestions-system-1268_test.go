@@ -78,7 +78,7 @@ func TestSearchSuggestionsBinarySearch(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			out := suggestedProductsBinarySearch(tt.products, tt.searchWord)
+			out := suggestedProducts(tt.products, tt.searchWord)
 
 			if !reflect.DeepEqual(out, tt.want) {
 				t.Fatalf("got %v want %v", out, tt.want)

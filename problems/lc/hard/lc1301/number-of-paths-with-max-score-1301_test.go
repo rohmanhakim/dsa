@@ -45,7 +45,7 @@ func TestPathsWithMaxScore(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			out := pathsWithMaxScoreDP(tt.board)
+			out := pathsWithMaxScore(tt.board)
 
 			if !reflect.DeepEqual(out, tt.want) {
 				t.Fatalf("got %v want %v", out, tt.want)

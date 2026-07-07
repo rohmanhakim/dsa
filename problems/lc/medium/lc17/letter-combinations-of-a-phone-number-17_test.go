@@ -30,7 +30,7 @@ func TestLetterCombinationsOfAPhoneNumber(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			out := letterCombinationsBacktracking(tt.digits)
+			out := letterCombinations(tt.digits)
 
 			if !reflect.DeepEqual(out, tt.want) {
 				t.Fatalf("got %v want %v", out, tt.want)
