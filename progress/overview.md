@@ -87,6 +87,7 @@
 | Hash Map / Frequency Counting | 1 |
 | 1D Dynamic Programming | 1 |
 | Binary Search | 1 |
+| Digit Manipulation / Linear Scan | 1 |
 
 ### Monthly Progress
 - [June 2026](2026-06.md)
