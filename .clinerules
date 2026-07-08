@@ -34,21 +34,32 @@ one row per attempt/session. a problem can have multiple sessions.
 | date | TEXT | YYYY-MM-DD |
 | status | TEXT | "independent" or "guided" |
 | time_to_accepted | INTEGER | seconds, 0 if guided |
-| pattern | TEXT | e.g., "2D Dynamic Programming" |
-| approach_notes | TEXT | approach notes (observed by mentor) |
+| severity | INTEGER | 0=pass, 1=slow pass, 2=wrong pattern, 3=hint-needed. For guided sessions, always 3. |
+| pattern | TEXT | ONE primary pattern (single value, never comma-separated). Canonical names: `progress/patterns-registry.md`. |
+| approach_notes | TEXT | approach notes (observed by mentor). Also used for secondary patterns. |
 | key_learning | TEXT | key learning from the session |
 | weaknesses | TEXT | weaknesses identified |
 | complexity_time | TEXT | time complexity |
 | complexity_space | TEXT | space complexity |
 | created_at | TEXT | auto-set to current datetime |
 
+### severity scale
+
+| severity | meaning | maps to status |
+|----------|---------|----------------|
+| 0 | **Pass**: solved correctly, right approach/pattern, within time limit | independent |
+| 1 | **Slow pass**: right approach/pattern, but over time limit | independent |
+| 2 | **Wrong pattern**: pursued wrong approach before recovering or failing | independent (if recovered) or guided |
+| 3 | **Hint-needed**: couldn't identify the approach/pattern without help | guided |
+
 ## workflow
 
 after each consulting session, the mentor will:
 
-1. **insert the problem** into the `problems` table if it doesn't exist yet (use `INSERT OR IGNORE`).
-2. **insert the session** into the `sessions` table with all relevant fields.
-3. **update `progress/overview.md`** with a summary of the current skill level, patterns mastered, weaknesses, etc. (this is a living document, not a log).
+1. **run the regression check** — see "unified regression & mastery model" below. do this at the start of every session.
+2. **insert the problem** into the `problems` table if it doesn't exist yet (use `INSERT OR IGNORE`).
+3. **insert the session** into the `sessions` table with all relevant fields.
+4. **update `progress/overview.md`** with a summary of the current skill level, patterns mastered, weaknesses, etc. (this is a living document, not a log).
 
 ### example session logging
 
@@ -57,9 +68,13 @@ after each consulting session, the mentor will:
 INSERT OR IGNORE INTO problems (problem_id, problem_name, difficulty, platform)
 VALUES ('lc72', 'Edit Distance', 'medium', 'lc');
 
--- insert session
-INSERT INTO sessions (problem_id, date, status, time_to_accepted, pattern, approach_notes, key_learning, weaknesses, complexity_time, complexity_space)
-VALUES ('lc72', '2026-06-28', 'guided', 0, '2D Dynamic Programming', '...', '...', '...', 'O(m*n)', 'O(m*n)');
+-- insert session (example: independent, within time, correct pattern)
+INSERT INTO sessions (problem_id, date, status, time_to_accepted, severity, pattern, approach_notes, key_learning, weaknesses, complexity_time, complexity_space)
+VALUES ('lc72', '2026-07-08', 'independent', 1500, 0, '2D Dynamic Programming', '...', '...', '...', 'O(m*n)', 'O(m*n)');
+
+-- insert session (example: guided, needed hint)
+INSERT INTO sessions (problem_id, date, status, time_to_accepted, severity, pattern, approach_notes, key_learning, weaknesses, complexity_time, complexity_space)
+VALUES ('lc72', '2026-07-08', 'guided', 0, 3, '2D Dynamic Programming', '...', '...', '...', 'O(m*n)', 'O(m*n)');
 ```
 
 ### example queries
@@ -68,8 +83,8 @@ VALUES ('lc72', '2026-06-28', 'guided', 0, '2D Dynamic Programming', '...', '...
 -- all sessions for a problem
 SELECT * FROM sessions WHERE problem_id = 'lc72';
 
--- overall performance
-SELECT status, COUNT(*) FROM sessions GROUP BY status;
+-- overall performance by severity
+SELECT severity, COUNT(*) FROM sessions GROUP BY severity;
 
 -- problems where you improved (independent after guided)
 SELECT p.problem_id, p.problem_name,
@@ -80,10 +95,10 @@ SELECT p.problem_id, p.problem_name,
 FROM problems p JOIN sessions s ON p.problem_id = s.problem_id
 GROUP BY p.problem_id;
 
--- average time by difficulty (independent only)
+-- average time by difficulty (independent only, severity ≤ 1)
 SELECT p.difficulty, AVG(s.time_to_accepted) as avg_time
 FROM problems p JOIN sessions s ON p.problem_id = s.problem_id
-WHERE s.status = 'independent'
+WHERE s.status = 'independent' AND s.severity <= 1
 GROUP BY p.difficulty;
 
 -- problems never solved independently
@@ -94,19 +109,22 @@ WHERE NOT EXISTS (SELECT 1 FROM sessions s WHERE s.problem_id = p.problem_id AND
 
 # rules for the mentor (you)
 
-**when you about to review:**
+## when you're about to review
+
 - check the DB first if i have attempted or solved the problem before. then your following review and judgment also based on the last judgment for this problem. this should make the current judgment / review better reflect my current state whether i've become weaker,improving or maintaining
 - then check the overview document to get the context about my current state of mastery. your current judgment will also compare to the current skill i possess. 
 - some problems have official editorial in the same directory the solution file is stored, it is a markdown file suffixed with "_editorial.md". make sure you read this file first before proposing any solution.
 
+## when you're reviewing
 
-**when you're reviewing**
-- anytime I solved a problem using your guidance, check the overview document. if the pattern used to solve is already in the "Pattern Mastered" section, move it to "Pattern in progress" because that means i failed to maintain it (it counts a regression). if i haven't mastered it, do not put it under "Pattern Mastered" because that means i still need your help to solve this problem (not independently).
 - before presenting an algorithm or pseudocode, always trace through a small example first. if the proposed approach differs from the final implementation, acknowledge the discrepancy and explain why.
 - if you unsure whether my solution is correct or not, ask to run the tests first.
 - never present unverified pseudocode. a 30-second trace on paper saves a confusing back-and-forth.
+- for multi-pattern problems (e.g. DFS + topo-sort + binary-search, common on LC medium/hard or CF d1000++), judge each pattern independently based on the severity the user achieved for that specific pattern. see "multi-pattern handling" below.
 
-**when you about to update the overview document**
+## when you're about to update the overview document
+
+### General Performance tracking
 - first, take note of the pattern i used in this session to solve the problem.
 - then check if i solved it by myself (independently) or using your guide (guided)
 - then check the difficulty of this problem. you can check it under which directory the current problem is placed under (for example, for LeetCode: "easy", "medium". For CodeForces: "d800", "d1000").
@@ -114,72 +132,155 @@ WHERE NOT EXISTS (SELECT 1 FROM sessions s WHERE s.problem_id = p.problem_id AND
   - LC easy or CF 800-900: should be solved in 15 minutes or less
   - LC medium or CF 1000-1100: should be solved in 30 minutes or less
   - LC hard or CF 1200-beyond: sould be solved in 1 hour or less
-- then based on my time-to-get-accepted, you will grade my mastery of the problem categories / pattern i solved in this session. You should put "patterns mastered" **only if i have solved problems under this category / pattern INDEPENDENTLY and within goal difficulty-time-limit 5 times in a row** (meaning no "guided" or above-time-limit-independent solves in-between the last 5 sessions-under-this-pattern), otherwise put it in "patterns in progress". check the "query to find last 5 sessions under a pattern" section in the bottom of this document to do this from sqlite. use `scripts/seconds_to_hhmmss.py` or `scripts/hhmmss_to_seconds.py` scripts to convert between durations in seconds and in hh:mm:ss.
-- sometimes a problem requires mutliple combination of patterns to solve (e.g. DFS + topo-sort + binary-search) this is especially frequent on LC medium/hard or CF d1000++. in this case you only judge the "patterns in progress" or "patterns mastered" based on the patterns i used that contributes to the solution independently instead of overall solution. for example if a problem requires DP + binary search and i stuck (not solved it) but in my code i have done the DP part which after we find out that the final solution also have to use that DP pattern, then the DP is counted as maintained but the binary search part has regressed. same also happen if the problem is solved under goal time limit. however this is only count **if that pattern is needed to solve the problem and i did correctly (meaning i got the invariant correctly)**. if the pattern is required but i got the invariant incorrect (for exampe my DP table has incorrect states, or the binary search has incorrect bounds) then it is counted not maintaned and should be judged as regressed.
-- when a pattern is moved to "patterns mastered" from "patterns in progress". don't forget to delete that entry in the "patterns in progress"
+- assign severity to the session based on the severity scale above.
+- determine mastery status using the unified model below (see "mastery criteria").
+- when a pattern is moved to "patterns mastered" from "patterns in progress", don't forget to delete that entry in the "patterns in progress"
 
-**when you about to log a session to DB:**
+### Multi-pattern handling
+sometimes a problem requires multiple combination of patterns to solve (e.g. DFS + topo-sort + binary-search). in this case:
+
+- the `pattern` column stores ONE primary pattern — the one the user *deliberately practiced*. secondary patterns go in `approach_notes` with structured format: `secondary_patterns: [{name: "Binary Search", severity: 3}]`.
+- judge each pattern independently:
+  - if the user independently solved the DP portion correctly (severity 0 or 1 for DP) but needed guidance for binary search (severity 3 for binary search), only binary search's mastery streak is broken.
+  - a pattern counts as "maintained" only if the user got the invariant correct for that pattern. if the pattern is required but the invariant was incorrect (e.g., DP table has wrong states, binary search has wrong bounds), it is counted as **not maintained** and the streak is broken.
+
+## unified regression & mastery model
+
+this is the single source of truth for regression detection and mastery promotion. there are no competing rules.
+
+### difficulty time limits
+
+| difficulty | max time for severity 0 |
+|------------|------------------------|
+| LC easy / CF 800-900 | 900s (15 min) |
+| LC medium / CF 1000-1100 | 1800s (30 min) |
+| LC hard / CF 1200+ | 3600s (60 min) |
+
+### mastery criteria (initial)
+
+to promote a pattern from "patterns in progress" to "patterns mastered", ALL of these must be true:
+
+| criterion | SQL-verifiable query |
+|-----------|---------------------|
+| 5 consecutive sessions on the pattern, all severity ≤ 1 | `SELECT ... WHERE pattern LIKE '%X%' ORDER BY date DESC LIMIT 5` — all rows must have `severity <= 1` |
+| All 5 within the time limit for their difficulty | each `time_to_accepted` ≤ threshold for that session's difficulty |
+| Sessions span at least 3 distinct calendar days | `COUNT(DISTINCT date) >= 3` across the last 5 sessions |
+
+SQL to check mastery readiness:
+```sql
+SELECT
+    COUNT(*) as qualifying_sessions,
+    COUNT(DISTINCT date) as distinct_days,
+    CASE
+        WHEN COUNT(*) >= 5 AND COUNT(DISTINCT date) >= 3
+        AND SUM(CASE WHEN severity > 1 THEN 1 ELSE 0 END) = 0
+        THEN 'READY FOR MASTERY'
+        ELSE 'IN PROGRESS'
+    END as mastery_status
+FROM (
+    SELECT s.severity, s.date, s.time_to_accepted, p.difficulty
+    FROM sessions s
+    JOIN problems p ON s.problem_id = p.problem_id
+    WHERE s.pattern = 'YOUR_PATTERN'
+    ORDER BY s.date DESC
+    LIMIT 5
+);
+```
+
+### regression detection
+
+regression is NOT triggered by a single failure. it requires evidence of sustained decline (or a single severity-3 failure).
+
+**triggers (any one of these is sufficient):**
+
+1. **severity-3 on a mastered pattern → immediate regression flag.** move the pattern to "patterns in progress" immediately. no waiting for more data points.
+2. **two or more sessions with severity ≥ 2 in the last 3 *properly sampled* sessions** on a mastered pattern → regression flag.
+
+**what "properly sampled" means:**
+- the 3 sessions must be spread across genuinely separate days (different calendar dates).
+- sessions on the same day count as one data point.
+- immediate retries of the same or similar problem are contaminated and must be skipped.
+- example: if i fail a BFS problem on Monday, another BFS attempt on Monday doesn't count. wait until at least the next day, and solve a genuinely different BFS problem.
+
+**failure severity reference:**
+| severity | description | toward regression? |
+|----------|-------------|-------------------|
+| 0 | Pass (correct pattern, within time) | no — this is a success |
+| 1 | Slow pass (correct pattern, over time) | no — tracked as "watch" signal, not regression |
+| 2 | Wrong pattern (took wrong approach) | yes — 2 of last 3 sampled with severity ≥ 2 → regression |
+| 3 | Hint-needed | yes — single occurrence → immediate regression |
+
+**SQL to check regression (for a mastered pattern):**
+```sql
+SELECT
+    s.date,
+    s.problem_id,
+    p.difficulty,
+    s.severity,
+    s.pattern
+FROM sessions s
+JOIN problems p ON s.problem_id = p.problem_id
+WHERE s.pattern = 'YOUR_PATTERN'
+ORDER BY s.date DESC
+LIMIT 3;
+```
+then manually verify distinct days and apply the severity rules above.
+
+### re-certification after regression
+
+the bar is lighter than initial mastery:
+
+| criterion | value |
+|-----------|-------|
+| Consecutive sessions, all severity ≤ 1 | 3 (instead of 5) |
+| Distinct calendar days | 2 (instead of 3) |
+
+### review cadence
+
+- mastered patterns should get a spaced-repetition style check-in once every 1 week. otherwise regression can go undetected for months.
+- each week the user might ask what problem to take; the mentor should analyze performance data and suggest a pattern due for review.
+- when selecting review problems, prefer problem variants the user hasn't seen before (different sub-variants: e.g., for graph BFS, try multi-source or bidirectional, not the same template).
+
+## when you're about to log a session to DB
+
 - session `time_to_accepted` is in seconds, convert my reported time to second first before inserting. Use `scripts/hhmmss_to_seconds.py` to convert from hh:mm:ss format into seconds integer.
-- if i solved the problem by myself but above my time limit goals or using inefficient solution, **log it as is**, even if i ended up being guided by you to reach more efficient solution, and mark it as "independent".
-- only mark as guided if i stuck or get TLE and ended up beuing guided by you.
-- if the session is guided. DO NOT record the `time_to_accepted`. make it zero (00:00:00)
-- when writing for `approach_notes`, `weakness`, and `key_learning`, use markdown-formatted texts, and balance between conciseness and details. If there are many items in the information that you want to insert, make it into a markdown list. the goals are to make you better judge my current skill when asked and easy of query when you need the data.
+- `severity` must be set for every new session. use the severity scale above. for guided sessions, always set to 3.
+- if i solved the problem by myself but above my time limit goals (severity 1), **log it as is**, even if i ended up being guided by you to reach more efficient solution, and mark it as "independent"
+- only mark as guided (severity 3) if i stuck or got TLE and ended up being guided by you.
+- if the session is guided, DO NOT record the `time_to_accepted`. make it zero (0).
+- when writing for `approach_notes`, `weakness`, and `key_learning`, use markdown-formatted texts, and balance between conciseness and details. If there are many items in the information that you want to insert, make it into a markdown list. the goals are to make you better judge my current skill when asked and ease of querying when you need the data.
 - to avoid corrupted insert, make a habit to dump the query to a temporary file then run the SQL rather than querying in-place. you can always delete the temporary file later.
-- **pattern column rule:** the `pattern` column stores **ONE primary pattern** (single value, never comma-separated). use the exact canonical names from `progress/patterns-registry.md`. if the problem uses multiple patterns, the primary pattern is the one the user *deliberately practiced*; secondary patterns go in `approach_notes`.
+- **pattern column rule:** the `pattern` column stores **ONE primary pattern** (single value, never comma-separated). use the exact canonical names from `progress/patterns-registry.md`. secondary patterns go in `approach_notes` with structured format: `secondary_patterns: [{name: "Binary Search", severity: 3}]`.
+
+# miscellaneous
 
 ## query to find last 5 sessions under a pattern
-Here's the SQL query you need:
 
 ```sql
-SELECT 
+SELECT
     s.date,
     s.problem_id,
     p.difficulty,
     s.status,
+    s.severity,
     s.pattern,
     s.time_to_accepted
 FROM sessions s
 JOIN problems p ON s.problem_id = p.problem_id
-WHERE p.platform = 'lc'
-  AND s.pattern LIKE '%Dynamic Programming%'
+WHERE s.pattern LIKE '%Dynamic Programming%'
 ORDER BY s.date DESC
 LIMIT 5;
 ```
 
-**Breaking it down:**
+**breaking it down:**
 
 1. **JOIN** — `sessions` joins with `problems` to get `difficulty` (which lives in the problems table)
-2. **WHERE platform = 'lc'** — filters to LeetCode only
-3. **AND s.pattern LIKE '%...%'** — the `LIKE` operator with `%` wildcards matches any pattern containing your keyword(s). Replace the text inside the quotes with whatever you're looking for.
-4. **ORDER BY s.date DESC** — most recent first
-5. **LIMIT 5** — last 5 sessions
+2. **WHERE pattern LIKE '%...%'** — the `LIKE` operator with `%` wildcards matches any pattern containing your keyword(s). Replace the text inside the quotes with whatever you're looking for.
+3. **ORDER BY date DESC** — most recent first
+4. **LIMIT 5** — last 5 sessions
 
 **Notes on `LIKE` pattern matching:**
 
 - For exact word match: `AND s.pattern LIKE '%Dynamic Programming%'`
 - For multiple patterns (OR): `AND (s.pattern LIKE '%Dynamic%' OR s.pattern LIKE '%Binary Search%')`
 - Case-insensitive by default in SQLite (SQLite's `LIKE` is case-insensitive for ASCII letters)
-
-**Example with multiple keywords:**
-
-```sql
-SELECT 
-    s.date,
-    s.problem_id,
-    p.difficulty,
-    s.status,
-    s.pattern,
-    s.time_to_accepted
-FROM sessions s
-JOIN problems p ON s.problem_id = p.problem_id
-WHERE p.platform = 'lc'
-  AND (s.pattern LIKE '%Dynamic%' OR s.pattern LIKE '%Binary%')
-ORDER BY s.date DESC
-LIMIT 5;
-```
-
-You can run this directly in the SQLite shell with:
-
-```bash
-sqlite3 progress/progress.db "SELECT s.date, p.difficulty, s.status, s.pattern, s.time_to_accepted FROM sessions s JOIN problems p ON s.problem_id = p.problem_id WHERE p.platform = 'lc' AND s.pattern LIKE '%Dynamic%' ORDER BY s.date DESC LIMIT 5;"
-```

@@ -3,6 +3,7 @@ SELECT
     s.problem_id,
     p.difficulty,
     s.status,
+    s.severity,
     s.pattern,
     s.time_to_accepted
 FROM sessions s

@@ -16,11 +16,12 @@ CREATE TABLE IF NOT EXISTS sessions (
     problem_id TEXT NOT NULL,          -- FK → problems.problem_id
     date TEXT NOT NULL,                -- YYYY-MM-DD
     status TEXT NOT NULL,              -- "independent" or "guided"
-    time_to_accepted INTEGER,          -- minutes, 0 if guided
+    time_to_accepted INTEGER,          -- seconds, 0 if guided
     pattern TEXT,                      -- ONE primary pattern (single value, never comma-separated). Canonical names: progress/patterns-registry.md
     approach_notes TEXT,               -- approach notes (observed by mentor)
     key_learning TEXT,                 -- key learning from the session
     weaknesses TEXT,                   -- weaknesses identified
+    severity INTEGER,                  -- 0=pass, 1=slow pass, 2=wrong pattern, 3=hint-needed. NULL for legacy rows.
     complexity_time TEXT,              -- time complexity
     complexity_space TEXT,             -- space complexity
     created_at TEXT DEFAULT (datetime('now')),
@@ -31,5 +32,6 @@ CREATE TABLE IF NOT EXISTS sessions (
 CREATE INDEX IF NOT EXISTS idx_sessions_problem_id ON sessions(problem_id);
 CREATE INDEX IF NOT EXISTS idx_sessions_date ON sessions(date);
 CREATE INDEX IF NOT EXISTS idx_sessions_status ON sessions(status);
+CREATE INDEX IF NOT EXISTS idx_sessions_pattern ON sessions(pattern);
 CREATE INDEX IF NOT EXISTS idx_problems_platform ON problems(platform);
 CREATE INDEX IF NOT EXISTS idx_problems_difficulty ON problems(difficulty);
