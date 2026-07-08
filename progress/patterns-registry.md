@@ -1,6 +1,6 @@
 # Pattern Registry
 
-Canonical pattern names for the `sessions.pattern` column. The mentor (Cline) must use these exact names when logging sessions. Each session has **one primary pattern** — the skill deliberately practiced. Secondary patterns go in `approach_notes`.
+Canonical pattern names for the `session_patterns` junction table. The mentor (Cline) must use these exact names when logging sessions. Each session can have multiple patterns — the `role` column distinguishes between primary (the skill deliberately practiced) and secondary (supporting patterns).
 
 ## Naming Convention
 
@@ -60,8 +60,20 @@ Canonical pattern names for the `sessions.pattern` column. The mentor (Cline) mu
 
 ## Migration Note
 
-When migrating from a junction table (if needed in the future), this registry becomes the `patterns` table with `name` and `description` columns. The `session_patterns` junction table would reference `patterns.name`.
+The `patterns` table in the database is now the source of truth for pattern definitions. This registry is kept as a documentation reference. When adding a new pattern, insert it into the `patterns` table first, then update this registry.
+
+### Adding a new pattern
+
+1. **Discover a new pattern** (e.g., from an editorial or a new problem)
+2. **Add it to the `patterns` table**:
+   ```sql
+   INSERT INTO patterns (name, description, category) 
+   VALUES ('Rabin-Karp', 'Rolling hash for string matching', 'String Matching');
+   ```
+3. **Update this registry** to document the new pattern (for reference)
+4. **Use it in the session** (via `session_patterns` junction table)
+5. **Track mastery** for that pattern
 
 ---
 
-*Last updated: 2026-07-07*
+*Last updated: 2026-07-08*

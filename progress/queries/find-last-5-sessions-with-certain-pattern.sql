@@ -4,11 +4,12 @@ SELECT
     p.difficulty,
     s.status,
     s.severity,
-    s.pattern,
+    sp.pattern_name,
     s.time_to_accepted
 FROM sessions s
 JOIN problems p ON s.problem_id = p.problem_id
+JOIN session_patterns sp ON s.id = sp.session_id
 WHERE p.platform = 'lc'
-  AND (s.pattern LIKE '%Binary Search%')
+  AND sp.pattern_name = 'Binary Search'
 ORDER BY s.date DESC
 LIMIT 5;

@@ -11,7 +11,7 @@ legacy markdown files in `progress/` (e.g., `2026-06.md`, `2026-07.md`) are kept
 
 ## database schema
 
-two tables: `problems` and `sessions`.
+four tables: `problems`, `patterns`, `sessions`, and `session_patterns`.
 
 ### problems table
 one row per unique problem.
@@ -24,6 +24,15 @@ one row per unique problem.
 | difficulty | TEXT | "easy", "medium", "hard" |
 | platform | TEXT | "lc", "cf", "ac" |
 
+### patterns table
+one row per unique pattern. source of truth for pattern definitions.
+
+| column | type | description |
+|--------|------|-------------|
+| name | TEXT | primary key, canonical name from `progress/patterns-registry.md` |
+| description | TEXT | what it does, when to use |
+| category | TEXT | e.g., "Two Pointers", "Binary Search", "Graph" |
+
 ### sessions table
 one row per attempt/session. a problem can have multiple sessions.
 
@@ -35,13 +44,21 @@ one row per attempt/session. a problem can have multiple sessions.
 | status | TEXT | "independent" or "guided" |
 | time_to_accepted | INTEGER | seconds, 0 if guided |
 | severity | INTEGER | 0=pass, 1=slow pass, 2=wrong pattern, 3=hint-needed. For guided sessions, always 3. |
-| pattern | TEXT | ONE primary pattern (single value, never comma-separated). Canonical names: `progress/patterns-registry.md`. |
-| approach_notes | TEXT | approach notes (observed by mentor). Also used for secondary patterns. |
+| approach_notes | TEXT | approach notes (observed by mentor) |
 | key_learning | TEXT | key learning from the session |
 | weaknesses | TEXT | weaknesses identified |
 | complexity_time | TEXT | time complexity |
 | complexity_space | TEXT | space complexity |
 | created_at | TEXT | auto-set to current datetime |
+
+### session_patterns table
+junction table: which patterns were used in each session. supports multi-pattern problems.
+
+| column | type | description |
+|--------|------|-------------|
+| session_id | INTEGER | FK → sessions.id |
+| pattern_name | TEXT | FK → patterns.name |
+| role | TEXT | "primary" or "secondary" |
 
 ### severity scale
 
@@ -69,12 +86,20 @@ INSERT OR IGNORE INTO problems (problem_id, problem_name, difficulty, platform)
 VALUES ('lc72', 'Edit Distance', 'medium', 'lc');
 
 -- insert session (example: independent, within time, correct pattern)
-INSERT INTO sessions (problem_id, date, status, time_to_accepted, severity, pattern, approach_notes, key_learning, weaknesses, complexity_time, complexity_space)
-VALUES ('lc72', '2026-07-08', 'independent', 1500, 0, '2D Dynamic Programming', '...', '...', '...', 'O(m*n)', 'O(m*n)');
+INSERT INTO sessions (problem_id, date, status, time_to_accepted, severity, approach_notes, key_learning, weaknesses, complexity_time, complexity_space)
+VALUES ('lc72', '2026-07-08', 'independent', 1500, 0, '...', '...', '...', 'O(m*n)', 'O(m*n)');
 
 -- insert session (example: guided, needed hint)
-INSERT INTO sessions (problem_id, date, status, time_to_accepted, severity, pattern, approach_notes, key_learning, weaknesses, complexity_time, complexity_space)
-VALUES ('lc72', '2026-07-08', 'guided', 0, 3, '2D Dynamic Programming', '...', '...', '...', 'O(m*n)', 'O(m*n)');
+INSERT INTO sessions (problem_id, date, status, time_to_accepted, severity, approach_notes, key_learning, weaknesses, complexity_time, complexity_space)
+VALUES ('lc72', '2026-07-08', 'guided', 0, 3, '...', '...', '...', 'O(m*n)', 'O(m*n)');
+
+-- insert pattern(s) for the session (primary pattern)
+INSERT INTO session_patterns (session_id, pattern_name, role)
+VALUES (last_insert_rowid(), '2D Dynamic Programming', 'primary');
+
+-- insert secondary pattern (if multi-pattern problem)
+INSERT INTO session_patterns (session_id, pattern_name, role)
+VALUES (last_insert_rowid(), 'Binary Search', 'secondary');
 ```
 
 ### example queries
@@ -105,6 +130,19 @@ GROUP BY p.difficulty;
 SELECT p.problem_id, p.problem_name
 FROM problems p
 WHERE NOT EXISTS (SELECT 1 FROM sessions s WHERE s.problem_id = p.problem_id AND s.status = 'independent');
+
+-- all patterns used in a session
+SELECT sp.pattern_name, sp.role
+FROM session_patterns sp
+WHERE sp.session_id = 123;
+
+-- all sessions for a pattern (with role)
+SELECT s.date, s.problem_id, p.difficulty, s.severity, sp.role
+FROM sessions s
+JOIN problems p ON s.problem_id = p.problem_id
+JOIN session_patterns sp ON s.id = sp.session_id
+WHERE sp.pattern_name = 'Binary Search'
+ORDER BY s.date DESC;
 ```
 
 # rules for the mentor (you)
@@ -139,7 +177,7 @@ WHERE NOT EXISTS (SELECT 1 FROM sessions s WHERE s.problem_id = p.problem_id AND
 ### Multi-pattern handling
 sometimes a problem requires multiple combination of patterns to solve (e.g. DFS + topo-sort + binary-search). in this case:
 
-- the `pattern` column stores ONE primary pattern — the one the user *deliberately practiced*. secondary patterns go in `approach_notes` with structured format: `secondary_patterns: [{name: "Binary Search", severity: 3}]`.
+- the `session_patterns` junction table stores ALL patterns used in the session, with `role` = 'primary' for the pattern the user *deliberately practiced* and `role` = 'secondary' for supporting patterns.
 - judge each pattern independently:
   - if the user independently solved the DP portion correctly (severity 0 or 1 for DP) but needed guidance for binary search (severity 3 for binary search), only binary search's mastery streak is broken.
   - a pattern counts as "maintained" only if the user got the invariant correct for that pattern. if the pattern is required but the invariant was incorrect (e.g., DP table has wrong states, binary search has wrong bounds), it is counted as **not maintained** and the streak is broken.
@@ -162,7 +200,7 @@ to promote a pattern from "patterns in progress" to "patterns mastered", ALL of 
 
 | criterion | SQL-verifiable query |
 |-----------|---------------------|
-| 5 consecutive sessions on the pattern, all severity ≤ 1 | `SELECT ... WHERE pattern LIKE '%X%' ORDER BY date DESC LIMIT 5` — all rows must have `severity <= 1` |
+| 5 consecutive sessions on the pattern, all severity ≤ 1 | `SELECT ... WHERE pattern_name = 'X' ORDER BY date DESC LIMIT 5` — all rows must have `severity <= 1` |
 | All 5 within the time limit for their difficulty | each `time_to_accepted` ≤ threshold for that session's difficulty |
 | Sessions span at least 3 distinct calendar days | `COUNT(DISTINCT date) >= 3` across the last 5 sessions |
 
@@ -181,7 +219,8 @@ FROM (
     SELECT s.severity, s.date, s.time_to_accepted, p.difficulty
     FROM sessions s
     JOIN problems p ON s.problem_id = p.problem_id
-    WHERE s.pattern = 'YOUR_PATTERN'
+    JOIN session_patterns sp ON s.id = sp.session_id
+    WHERE sp.pattern_name = 'YOUR_PATTERN'
     ORDER BY s.date DESC
     LIMIT 5
 );
@@ -217,10 +256,11 @@ SELECT
     s.problem_id,
     p.difficulty,
     s.severity,
-    s.pattern
+    sp.pattern_name
 FROM sessions s
 JOIN problems p ON s.problem_id = p.problem_id
-WHERE s.pattern = 'YOUR_PATTERN'
+JOIN session_patterns sp ON s.id = sp.session_id
+WHERE sp.pattern_name = 'YOUR_PATTERN'
 ORDER BY s.date DESC
 LIMIT 3;
 ```
@@ -250,7 +290,7 @@ the bar is lighter than initial mastery:
 - if the session is guided, DO NOT record the `time_to_accepted`. make it zero (0).
 - when writing for `approach_notes`, `weakness`, and `key_learning`, use markdown-formatted texts, and balance between conciseness and details. If there are many items in the information that you want to insert, make it into a markdown list. the goals are to make you better judge my current skill when asked and ease of querying when you need the data.
 - to avoid corrupted insert, make a habit to dump the query to a temporary file then run the SQL rather than querying in-place. you can always delete the temporary file later.
-- **pattern column rule:** the `pattern` column stores **ONE primary pattern** (single value, never comma-separated). use the exact canonical names from `progress/patterns-registry.md`. secondary patterns go in `approach_notes` with structured format: `secondary_patterns: [{name: "Binary Search", severity: 3}]`.
+- **pattern column rule:** the `session_patterns` junction table stores **ALL patterns** used in the session. use the exact canonical names from `progress/patterns-registry.md`. the `role` column distinguishes between primary (the pattern the user deliberately practiced) and secondary (supporting patterns). when logging a session, insert into `session_patterns` for each pattern used.
 
 # miscellaneous
 
@@ -263,11 +303,12 @@ SELECT
     p.difficulty,
     s.status,
     s.severity,
-    s.pattern,
+    sp.pattern_name,
     s.time_to_accepted
 FROM sessions s
 JOIN problems p ON s.problem_id = p.problem_id
-WHERE s.pattern LIKE '%Dynamic Programming%'
+JOIN session_patterns sp ON s.id = sp.session_id
+WHERE sp.pattern_name = 'Dynamic Programming'
 ORDER BY s.date DESC
 LIMIT 5;
 ```
@@ -275,12 +316,13 @@ LIMIT 5;
 **breaking it down:**
 
 1. **JOIN** — `sessions` joins with `problems` to get `difficulty` (which lives in the problems table)
-2. **WHERE pattern LIKE '%...%'** — the `LIKE` operator with `%` wildcards matches any pattern containing your keyword(s). Replace the text inside the quotes with whatever you're looking for.
-3. **ORDER BY date DESC** — most recent first
-4. **LIMIT 5** — last 5 sessions
+2. **JOIN** — `sessions` joins with `session_patterns` to get pattern information
+3. **WHERE pattern_name = '...'** — exact match on pattern name (no need for `LIKE` since we have a junction table)
+4. **ORDER BY date DESC** — most recent first
+5. **LIMIT 5** — last 5 sessions
 
-**Notes on `LIKE` pattern matching:**
+**Notes on pattern matching:**
 
-- For exact word match: `AND s.pattern LIKE '%Dynamic Programming%'`
-- For multiple patterns (OR): `AND (s.pattern LIKE '%Dynamic%' OR s.pattern LIKE '%Binary Search%')`
+- For exact word match: `AND sp.pattern_name = 'Dynamic Programming'`
+- For multiple patterns (OR): `AND (sp.pattern_name = 'Dynamic Programming' OR sp.pattern_name = 'Binary Search')`
 - Case-insensitive by default in SQLite (SQLite's `LIKE` is case-insensitive for ASCII letters)
