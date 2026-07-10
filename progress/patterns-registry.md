@@ -46,6 +46,7 @@ Canonical pattern names for the `session_patterns` junction table. The mentor (C
 | `BFS` | Breadth-first search, connected components | Shortest path (unweighted), level-order, component properties |
 | `DFS` | Depth-first search, backtracking | Path enumeration, cycle detection, connected components |
 | `Topological Sort` | DAG ordering | Task scheduling, dependency resolution, DP on DAG |
+| `Binary Lifting` | Sparse table / binary jumping for path reachability queries | Shortest path on sorted array graphs, Jump Game II with queries, O(log n) per query |
 
 ### Other
 
@@ -76,4 +77,4 @@ The `patterns` table in the database is now the source of truth for pattern defi
 
 ---
 
-*Last updated: 2026-07-08*
+*Last updated: 2026-07-10*
