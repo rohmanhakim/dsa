@@ -48,12 +48,18 @@ Canonical pattern names for the `session_patterns` junction table. The mentor (C
 | `Topological Sort` | DAG ordering | Task scheduling, dependency resolution, DP on DAG |
 | `Binary Lifting` | Sparse table / binary jumping for path reachability queries | Shortest path on sorted array graphs, Jump Game II with queries, O(log n) per query |
 
+### Data Structures
+
+| Canonical Name | Description | When to Use |
+|---|---|---|
+| `Stack` | LIFO data structure for balanced matching, nested lookups | Valid parentheses, expression evaluation, min-stack |
+| `Monotonic Stack` | Next greater/smaller element | Daily temperatures, stock span, histogram |
+
 ### Other
 
 | Canonical Name | Description | When to Use |
 |---|---|---|
 | `Hash Map` | Frequency counting, lookup tables, grouping | Two-sum pattern, anagram grouping, frequency analysis |
-| `Monotonic Stack` | Next greater/smaller element | Daily temperatures, stock span, histogram |
 | `Trie` | Prefix tree | Word search, autocomplete, prefix matching |
 | `Digit Manipulation` | Extracting/processing individual digits | Digit DP, number properties, base conversion |
 | `Two-Pass Propagation` | Left→right + right→left passes | Constraint propagation from both directions |
@@ -78,3 +84,7 @@ The `patterns` table in the database is now the source of truth for pattern defi
 ---
 
 *Last updated: 2026-07-10*
+
+### Changelog
+
+- **2026-07-10**: Added `Stack` (Data Structures category) for balanced parentheses / expression evaluation problems.

@@ -21,10 +21,11 @@
   Key decision framework: "Do I need to **combine** overlapping intervals (sort by start) or **select** non-overlapping ones (sort by end)?"
 - **1D Dynamic Programming** — First independent application via LC 198 (slow pass, 41:56). Core recurrence: `dp[i] = max(dp[i-1], dp[i-2] + nums[i])`. Two sliding variables replace the full DP table. Struggled to identify the right DP states — spent ~42 minutes experimenting with parity-based bucket tracking before arriving at a correct but non-standard formulation. **Key framework for faster state identification:** (1) What does `dp[i]` **mean**? (2) What answers from before does `dp[i]` **depend on**? Should take ≤2 minutes to fill in. **1/5 sessions toward mastery.**
 - **Binary Lifting** — First application via LC 3534 (guided). Sparse table for answering "shortest path" queries on sorted array graphs in O(log n). Key template:
-  1. Sort nodes by value, compute `reach[i]` (farthest position in one jump) via binary search
-  2. Build sparse table: `jump[0] = reach`, `jump[k][i] = jump[k-1][jump[k-1][i]]`
-  3. Per query: greedy from largest k downward, only take jump if `jump[k][a] < b` (guard prevents overshoot)
-  **Key lesson:** Initially fell for a false "diameter ≤ 2" proof that broke on counterexample `[0, 8, 14, 18]` with maxDiff=8 (distance = 3, no single intermediate node bridges). Always verify graph diameter claims with a concrete path-trace before committing to an algorithm. **1/5 sessions toward mastery.**
+   1. Sort nodes by value, compute `reach[i]` (farthest position in one jump) via binary search
+   2. Build sparse table: `jump[0] = reach`, `jump[k][i] = jump[k-1][jump[k-1][i]]`
+   3. Per query: greedy from largest k downward, only take jump if `jump[k][a] < b` (guard prevents overshoot)
+   **Key lesson:** Initially fell for a false "diameter ≤ 2" proof that broke on counterexample `[0, 8, 14, 18]` with maxDiff=8 (distance = 3, no single intermediate node bridges). Always verify graph diameter claims with a concrete path-trace before committing to an algorithm. **1/5 sessions toward mastery.**
+- **Stack** — First application via LC 20 (independent, slow pass). Core idea: use LIFO to match opening/closing brackets. Key insight: push opening brackets onto stack; on closing bracket, check top for valid pair, pop if match, else fail. Early exit: odd-length strings are always invalid. Helper closure (`pair`) cleanly handles multiple bracket types. **1/5 sessions toward mastery.**
 
 ### Weaknesses to Watch
 - **Modular arithmetic / operator precedence with percent** — Recurring bug in LC 3756 (4+ occurrences in one session). Go percent operator binds tighter than multiply and plus, so the percent MOD must wrap the entire expression. Also, 10e8 is a float64 literal in Go — always use 1_000_000_007 for integer MOD. **Action:** Before writing any percent MOD, mentally parenthesize the entire expression.
