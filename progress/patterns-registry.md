@@ -17,6 +17,7 @@ Canonical pattern names for the `session_patterns` junction table. The mentor (C
 | `Two Pointers` | General two-pointer technique on arrays/strings | Opposite-end convergence, partitioning, pair-finding |
 | `Two Pointers (Backward Merge)` | Fill from end to avoid O(n) shifting | Merging sorted data into buffer with trailing empty space |
 | `Two Pointers (Read/Write)` | Separate read and write pointers | In-place array compaction, deduplication |
+| `Two Pointers (Fast/Slow)` | Floyd's cycle detection: slow moves 1, fast moves 2 | Linked list cycle detection, finding middle, finding cycle start |
 | `Sliding Window` | Expand right, shrink left to maintain window property | Subarray/substring with constraint (count, sum, unique) |
 
 ### Binary Search
@@ -88,3 +89,4 @@ The `patterns` table in the database is now the source of truth for pattern defi
 ### Changelog
 
 - **2026-07-10**: Added `Stack` (Data Structures category) for balanced parentheses / expression evaluation problems.
+- **2026-07-10**: Added `Two Pointers (Fast/Slow)` (Two Pointers category) for Floyd's cycle detection on linked lists.

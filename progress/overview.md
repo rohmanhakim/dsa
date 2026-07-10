@@ -26,6 +26,7 @@
    3. Per query: greedy from largest k downward, only take jump if `jump[k][a] < b` (guard prevents overshoot)
    **Key lesson:** Initially fell for a false "diameter ≤ 2" proof that broke on counterexample `[0, 8, 14, 18]` with maxDiff=8 (distance = 3, no single intermediate node bridges). Always verify graph diameter claims with a concrete path-trace before committing to an algorithm. **1/5 sessions toward mastery.**
 - **Stack** — First application via LC 20 (independent, slow pass). Core idea: use LIFO to match opening/closing brackets. Key insight: push opening brackets onto stack; on closing bracket, check top for valid pair, pop if match, else fail. Early exit: odd-length strings are always invalid. Helper closure (`pair`) cleanly handles multiple bracket types. **1/5 sessions toward mastery.**
+- **Two Pointers (Fast/Slow)** — First application via LC 141 (guided, severity 3). Floyd's cycle detection: slow pointer moves 1 step, fast pointer moves 2 steps. If a cycle exists, they will meet. Initially tried a hash map keyed on `(value, index)` which failed because it tracked traversal position rather than node identity — the same node appears at different positions when revisited in a cycle. Key insight: in linked structures, always track the **node object** (pointer), not the **node value**. Values can repeat across different nodes; only the pointer uniquely identifies a node. **0/5 sessions toward mastery (guided).**
 
 ### Weaknesses to Watch
 - **Modular arithmetic / operator precedence with percent** — Recurring bug in LC 3756 (4+ occurrences in one session). Go percent operator binds tighter than multiply and plus, so the percent MOD must wrap the entire expression. Also, 10e8 is a float64 literal in Go — always use 1_000_000_007 for integer MOD. **Action:** Before writing any percent MOD, mentally parenthesize the entire expression.
@@ -52,6 +53,7 @@
 - **Binary lifting template recall** — Had 2 bugs in the binary lifting loop: wrong start position (hardcoded 0 instead of query-dependent `pos[u]`), and missing guard condition (`if jump[k][a] < b`) causing unconditional overshoot. This pattern needs to be memorized like binary search templates. **Action:** Practice the 3-line binary lifting loop template until it's muscle memory: init → for k descending → guard → take jump.
 - **DFS as default for path problems** — In LC 1301, reached for brute-force DFS/backtracking when the problem involves "count paths with max score." DFS enumerates all paths (exponential) when DP can compute the same information in O(N²). Need to ask: "Do I need to enumerate paths, or just compute their properties?" If the latter, DP is the right tool.
 - **Ignoring shifting cost in array operations** — In LC 88, used sort.Search + shifting loop which appears O(n log n) but is actually O(n*m) due to the O(m) shift per insert. Before coding, always analyze the full cost including data movement, not just the "clever" part. Ask: "What's the cost of the non-obvious operations (shifts, copies, allocations)?"
+- **Identity vs value confusion in linked structures** — In LC 141, used a hash map keyed on `(value, index)` to detect cycles, which fails because values can repeat across different nodes — only the pointer uniquely identifies a node. When working with linked lists, always think in terms of node objects, not their contents. If you need to track "visited" nodes, use a map with `*ListNode` as the key (Go pointers are comparable).
 
 ### Practice Plan
 - LC 1143 - Longest Common Subsequence (2D DP, similar structure to Edit Distance)
@@ -59,6 +61,7 @@
 - LC 64 - Minimum Path Sum (2D DP, simpler)
 - **String Matching Algorithms** — Learn Rabin-Karp (rolling hash), KMP, and Aho-Corasick. Practice when to choose which based on constraints. ~~Trie basics~~ ✓ Done (LC 208) ✓ Applied (LC 1268)
 - ~~LC 977 - Squares of a Sorted Array~~ — Backward two-pointer merge practice (same pattern as LC 88)
+- LC 142 - Linked List Cycle II — Floyd's Phase 2: finding the cycle start node (extends LC 141 pattern)
 
 ### Constraint-Based Algorithm Selection (Reference)
 | Constraint Size | Complexity Target | Algorithm Family |
