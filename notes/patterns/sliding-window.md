@@ -6,11 +6,55 @@ When you need to find a **subarray/substring** that satisfies a constraint (coun
 ## How It Works
 1. Maintain a window `[left, right)` with two pointers
 2. **Expand** `right` to include new elements
-3. **Shrink** `left` when the window becomes invalid
+3. **Shrink** `left` to restore validity or optimize the answer
 4. Track the answer (max length, min length, etc.) at each step
+
+### Two Sub-Variants
+
+| Variant | Goal | When to shrink | Inner loop |
+|---|---|---|---|
+| **Longest valid** | Maximize window size | Shrink when **invalid** | `while !valid { shrink }` |
+| **Shortest valid** | Minimize window size | Shrink while **valid** | `while valid { update answer; shrink }` |
+
+**Longest valid (LC 3):** Expand right to grow the window. When the window becomes invalid (e.g., duplicate found), shrink left until valid again. Answer is updated during expansion.
+
+**Shortest valid (LC 209):** Expand right to grow the window. When the window becomes valid (e.g., sum ≥ target), shrink left while still valid, updating the minimum at each step. Answer is updated during shrinking.
+
+### Standard Template (Shortest Valid)
+```go
+left := 0
+sum := 0
+minLen := math.MaxInt
+for right := 0; right < n; right++ {
+    sum += nums[right]
+    for sum >= target {
+        minLen = min(minLen, right-left+1)
+        sum -= nums[left]
+        left++
+    }
+}
+// minLen == math.MaxInt → return 0
+```
+
+### Standard Template (Longest Valid)
+```go
+left := 0
+count := 0
+maxLen := 0
+for right := 0; right < n; right++ {
+    // add nums[right] to window state
+    for !valid {
+        // remove nums[left] from window state
+        left++
+    }
+    maxLen = max(maxLen, right-left+1)
+}
+```
 
 ## Key Insight: Superset Property
 When a window is valid, all extensions of it are also valid (for "at most" constraints). This means you can count extensions rather than just tracking the window itself.
+
+**For shortest-valid problems:** The superset property means once you find a valid window, you should try to shrink it — a smaller valid window is always better. This is why the inner loop shrinks while valid.
 
 ## Duplicate Detection: Hash Map vs `strings.Contains`
 The standard approach for "longest substring without repeating characters" uses a **hash map** (or array) to track the last seen index of each character:
@@ -48,11 +92,16 @@ Result: 3 ✓
 - **Time:** O(n) — each element visited at most twice (once by right, once by left)
 - **Space:** O(min(n, alphabet size)) — hash map stores at most one entry per unique character
 
+## Common Mistakes
+- **Non-standard initialization** (e.g., `left=0, right=1, sum=nums[0]`) adds unnecessary complexity: extra guards, boolean flags, slice allocations. Always use the standard template: both pointers at 0, sum at 0.
+- **Confusing the two sub-variants** — using `while !valid` (longest) when you need `while valid` (shortest), or vice versa. Before coding, ask: "Am I maximizing or minimizing the window?"
+
 ## Classic Problems to Practice
-| Problem | Key Idea |
-|---|---|
-| **Longest Substring Without Repeating Characters (LC 3)** | Hash map of last-seen indices, `left = max(left, seen[char]+1)` |
-| **Longest Substring with At Most K Distinct Characters** | Hash map + shrink when count > K |
-| **Minimum Window Substring (LC 76)** | Shrink from left when valid, track minimum |
-| **Permutation in String (LC 567)** | Fixed-size window, count array for frequency |
-| **Fruit Into Baskets (LC 904)** | Longest subarray with at most 2 distinct elements |
+| Problem | Variant | Key Idea |
+|---|---|---|
+| **Longest Substring Without Repeating Characters (LC 3)** | Longest valid | Hash map of last-seen indices, `left = max(left, seen[char]+1)` |
+| **Longest Substring with At Most K Distinct Characters** | Longest valid | Hash map + shrink when count > K |
+| **Minimum Size Subarray Sum (LC 209)** | Shortest valid | Minimize window with sum ≥ target, shrink while valid |
+| **Minimum Window Substring (LC 76)** | Shortest valid | Shrink from left when valid, track minimum |
+| **Permutation in String (LC 567)** | Fixed-size | Fixed-size window, count array for frequency |
+| **Fruit Into Baskets (LC 904)** | Longest valid | Longest subarray with at most 2 distinct elements |
