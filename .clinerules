@@ -200,30 +200,44 @@ to promote a pattern from "patterns in progress" to "patterns mastered", ALL of 
 
 | criterion | SQL-verifiable query |
 |-----------|---------------------|
-| 5 consecutive sessions on the pattern, all severity ≤ 1 | `SELECT ... WHERE pattern_name = 'X' ORDER BY date DESC LIMIT 5` — all rows must have `severity <= 1` |
+| 5 consecutive sessions on the pattern, all severity ≤ 1 | Recursive CTE counting backwards from most recent session, stops at first severity > 1 (see `progress/queries/mastery-streak-check.sql`) |
 | All 5 within the time limit for their difficulty | each `time_to_accepted` ≤ threshold for that session's difficulty |
-| Sessions span at least 3 distinct calendar days | `COUNT(DISTINCT date) >= 3` across the last 5 sessions |
+| Sessions span at least 3 distinct calendar days | `COUNT(DISTINCT date) >= 3` across the qualifying streak |
 
-SQL to check mastery readiness:
+SQL to check mastery readiness (read `progress/queries/mastery-streak-check.sql` for details) :
 ```sql
+-- Mastery streak: counts backwards from most recent session,
+-- stopping at the first severity > 1. A non-qualifying session
+-- anywhere in the chain resets the streak to 0.
+WITH RECURSIVE all_sessions AS (
+    SELECT s.id, s.severity, s.date,
+           ROW_NUMBER() OVER (ORDER BY s.date DESC) as rn
+    FROM sessions s
+    JOIN session_patterns sp ON s.id = sp.session_id
+    WHERE sp.pattern_name = 'YOUR_PATTERN'
+      AND sp.role = 'primary'
+),
+streak AS (
+    -- anchor: most recent session (rn = 1)
+    SELECT id, severity, date, rn
+    FROM all_sessions WHERE rn = 1
+    UNION ALL
+    -- recurse: next older row, ONLY if current session qualified
+    SELECT a.id, a.severity, a.date, a.rn
+    FROM all_sessions a
+    JOIN streak st ON a.rn = st.rn + 1
+    WHERE st.severity <= 1
+)
 SELECT
     COUNT(*) as qualifying_sessions,
     COUNT(DISTINCT date) as distinct_days,
     CASE
         WHEN COUNT(*) >= 5 AND COUNT(DISTINCT date) >= 3
-        AND SUM(CASE WHEN severity > 1 THEN 1 ELSE 0 END) = 0
         THEN 'READY FOR MASTERY'
         ELSE 'IN PROGRESS'
     END as mastery_status
-FROM (
-    SELECT s.severity, s.date, s.time_to_accepted, p.difficulty
-    FROM sessions s
-    JOIN problems p ON s.problem_id = p.problem_id
-    JOIN session_patterns sp ON s.id = sp.session_id
-    WHERE sp.pattern_name = 'YOUR_PATTERN'
-    ORDER BY s.date DESC
-    LIMIT 5
-);
+FROM streak
+WHERE severity <= 1;
 ```
 
 ### regression detection
