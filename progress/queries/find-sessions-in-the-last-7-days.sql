@@ -1,0 +1,1 @@
+select sessions.problem_id, session_patterns.pattern_name, session_patterns.role from sessions JOIN session_patterns on sessions.id = session_patterns.session_id WHERE session_patterns.role = 'primary' AND DATE < '2026-07-13' AND DATE > '2026-07-05' ORDER by sessions.created_at DESC;
