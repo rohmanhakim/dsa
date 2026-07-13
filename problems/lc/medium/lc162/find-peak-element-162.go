@@ -1,34 +1,24 @@
 package lc162
 
-import "fmt"
-
 func findPeakElement(nums []int) int {
-	if len(nums) == 1 {
-		return 0
-	}
+	left := 0
+	right := len(nums)
+	mid := -1
+	for left < right {
+		mid = left + (right-left)/2
 
-	lo, hi := 0, len(nums)-1
+		if mid > 0 && mid < len(nums)-1 && nums[mid] > nums[mid-1] && nums[mid] > nums[mid+1] {
+			return mid
+		}
 
-	for lo < hi {
-		mid := lo + ((hi - lo) / 2)
-
-		if nums[mid] < nums[mid+1] {
-			lo = mid + 1
+		if mid == 0 {
+			return 0
+		} else if nums[mid] > nums[mid-1] {
+			left = mid + 1
 		} else {
-			hi = mid
+			right = mid
 		}
 	}
 
-	return lo
+	return mid
 }
-
-func FindPeakElement() {
-	// nums := []int{1, 2, 3, 1} // 2
-	nums := []int{1, 2, 1, 3, 5, 6, 4} // 1 or 5
-	// nums := []int{1, 2, 3} // 2
-	// nums := []int{1, 2, 1, 3, 2}
-	out := findPeakElement(nums)
-	fmt.Println(out)
-}
-
-/// 1,2,3,4,5,6

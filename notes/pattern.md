@@ -9,6 +9,7 @@
 7. [[sliding-window|Sliding Window]]
 8. [[coordinate-compression|Coordinate Compression]] (Sort + Hash Map)
 9. [[bst|Binary Search Tree (BST)]] (Sorted Tree Properties)
+10. [[binary-search|Binary Search]] (Sorted Array / Monotonic Predicate)
 
 ## Quick Reference: Pattern Recognition
 
@@ -23,3 +24,4 @@
 | Subarray/substring with constraint (unique, count, sum) | Sliding window |
 | "Assign ranks" / large value range with small n / compress values to indices | Coordinate compression |
 | Input is BST / tree with sorted property / need in-order traversal | BST properties |
+| Sorted array / monotonic predicate / O(log n) required | Binary search |
