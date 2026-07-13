@@ -1,8 +1,6 @@
 package lc199
 
 import (
-	"fmt"
-
 	"github.com/rohmanhakim/leetcode/lib"
 )
 
@@ -10,44 +8,29 @@ func rightSideView(root *lib.TreeNode) []int {
 	if root == nil {
 		return []int{}
 	}
+	curr := root
 
-	queue := []*lib.TreeNode{root}
-	rightSide := []int{}
+	queue := []*lib.TreeNode{curr}
 
+	res := []int{curr.Val}
 	for len(queue) > 0 {
-		n := len(queue)
-		for i := 0; i < n; i++ {
-			// fmt.Printf("%d ", queue[i].Val)
-			if queue[i].Left != nil {
-				queue = append(queue, queue[i].Left)
+		level := len(queue)
+
+		for range level {
+			front := queue[0]
+
+			queue = queue[1:]
+			if front.Left != nil {
+				queue = append(queue, front.Left)
 			}
-			if queue[i].Right != nil {
-				queue = append(queue, queue[i].Right)
+			if front.Right != nil {
+				queue = append(queue, front.Right)
 			}
-			if i == n-1 {
-				rightSide = append(rightSide, queue[i].Val)
-			}
+
 		}
-
-		queue = queue[n:]
-
-		// fmt.Println("")
+		if len(queue) > 0 {
+			res = append(res, queue[len(queue)-1].Val)
+		}
 	}
-
-	return rightSide
-}
-
-func BinaryTreeRightSideView() {
-	root := lib.SliceToBinaryTreeNodes([]*int{
-		lib.Ptr(1),
-		lib.Ptr(2),
-		lib.Ptr(3),
-		nil,
-		lib.Ptr(5),
-		nil,
-		lib.Ptr(4),
-	})
-
-	out := rightSideView(root)
-	fmt.Println(out)
+	return res
 }
