@@ -190,9 +190,9 @@ this is the single source of truth for regression detection and mastery promotio
 
 | difficulty | max time for severity 0 |
 |------------|------------------------|
-| LC easy / CF 800-900 | 900s (15 min) |
-| LC medium / CF 1000-1100 | 1800s (30 min) |
-| LC hard / CF 1200+ | 3600s (60 min) |
+| LC easy / CF 800-1100 | 900s (15 min) |
+| LC medium / CF 1200-1400 | 1800s (30 min) |
+| LC hard / CF 1500+ | 3600s (60 min) |
 
 ### mastery criteria (initial)
 
