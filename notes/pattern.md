@@ -8,6 +8,7 @@
 6. [[backward-two-pointer-merge|Backward Two-Pointer Merge]]
 7. [[sliding-window|Sliding Window]]
 8. [[coordinate-compression|Coordinate Compression]] (Sort + Hash Map)
+9. [[bst|Binary Search Tree (BST)]] (Sorted Tree Properties)
 
 ## Quick Reference: Pattern Recognition
 
@@ -21,3 +22,4 @@
 | Merging sorted data into a buffer with space at the end | Backward two-pointer merge |
 | Subarray/substring with constraint (unique, count, sum) | Sliding window |
 | "Assign ranks" / large value range with small n / compress values to indices | Coordinate compression |
+| Input is BST / tree with sorted property / need in-order traversal | BST properties |
