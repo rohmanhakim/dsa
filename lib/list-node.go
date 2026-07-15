@@ -7,7 +7,7 @@ type ListNode struct {
 
 func ConstructListNode(nodes []int) *ListNode {
 	if len(nodes) == 0 {
-		return &ListNode{}
+		return nil
 	}
 
 	head := &ListNode{
