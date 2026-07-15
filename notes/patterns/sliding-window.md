@@ -9,16 +9,19 @@ When you need to find a **subarray/substring** that satisfies a constraint (coun
 3. **Shrink** `left` to restore validity or optimize the answer
 4. Track the answer (max length, min length, etc.) at each step
 
-### Two Sub-Variants
+### Three Sub-Variants
 
 | Variant | Goal | When to shrink | Inner loop |
 |---|---|---|---|
 | **Longest valid** | Maximize window size | Shrink when **invalid** | `while !valid { shrink }` |
 | **Shortest valid** | Minimize window size | Shrink while **valid** | `while valid { update answer; shrink }` |
+| **Fixed-size** | Match exact window size | No shrink loop | slide one step at a time |
 
 **Longest valid (LC 3):** Expand right to grow the window. When the window becomes invalid (e.g., duplicate found), shrink left until valid again. Answer is updated during expansion.
 
 **Shortest valid (LC 209):** Expand right to grow the window. When the window becomes valid (e.g., sum ≥ target), shrink left while still valid, updating the minimum at each step. Answer is updated during shrinking.
+
+**Fixed-size (LC 438):** Fill an initial window of exact size `wlen`. Check, then slide one position at a time: remove leftmost element, add next element, check again. No inner while loop needed — both pointers advance by exactly 1 each step. Use frequency array + `matches` counter for O(1) per-step checking instead of O(alphabet) comparison.
 
 ### Standard Template (Shortest Valid)
 ```go
