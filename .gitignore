@@ -1,3 +1,6 @@
 .aider*
 scripts/excluded-problems.txt
 progress/progress.db
+progress/progress.db-shm
+.gitignore
+progress/progress.db-wal
