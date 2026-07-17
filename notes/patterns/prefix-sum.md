@@ -59,6 +59,37 @@ Query (0, 1): prefix[1] - prefix[0] = 1 - 0 = 1 → different components → fal
 
 ---
 
+## Variant C: Cumulative Count + Binary Search (K-th Element Lookup)
+
+### When to Use
+You have exact counts per value (e.g., `exact[g]` = number of pairs with GCD exactly g) and need to find the k-th element in the sorted distribution. The prefix sum converts "exact counts" to "cumulative counts", and binary search answers "what value has cumulative count > k?"
+
+### How It Works
+1. Build prefix sum: `prefix[i] = exact[1] + exact[2] + ... + exact[i]`
+2. For query k (0-indexed), binary search for smallest `i` where `prefix[i] > k`
+3. The answer is `i` — the value at position k in the sorted distribution
+
+### Key Insight
+`prefix[g]` = total number of elements with value ≤ g. So `prefix[g] > k` means "there are more than k elements with value ≤ g", which means the k-th element (0-indexed) must be exactly g. This is the standard "find first true" binary search pattern.
+
+### Example: LC 3312
+```
+exact[1] = 3, exact[2] = 2, exact[4] = 1
+prefix[1] = 3, prefix[2] = 5, prefix[3] = 5, prefix[4] = 6
+
+Sorted array: [1, 1, 1, 2, 2, 4]
+
+Query k=0: smallest g where prefix[g] > 0 → prefix[1]=3 > 0 → answer=1 ✓
+Query k=3: smallest g where prefix[g] > 3 → prefix[2]=5 > 3 → answer=2 ✓
+Query k=5: smallest g where prefix[g] > 5 → prefix[4]=6 > 5 → answer=4 ✓
+```
+
+### Complexity
+- **Time:** O(m) build, O(log m) per query
+- **Space:** O(m)
+
+---
+
 ## When NOT to Use Prefix Sum
 
 - When the query is on a **mutable** array (updates change values). Use segment tree or Fenwick tree instead.
@@ -75,3 +106,4 @@ Query (0, 1): prefix[1] - prefix[0] = 1 - 0 = 1 → different components → fal
 | **Maximum Size Subarray Sum Equals k (LC 325)** | A variant | Prefix sum + hash map for longest subarray |
 | **Contiguous Array (LC 525)** | A variant | Treat 0 as -1, prefix sum + hash map for equal 0s and 1s |
 | **Binary Subarrays With Sum (LC 930)** | A variant | Prefix sum + hash map with frequency count |
+| **Sorted GCD Pair Queries (LC 3312)** | C (cumulative count + BS) | Prefix sum of exact GCD counts + binary search per query |
