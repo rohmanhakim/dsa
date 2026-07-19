@@ -108,3 +108,53 @@ Result: 3 ✓
 | **Minimum Window Substring (LC 76)** | Shortest valid | Shrink from left when valid, track minimum |
 | **Permutation in String (LC 567)** | Fixed-size | Fixed-size window, count array for frequency |
 | **Fruit Into Baskets (LC 904)** | Longest valid | Longest subarray with at most 2 distinct elements |
+| **Longest Substring with At Least K Repeating Characters (LC 395)** | Iterate over unique count | Non-monotonic validity → iterate `currUnique` 1..maxUnique, run standard window for each |
+
+### Sub-Variant: Iterate Over Unique Count (LC 395)
+
+When the validity condition is **non-monotonic** for a standard window (e.g., "all characters appear ≥ k times" — adding or removing a character can each make the window invalid), use a different strategy: **iterate over the number of unique characters** in the window.
+
+**When to use:** The problem asks for the longest/shortest substring where *every* character meets a frequency threshold. A single sliding window can't maintain this because the condition isn't monotonic.
+
+**How it works:**
+1. Count total unique characters in `s` → `maxUnique`
+2. For `currUnique` from 1 to `maxUnique`:
+   - Run a standard sliding window that maintains **at most `currUnique` unique characters** (shrink when `len(freq) > currUnique`)
+   - Track `countAtLeastK` = number of unique characters in the window with freq ≥ k
+   - When `countAtLeastK == currUnique`, the window is valid → update answer
+
+**Key tracking: `countAtLeastK` (threshold crossing counter)**
+Instead of tracking exact minimum frequency (which is hard to maintain during shrink), track how many characters have *crossed* the k threshold:
+- **Adding a character:** if `freq[ch]` goes from `k-1` to `k` → `countAtLeastK++`
+- **Removing a character:** if `freq[ch]` goes from `k` to `k-1` → `countAtLeastK--`
+
+This is O(1) per add/remove and doesn't require recomputing the minimum.
+
+**Template:**
+```go
+maxUnique := len(uniqueChars(s))
+best := 0
+for currUnique := 1; currUnique <= maxUnique; currUnique++ {
+    freq := map[byte]int{}
+    countAtLeastK := 0
+    left := 0
+    for right := 0; right < n; right++ {
+        // add s[right]
+        freq[s[right]]++
+        if freq[s[right]] == k { countAtLeastK++ }
+        // shrink if too many unique
+        for len(freq) > currUnique {
+            if freq[s[left]] == k { countAtLeastK-- }
+            freq[s[left]]--
+            if freq[s[left]] == 0 { delete(freq, s[left]) }
+            left++
+        }
+        // check validity
+        if countAtLeastK == currUnique {
+            best = max(best, right-left+1)
+        }
+    }
+}
+```
+
+**Complexity:** O(maxUnique × n) = O(26 × n) = O(n) for lowercase letters.
