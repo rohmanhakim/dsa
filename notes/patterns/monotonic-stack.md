@@ -78,6 +78,62 @@ Then the popping rule is the *only* thing that preserves that invariant:
 
 This prevents the common mistake of solving by mechanics ("move data between structures") instead of by invariant ("maintain a property").
 
+## Sub-Variant: Boundary Detection (Two-Pass)
+
+### When to Use
+When you need to find the **leftmost and rightmost out-of-place elements** in an array — i.e., the boundaries of a subarray that, if sorted, would make the entire array sorted. Classic signal: "shortest unsorted continuous subarray."
+
+### How It Works
+Use **two passes** with monotonic stacks, each maintaining a single invariant:
+
+1. **Left pass (left→right, decreasing stack):** Find the leftmost element that is larger than something to its right.
+   - Stack maintains a decreasing sequence (bottom to top).
+   - Pop when `nums[i] < stack[-1]` — the stack top is out of place.
+   - Track `left = min(left, popped_index)`.
+
+2. **Right pass (right→left, increasing stack):** Find the rightmost element that is smaller than something to its left.
+   - Stack maintains an increasing sequence (bottom to top).
+   - Pop when `nums[i] > stack[-1]` — the stack top is out of place.
+   - Track `right = max(right, popped_index)`.
+
+### Key Insight
+Each pass has a **single clear invariant** (decreasing for left, increasing for right). This eliminates the need to track multiple state variables in a single pass. The two-pass approach is cleaner than trying to compute both bounds in one pass.
+
+### Example: LC 581 (Shortest Unsorted Continuous Subarray)
+
+```
+nums = [2, 6, 4, 8, 10, 9, 15]
+
+Left pass (decreasing stack, left→right):
+  i=0: push [2@0]
+  i=1: 6 >= 2, push [2@0, 6@1]
+  i=2: 4 < 6 → pop 6@1, left = min(∞, 1) = 1. push [2@0, 4@2]
+  i=3: 8 >= 4, push [2@0, 4@2, 8@3]
+  i=4: 10 >= 8, push [2@0, 4@2, 8@3, 10@4]
+  i=5: 9 < 10 → pop 10@4, left stays 1. push [2@0, 4@2, 8@3, 9@5]
+  i=6: 15 >= 9, push [2@0, 4@2, 8@3, 9@5, 15@6]
+  left = 1
+
+Right pass (increasing stack, right→left):
+  i=6: push [15@6]
+  i=5: 9 < 15, push [15@6, 9@5]
+  i=4: 10 > 9 → pop 9@5, right = max(-1, 5) = 5. push [15@6, 10@4]
+  i=3: 8 < 10, push [15@6, 10@4, 8@3]
+  i=2: 4 < 8, push [15@6, 10@4, 8@3, 4@2]
+  i=1: 6 > 4 → pop 4@2, right = max(5, 2) = 5. push [15@6, 10@4, 8@3, 6@1]
+  i=0: 2 < 6, push [15@6, 10@4, 8@3, 6@1, 2@0]
+  right = 5
+
+Answer: right - left + 1 = 5 - 1 + 1 = 5 ✓
+```
+
+### Common Mistake
+Trying to compute both bounds in a **single pass** with multiple state variables (`tops`, `first`, `right`). This leads to incorrect bound computation because the right boundary should be `max(right, i)` on every pop (the current index where the violation is detected), not just the popped element's index. Two-pass eliminates this complexity.
+
+### Complexity
+- **Time:** O(n) — each pass is O(n), each element pushed and popped at most once per pass
+- **Space:** O(n) — stack size per pass
+
 ## Classic Problems to Practice
 | Problem | Key Idea |
 |---|---|
@@ -87,6 +143,7 @@ This prevents the common mistake of solving by mechanics ("move data between str
 | **Largest Rectangle in Histogram (LC 84)** | Increasing stack: next smaller bar (left & right boundaries) |
 | **Online Stock Span (LC 901)** | Decreasing stack: consecutive days with ≤ price |
 | **Asteroid Collision (LC 735)** | Stack for simulating collision resolution |
+| **Shortest Unsorted Continuous Subarray (LC 581)** | Two-pass boundary detection: left pass (decreasing) + right pass (increasing) |
 
 ## Complexity
 - **Time:** O(n) — each element pushed and popped at most once
