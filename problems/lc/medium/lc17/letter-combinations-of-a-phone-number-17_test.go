@@ -26,6 +26,11 @@ func TestLetterCombinationsOfAPhoneNumber(t *testing.T) {
 			digits: "234",
 			want:   []string{"adg", "adh", "adi", "aeg", "aeh", "aei", "afg", "afh", "afi", "bdg", "bdh", "bdi", "beg", "beh", "bei", "bfg", "bfh", "bfi", "cdg", "cdh", "cdi", "ceg", "ceh", "cei", "cfg", "cfh", "cfi"},
 		},
+		{
+			name:   "example 4",
+			digits: "22",
+			want:   []string{"aa", "ab", "ac", "ba", "bb", "bc", "ca", "cb", "cc"},
+		},
 	}
 
 	for _, tt := range tests {
