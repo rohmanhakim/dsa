@@ -32,6 +32,7 @@ Canonical pattern names for the `session_patterns` junction table. The mentor (C
 | Canonical Name | Description | When to Use |
 |---|---|---|
 | `Greedy (Intervals)` | Interval scheduling, activity selection, merge intervals | Sort by endpoint, non-overlapping, coverage |
+| `Greedy (Observation)` | Model an operation's net effect as a formula, then optimize | "At most one operation" problems; when simulating the operation step-by-step is complex but the net effect is simple |
 
 ### Dynamic Programming
 
@@ -95,6 +96,7 @@ The `patterns` table in the database is now the source of truth for pattern defi
 
 ### Changelog
 
+- **2026-07-21**: Added `Greedy (Observation)` (Greedy category) for observation-based greedy: model operation net effect, derive formula, optimize.
 - **2026-07-15**: Added `Math` (Math category) for arithmetic series formulas, number theory, GCD/LCM properties.
 - **2026-07-13**: Added `BST` (Data Structures category) for Binary Search Tree property-based problems.
 - **2026-07-10**: Added `Stack` (Data Structures category) for balanced parentheses / expression evaluation problems.
