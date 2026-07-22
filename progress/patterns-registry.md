@@ -49,6 +49,7 @@ Canonical pattern names for the `session_patterns` junction table. The mentor (C
 | `DFS` | Depth-first search, backtracking | Path enumeration, cycle detection, connected components |
 | `Topological Sort` | DAG ordering | Task scheduling, dependency resolution, DP on DAG |
 | `Binary Lifting` | Sparse table / binary jumping for path reachability queries | Shortest path on sorted array graphs, Jump Game II with queries, O(log n) per query |
+| `Sparse Table` | Precomputed O(n log n) table for O(1) range max/min queries on static arrays | Static RMQ, interior pair queries, when data doesn't change between queries |
 
 ### Data Structures
 
@@ -96,6 +97,7 @@ The `patterns` table in the database is now the source of truth for pattern defi
 
 ### Changelog
 
+- **2026-07-22**: Added `Sparse Table` (Data Structures category) for static RMQ on arrays. O(n log n) build, O(1) query.
 - **2026-07-21**: Added `Greedy (Observation)` (Greedy category) for observation-based greedy: model operation net effect, derive formula, optimize.
 - **2026-07-15**: Added `Math` (Math category) for arithmetic series formulas, number theory, GCD/LCM properties.
 - **2026-07-13**: Added `BST` (Data Structures category) for Binary Search Tree property-based problems.
