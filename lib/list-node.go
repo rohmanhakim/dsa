@@ -1,5 +1,7 @@
 package lib
 
+import "fmt"
+
 type ListNode struct {
 	Val  int
 	Next *ListNode
@@ -42,4 +44,14 @@ func LinkTail(head *ListNode, pos int) {
 
 func Link(a *ListNode, b *ListNode) {
 	a.Next = b
+}
+
+func PrintList(head *ListNode) {
+	curr := head
+
+	for curr != nil {
+		fmt.Printf("%d ", curr.Val)
+		curr = curr.Next
+	}
+	fmt.Println("")
 }
