@@ -88,11 +88,60 @@ Starting the inclusion-exclusion inner loop at `j = i` instead of `j = 2*i`. Whe
 
 Iterating to compute the sum when a formula exists. Before coding, ask: "Is there a closed-form for this sequence?"
 
+## Sub-Variant: Closed-Form Answer Based on Input Size (LC 3513)
+
+### When to Use
+- The answer depends **only on n** (the input size), not on the specific values in the array.
+- Strong signal: the input is a **permutation** of [1, n] or [0, n-1] — every value from 1 to n appears exactly once.
+- The answer is bounded by some function of n (e.g., the smallest power of 2 greater than n).
+
+### How It Works
+1. **Trace small examples** — compute the answer for n=1, 2, 3, 4, 5, 6, 7, 8 manually.
+2. **Identify the pattern** — look for a relationship between n and the answer.
+3. **Derive the formula** — express the answer as a function of n.
+4. **Verify** — check that the formula holds for edge cases (n < 3, n = 2^k, etc.).
+
+### Key Question to Ask
+Before coding, ask: **"Does the answer depend on the specific values, or just on n?"**
+
+If the input is a permutation of [1, n], then the actual values don't matter — the answer is determined solely by n. This means there must be a closed-form formula, and any brute-force enumeration is unnecessary.
+
+### Example: LC 3513 (Number of Unique XOR Triplets I)
+- **Input:** nums is a permutation of [1, n]
+- **Question:** How many unique XOR values can be formed by XORing 3 elements?
+- **Trace small examples:**
+  - n=1 → answer 1 (only 1^1^1=1)
+  - n=2 → answer 2 (values {1, 2})
+  - n=3 → answer 4 (values {0, 1, 2, 3})
+  - n=4 → answer 8 (values {0, 1, ..., 7})
+  - n=6 → answer 8 (values {0, 1, ..., 7})
+- **Pattern:** For n ≥ 3, the answer is the **smallest power of 2 strictly greater than n**.
+  - n=3 → 2^2=4, n=6 → 2^3=8, n=358 → 2^9=512.
+- **Why it works:** When n ≥ 3, you have {1, 2, 3} which XORs to 0. For x in [1, n], 1^1^x = x. For x in [n+1, 2^(k+1)-1], use 2^k plus two elements to construct x. Every integer in [0, 2^(k+1)-1] is achievable.
+- **Result:** O(log n) time, O(1) space — no enumeration needed.
+
+### Example: LC 3685 (GCD of Odd and Even Sums)
+- **Input:** n (count of odd/even numbers)
+- **Question:** GCD(sum of first n odd numbers, sum of first n even numbers) = ?
+- **Trace:** sumOdd = n², sumEven = n(n+1), GCD(n², n(n+1)) = n.
+- **Result:** Answer is always n. O(1).
+
+### Common Mistake
+Jumping to brute-force enumeration (O(n³)) without first checking if the answer has a closed-form. The permutation property is a strong signal — when every value from 1 to n appears, the answer depends only on n.
+
+### Pre-Coding Checklist Addition
+Before coding, add these questions:
+1. "Is there a formula for this sum/sequence?"
+2. "Can GCD/LCM/GCD properties simplify this?"
+3. "Is the answer constant or trivially derived?"
+4. **"Does the answer depend on the specific values, or just on n?"** ← If yes, trace small examples and look for pattern.
+
 ## Pre-Coding Checklist
 
 1. "Is there a formula for this sum/sequence?"
 2. "Can GCD/LCM/GCD properties simplify this?"
 3. "Is the answer constant or trivially derived?"
+4. "Does the answer depend on the specific values, or just on n?"
 
 ## Complexity
 
@@ -109,3 +158,4 @@ Iterating to compute the sum when a formula exists. Before coding, ask: "Is ther
 | **Sorted GCD Pair Queries (LC 3312)** | Inclusion-exclusion on multiples + prefix sum + binary search |
 | **Counting Coprime Pairs (CSES 2417)** | Inclusion-exclusion
 | **Sum of Multiples (LC 1085)** | Arithmetic series with common difference |
+| **Number of Unique XOR Triplets I (LC 3513)** | Closed-form answer: smallest power of 2 > n (for n ≥ 3) |
