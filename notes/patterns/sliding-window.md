@@ -109,6 +109,7 @@ Result: 3 ✓
 | **Permutation in String (LC 567)** | Fixed-size | Fixed-size window, count array for frequency |
 | **Fruit Into Baskets (LC 904)** | Longest valid | Longest subarray with at most 2 distinct elements |
 | **Longest Substring with At Least K Repeating Characters (LC 395)** | Iterate over unique count | Non-monotonic validity → iterate `currUnique` 1..maxUnique, run standard window for each |
+| **Binary Subarrays with Sum (LC 930)** | Counting exact matches with prefix zeros | Each leading zero in a window with `sum == goal` is an extra valid starting point. Track `prefixZeros`, shrink past zeros even when `sum ≤ goal`. `count += prefixZero + 1` |
 
 ### Sub-Variant: Iterate Over Unique Count (LC 395)
 
