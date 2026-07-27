@@ -54,6 +54,106 @@ for right := 0; right < n; right++ {
 }
 ```
 
+### Standard Template (Fixed-size with Matches Counter)
+
+**When to use:** "find if s2 contains a permutation of s1" → fixed-size window + frequency array + matches counter. Same template as LC 438 and LC 567.
+
+**Key insight:** Instead of comparing all 26 positions each step (O(26)), track how many positions currently match. Each add/remove touches exactly one character position → O(1) update. When `matches == 26`, all frequencies match.
+
+```go
+func fixedSizeWindow(s1, s2 string) bool {
+    if len(s1) > len(s2) {
+        return false
+    }
+
+    freq1 := [26]int{}  // pattern frequency
+    freq2 := [26]int{}  // window frequency
+
+    for _, ch := range s1 {
+        freq1[ch-'a']++
+    }
+
+    // matches = number of positions where freq1[i] == freq2[i]
+    matches := 0
+    for i := 0; i < 26; i++ {
+        if freq1[i] == freq2[i] {
+            matches++
+        }
+    }
+
+    // fill initial window [0, len(s1))
+    for i := 0; i < len(s1); i++ {
+        ch := s2[i] - 'a'
+        if freq2[ch] == freq1[ch] {
+            matches-- // was matching, about to change
+        }
+        freq2[ch]++
+        if freq2[ch] == freq1[ch] {
+            matches++ // now matches again
+        }
+    }
+
+    if matches == 26 {
+        return true
+    }
+
+    // slide window: add s[i], remove s[i-len(s1)]
+    for i := len(s1); i < len(s2); i++ {
+        // remove leftmost character
+        rm := s2[i-len(s1)] - 'a'
+        if freq1[rm] == freq2[rm] {
+            matches--
+        }
+        freq2[rm]--
+        if freq1[rm] == freq2[rm] {
+            matches++
+        }
+
+        // add new character on the right
+        add := s2[i] - 'a'
+        if freq1[add] == freq2[add] {
+            matches--
+        }
+        freq2[add]++
+        if freq1[add] == freq2[add] {
+            matches++
+        }
+
+        if matches == 26 {
+            return true
+        }
+    }
+
+    return false
+}
+```
+
+**Why `matches--` before incrementing?** If the current frequency matches the pattern, it's about to change (we're adding/removing a character), so we decrement matches first. After the change, if it matches again, we increment.
+
+**Trace example:** s1="ab", s2="eidbaooo"
+```
+freq1 = [1,1,0,...] (a=1, b=1)
+freq2 = [0,0,0,...]
+matches = 26 (all zero == zero)
+
+Fill window [0,2): 'e','i'
+  'e': freq2[e]=0 == freq1[e]=0 → matches-- (25), freq2[e]++=1, 1≠0 → no match++
+  'i': freq2[i]=0 == freq1[i]=0 → matches-- (24), freq2[i]++=1, 1≠0 → no match++
+  matches=24 ≠ 26
+
+Slide i=2: rm='e', add='d'
+  rm='e': freq1[e]=0 == freq2[e]=1? No → no matches--. freq2[e]--=0, 0==0 → matches++ (25)
+  add='d': freq1[d]=0 == freq2[d]=0? Yes → matches-- (24). freq2[d]++=1, 1≠0 → no match++
+  matches=24 ≠ 26
+
+Slide i=3: rm='i', add='b'
+  rm='i': freq1[i]=0 == freq2[i]=1? No → no matches--. freq2[i]--=0, 0==0 → matches++ (25)
+  add='b': freq1[b]=1 == freq2[b]=0? No → no matches--. freq2[b]++=1, 1==1 → matches++ (26)
+  matches=26 → return true ✓
+```
+
+**Complexity:** O(n) time, O(1) space (two fixed-size arrays of 26)
+
 ## Key Insight: Superset Property
 When a window is valid, all extensions of it are also valid (for "at most" constraints). This means you can count extensions rather than just tracking the window itself.
 
