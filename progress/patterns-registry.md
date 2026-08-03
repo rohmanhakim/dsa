@@ -40,6 +40,7 @@ Canonical pattern names for the `session_patterns` junction table. The mentor (C
 |---|---|---|
 | `1D Dynamic Programming` | Single-dimensional DP table | Sequence DP, house robber, climbing stairs |
 | `2D Dynamic Programming` | Two-dimensional DP table | Edit distance, LCS, grid paths, knapsack |
+| `Minimax DP` | Game theory DP with score difference state; subtraction trick captures opponent optimal play | Stone Game variants, Predict the Winner, take-from-ends games |
 
 ### Graph
 

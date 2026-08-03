@@ -11,6 +11,7 @@
 9. [[bst|Binary Search Tree (BST)]] (Sorted Tree Properties)
 10. [[binary-search|Binary Search]] (Sorted Array / Monotonic Predicate)
 11. [[math|Math]] (Arithmetic Series, Number Theory)
+12. [[minimax-dp|Minimax DP]] (Game Theory)
 
 ## Quick Reference: Pattern Recognition
 
@@ -27,3 +28,4 @@
 | Input is BST / tree with sorted property / need in-order traversal | BST properties |
 | Sorted array / monotonic predicate / O(log n) required | Binary search |
 | Sums of consecutive numbers / GCD-related / formula exists | Math |
+| "Alice and Bob take turns" / "both play optimally" / game winner | Minimax DP (score difference + subtraction trick) |
