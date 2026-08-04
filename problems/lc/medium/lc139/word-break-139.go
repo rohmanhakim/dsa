@@ -1,36 +1,21 @@
 package lc139
 
-import (
-	"strings"
-)
-
 func wordBreak(s string, wordDict []string) bool {
-	dict := make(map[string]bool)
-	for _, w := range wordDict {
-		dict[w] = true
-	}
 
-	n := len(s)
-
-	dp := make([]bool, n+1)
-
+	dp := make([]bool, len(s)+1)
 	dp[0] = true
-	for i := 1; i <= n; i++ {
-		sub := s[0:i]
-
-		val := false
-
+	for i := 1; i <= len(s); i++ {
+		sub := s[:i]
 		for _, w := range wordDict {
-			idx := strings.LastIndex(sub, w)
-			if idx > -1 && idx+len(w) == i {
-				val = dp[i-len(w)]
-			}
-			if val {
-				break
+			if len(sub) >= len(w) && sub[len(sub)-len(w):] == w {
+				if dp[i-len(w)] {
+					dp[i] = true
+					break
+				}
 			}
 		}
 
-		dp[i] = val
 	}
-	return dp[n]
+
+	return dp[len(s)]
 }
