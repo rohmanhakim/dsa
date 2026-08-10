@@ -5,13 +5,20 @@
 3. [[virtual-or-sentinel-points|Virtual / Sentinel Points]]
 4. [[greedy-observation|Greedy (Observation)]]
 5. [[monotonic-stack|Monotonic Stack]] (Next Greater/Smaller Element)
-6. [[backward-two-pointer-merge|Backward Two-Pointer Merge]]
-7. [[sliding-window|Sliding Window]]
-8. [[coordinate-compression|Coordinate Compression]] (Sort + Hash Map)
-9. [[bst|Binary Search Tree (BST)]] (Sorted Tree Properties)
-10. [[binary-search|Binary Search]] (Sorted Array / Monotonic Predicate)
-11. [[math|Math]] (Arithmetic Series, Number Theory)
-12. [[minimax-dp|Minimax DP]] (Game Theory)
+6. [[two-pointers|Two Pointers]] (Opposite-End, Same-Direction, Parallel States)
+7. [[backward-two-pointer-merge|Backward Two-Pointer Merge]]
+8. [[sliding-window|Sliding Window]]
+9. [[coordinate-compression|Coordinate Compression]] (Sort + Hash Map)
+10. [[bst|Binary Search Tree (BST)]] (Sorted Tree Properties)
+11. [[binary-search|Binary Search]] (Sorted Array / Monotonic Predicate)
+12. [[math|Math]] (Arithmetic Series, Number Theory)
+13. [[minimax-dp|Minimax DP]] (Game Theory)
+14. [[floyd-cycle-detection|Floyd's Cycle Detection]] (Fast/Slow Pointers)
+15. [[dfs|DFS]] (Depth-First Search)
+16. [[bfs|BFS]] (Breadth-First Search)
+17. [[hash-map|Hash Map]] (Frequency Counting, Lookup Tables)
+18. [[trie|Trie]] (Prefix Tree)
+19. [[binary-lifting|Binary Lifting]] (Sparse Table / Binary Jumping)
 
 ## Quick Reference: Pattern Recognition
 

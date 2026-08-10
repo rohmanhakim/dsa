@@ -75,6 +75,8 @@ Canonical pattern names for the `session_patterns` junction table. The mentor (C
 | `Digit Manipulation` | Extracting/processing individual digits | Digit DP, number properties, base conversion |
 | `Two-Pass Propagation` | Left→right + right→left passes | Constraint propagation from both directions |
 | `Prefix Sum` | Cumulative sums for range queries | Range sum, subarray sum, difference array |
+| `Sparse Point Processing` | Process only constraint/event points, use formulas for gaps | Large input space (10⁹) with few events (10⁵) |
+| `Virtual/Sentinel Points` | Add artificial anchor points to avoid boundary special-casing | Edge cases that need special handling (dummy nodes, boundary guards) |
 
 ## Migration Note
 
