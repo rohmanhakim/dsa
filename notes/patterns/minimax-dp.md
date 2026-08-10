@@ -19,7 +19,7 @@ value_taken − dp[next]
 ```
 The subtraction (`− dp[next]`) captures the fact that from `next` onward, it's the **opponent's** turn — their advantage is your disadvantage.
 
-## Two Distinct Variants
+## Three Distinct Variants
 
 ### Variant A: Take from Either End (2D DP)
 
@@ -57,6 +57,22 @@ where `take_k = sum(stones[i..i+k-1])`.
 - **Space:** O(n) — this is the key simplification vs 2D
 
 **Key lesson:** When the game only takes from one end, the remaining state is always a suffix → 1D DP suffices.
+
+### Variant C: Boolean Win/Lose (1D DP)
+
+**Example: LC 1510 — Stone Game IV**
+
+No score — just win or lose. `dp[i]` = can the current player force a win with `i` stones?
+
+```
+dp[i] = OR over all valid moves s (where s² ≤ i) of (NOT dp[i - s²])
+```
+
+- **Base case:** `dp[0] = false` (no stones → can't move → lose)
+- **Loop order:** left to right (dp[i] depends on smaller indices dp[i-s²])
+- **Space:** O(n)
+
+**Key insight:** No subtraction trick needed. "I win if I can move to a state where you lose." Simpler than score-difference variants.
 
 ## Template (1D Variant — LC 1406)
 
@@ -109,3 +125,4 @@ func stoneGameIII(stoneValue []int) string {
 | **LC 1406 — Stone Game III** | 1D (take from front) | `dp[i] = max(take_k - dp[i+k+1])` for k=1,2,3 |
 | **LC 877 — Stone Game** | 2D (take from either end) | Same as LC 486; parity argument makes Alice always win |
 | **LC 1563 — Stone Game V** | 1D variant with partition | Different constraint (split into two groups), similar minimax structure |
+| **LC 1510 — Stone Game IV** | 1D (boolean win/lose) | `dp[i] = OR over s² ≤ i of (NOT dp[i-s²])` |
