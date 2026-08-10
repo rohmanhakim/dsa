@@ -14,6 +14,12 @@ func TestValidSequence(t *testing.T) {
 	}{
 
 		{
+			name:  "example 0",
+			word1: "plane",
+			word2: "plank",
+			want:  []int{0, 1, 2, 3, 4},
+		},
+		{
 			name:  "example 1",
 			word1: "vbcca",
 			word2: "abc",
