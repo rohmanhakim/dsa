@@ -59,6 +59,7 @@ Canonical pattern names for the `session_patterns` junction table. The mentor (C
 | `Stack` | LIFO data structure for balanced matching, nested lookups | Valid parentheses, expression evaluation, min-stack |
 | `Monotonic Stack` | Next greater/smaller element | Daily temperatures, stock span, histogram |
 | `BST` | Binary Search Tree properties: in-order = sorted order, search, insert, validate | BST-specific problems: min/max diff, validate, search, kth smallest, LCA in BST |
+| `Segment Tree` | Binary tree for range queries and point updates. Each node stores interval metadata; merge combines children | Dynamic string/array updates with range queries (longest repeated substring, range max, etc.)
 
 ### Math
 
@@ -97,6 +98,7 @@ The `patterns` table in the database is now the source of truth for pattern defi
 ---
 
 *Last updated: 2026-07-15*
+- **2026-08-13**: Added `Segment Tree` (Data Structures category) for range queries with point updates. O(n) build, O(log n) update.
 
 ### Changelog
 

@@ -19,6 +19,7 @@
 17. [[hash-map|Hash Map]] (Frequency Counting, Lookup Tables)
 18. [[trie|Trie]] (Prefix Tree)
 19. [[binary-lifting|Binary Lifting]] (Sparse Table / Binary Jumping)
+20. [[segment-tree|Segment Tree]] (Range Queries + Point Updates)
 
 ## Quick Reference: Pattern Recognition
 
@@ -36,3 +37,4 @@
 | Sorted array / monotonic predicate / O(log n) required | Binary search |
 | Sums of consecutive numbers / GCD-related / formula exists | Math |
 | "Alice and Bob take turns" / "both play optimally" / game winner | Minimax DP (score difference + subtraction trick) |
+| Point updates + range queries on dynamic array | Segment tree (merge function is the algorithm) |
