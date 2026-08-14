@@ -76,7 +76,7 @@ after each consulting session, the mentor will:
 1. **run the regression check** — see "unified regression & mastery model" below. do this at the start of every session.
 2. **insert the problem** into the `problems` table if it doesn't exist yet (use `INSERT OR IGNORE`).
 3. **insert the session** into the `sessions` table with all relevant fields.
-4. **update `progress/overview.md`** with a summary of the current skill level, patterns mastered, weaknesses, etc. (this is a living document, not a log).
+4. **update progress files** — update the relevant pattern file (`progress/patterns/<pattern>.md`), the compact index (`progress/overview.md`), and optionally `progress/weaknesses.md` and `progress/practice-plan.md`. see "when you're about to update progress files" below.
 
 ### example session logging
 
@@ -149,9 +149,14 @@ ORDER BY s.date DESC;
 
 ## when you're about to review
 
-- check the DB first if i have attempted or solved the problem before. then your following review and judgment also based on the last judgment for this problem. this should make the current judgment / review better reflect my current state whether i've become weaker,improving or maintaining
-- then check the overview document to get the context about my current state of mastery. your current judgment will also compare to the current skill i possess. 
-- some problems have official editorial in the same directory the solution file is stored, it is a markdown file suffixed with "_editorial.md". make sure you read this file first before proposing any solution.
+1. **check the DB** — see if this problem has been attempted before. use the last session's severity to judge whether you're improving, maintaining, or regressing.
+2. **query the DB** for the relevant pattern's recent sessions (use the mastery streak check SQL).
+3. **read `progress/overview.md`** (compact index, ~40 lines) for overall status. do NOT read the full overview — it's a compact index now.
+4. **read `progress/patterns/<pattern>.md`** — ONLY the pattern relevant to the current problem. the file name matches the pattern (e.g., `binary-search.md`, `1d-dp.md`, `sliding-window.md`). this contains variants, lessons, and weaknesses for that specific pattern.
+5. **read `progress/weaknesses.md`** (only if reviewing weaknesses or if the pattern file references a weakness you need more context on).
+6. **read the editorial** (if `_editorial.md` exists in the problem directory).
+
+the goal of lazy loading is to minimize token usage. do NOT read all pattern files upfront — only read the one(s) relevant to the current session.
 
 ## when you're reviewing
 
@@ -160,7 +165,14 @@ ORDER BY s.date DESC;
 - never present unverified pseudocode. a 30-second trace on paper saves a confusing back-and-forth.
 - for multi-pattern problems (e.g. DFS + topo-sort + binary-search, common on LC medium/hard or CF d1000++), judge each pattern independently based on the severity the user achieved for that specific pattern. see "multi-pattern handling" below.
 
-## when you're about to update the overview document
+## when you're about to update progress files
+
+### Overview of what to update
+after logging a session to DB, update these files:
+1. **`progress/patterns/<pattern>.md`** — add/update the session entry, lessons learned, and variants
+2. **`progress/overview.md`** (compact index) — adjust streak count, move between mastered/in-progress rows
+3. **`progress/weaknesses.md`** — if a weakness was identified or reinforced, add/update the entry
+4. **`progress/practice-plan.md`** — if the practice queue changed, update it
 
 ### General Performance tracking
 - first, take note of the pattern i used in this session to solve the problem.
@@ -172,7 +184,7 @@ ORDER BY s.date DESC;
   - LC hard or CF 1200-beyond: sould be solved in 1 hour or less
 - assign severity to the session based on the severity scale above.
 - determine mastery status using the unified model below (see "mastery criteria").
-- when a pattern is moved to "patterns mastered" from "patterns in progress", don't forget to delete that entry in the "patterns in progress"
+- when a pattern is moved to "patterns mastered" from "patterns in progress", update both: move the row in `overview.md` and update the `**Status:**` line in `progress/patterns/<pattern>.md`
 
 ### Multi-pattern handling
 sometimes a problem requires multiple combination of patterns to solve (e.g. DFS + topo-sort + binary-search). in this case:
