@@ -1,7 +1,7 @@
 # Binary Search
 
-**Status:** ✅ Mastered — 6/6 consecutive independent sessions with severity ≤ 1.
-**Solved:** LC 35, LC 704, LC 34, LC 278, LC 153, LC 162
+**Status:** ✅ Mastered — 7/7 consecutive independent sessions with severity ≤ 1.
+**Solved:** LC 35, LC 704, LC 34, LC 278, LC 153, LC 162, LC 33
 
 ## Core Decision
 
@@ -19,8 +19,17 @@ Used left-neighbor comparison with `mid == 0` special case — unnecessary compl
 
 "Am I **eliminating** a known-bad candidate, or **preserving** a potentially-good one?"
 
+## Rotated Array Two-Phase vs Single-Pass (LC 33)
+
+LC33 (Search in Rotated Sorted Array) initially attempted single-pass "detect which half is rotated" approach but kept getting WA on edge cases. The correct single-pass rule: if `nums[left] <= nums[mid]`, left half is sorted; check if target is in `[nums[left], nums[mid])` to decide left/right; else right half is sorted. But this case analysis is error-prone under time pressure.
+
+**Reliable fallback:** Two-phase approach — (1) find pivot via `sort.Search` (or custom binary search for min element, same as LC153), (2) binary search the correct half. Both phases are O(log n), and each is conceptually simpler than the single-pass approach. Trade: slightly more code for much less cognitive overhead.
+
+**When to use which:** Single-pass is more elegant but requires mastery of 3-4 case conditions. Two-phase is safer when under time pressure or when the rotation boundary logic is causing bugs. Practice both to build fluency.
+
 ## Speed
-LC 35: 14:59, LC 704: 7:04, LC 34: 28:49, LC 278: 5:40, LC 153: 17:48, LC 162: 52:19 (slow — edge-case overhead from suboptimal template choice).
+LC 35: 14:59, LC 704: 7:04, LC 34: 28:49, LC 278: 5:40, LC 153: 17:48, LC 162: 52:19 (slow — edge-case overhead from suboptimal template choice), LC 33: 90:04 (slow — struggled with single-pass approach before settling on two-phase)
 
 ## Weaknesses
 - **Template confusion:** Spent significant time deciding between `left <= right` vs `left < right`, `right = mid` vs `right = mid - 1`. Root cause: not internalizing the "closed vs half-open interval" framework. **Action:** Practice LC 704 (Template 1), LC 34 (both templates), LC 278 (Template 2 variant) back-to-back to build muscle memory.
+- **Single-pass rotated detection:** Cannot reliably implement the "detect which half is sorted, then decide" approach for rotated arrays. The case analysis (comparing `nums[mid]` with `nums[left]` and `nums[right]`) is error-prone. **Action:** Revisit when tackling LC 154 (find min with duplicates), LC 81 (search with duplicates). For now, two-phase approach is a valid alternative.

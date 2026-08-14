@@ -1,6 +1,8 @@
 package temp
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func mainBinarySearch() {
 
@@ -95,4 +97,27 @@ func minInRotatedSorted() {
 	}
 
 	fmt.Println(nums[min])
+}
+
+func TestBS() {
+	a := []int{9, 10, 11, 12, 13, 14, 15}
+
+	left := 0
+	right := len(a) - 1
+
+	for left <= right {
+		mid := left + ((right - left) / 2)
+
+		fmt.Println(mid)
+		if a[mid] < 8 {
+			left = mid + 1
+		} else if a[mid] > 8 {
+			right = mid - 1
+		} else {
+			fmt.Println("found:", mid)
+			return
+		}
+	}
+
+	fmt.Println("not found")
 }
