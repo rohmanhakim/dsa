@@ -31,7 +31,7 @@
   - **LC 155 (Min Stack):** Two-stack approach: main stack `data` stores all values, auxiliary stack `minVals` tracks minimums. Push to `minVals` only when `value <= minVals[-1]`. Pop from `minVals` when popped value equals current min. The `<=` condition handles duplicate minimums correctly. Classic pattern for constant-time min queries. **Speed:** 20:43.
   - **LC 2211 (Count Collisions on a Road):** Stack-based simulation for car collision counting. Push R's onto stack; on L, pop top (R→count+2, S→count+1) and push S; on S, drain all R's from stack (each R→count+1) and push S. Post-loop cleanup handles trailing R's behind S's by peeling off the S layer and counting remaining R's. **Key insight:** The post-loop logic is the trickiest part — an S at the stack top acts as a "barrier" that traps R's underneath it. **O(1) alternative missed:** The editorial's counting observation (leading R's + trailing L's never collide, everything else collides exactly once) eliminates the need for a stack entirely. **Pattern recognition:** when the problem involves sequential collision/interaction simulation, a stack naturally models the "pending" state. But always check if a structural observation can simplify to O(1) space. **Speed:** 43:40 (slow — over target by ~14 min, likely on post-loop edge cases).
 
-- **Sliding Window** — 9 DB sessions (LC 1358 guided but never logged to DB). **6/6 consecutive independent sessions with severity ≤ 1 across 6 distinct days.** Understand seven sub-variants:
+- **Sliding Window** — 10 DB sessions (LC 1358 guided but never logged to DB). **4/4 consecutive independent sessions with severity ≤ 1 across 4 distinct days (need 1 more for mastery).** Understand seven sub-variants:
   - **Longest valid** (expand when valid, shrink when invalid): LC 3, LC 2958 — longest subarray/substring satisfying a constraint. Hash map tracks frequencies; shrink from left when constraint violated. Key insight: only the newly added element can violate the constraint, so the inner check is O(1).
   - **Shortest valid** (shrink when valid, track min): LC 209 — minimum subarray sum ≥ target.
   - **Fixed-size window** (fill, then slide one at a time): LC 438, LC 567 — find all anagrams / permutation in string.
@@ -47,7 +47,8 @@
   **LC 2831 lesson:** The `maxFreq` reframing eliminates recomputation. **Pattern:** "longest subarray after removing at most k elements" → `windowSize - maxFreq <= k`.
   **LC 395 lesson:** Threshold-crossing counters (`countAtLeastK`) for non-monotonic validity.
   **LC 2904 lesson:** Shrink past leading zeros when `count == k` optimizes both length and lexicographic order.
-  **LC 2958 lesson (this session):** Clean "longest valid" implementation — inner `for freq[curr] > k` correctly checks only the newly added element. 5:24 solve time, well under 30-min target.
+  **LC 2958 lesson:** Clean "longest valid" implementation — inner `for freq[curr] > k` correctly checks only the newly added element. 5:24 solve time, well under 30-min target.
+  **LC 3090 lesson:** Clean "longest valid" with `freq[ch] > 2` threshold. Key insight: for "at most K occurrences" constraint, only the newly added character can violate window validity — shrinking only decreases other characters' counts, so they stay valid. 4:05 solve time.
 
 - **Hash Map** — 6 sessions (LC 383, LC 1331, LC 13, LC 49, LC 3731, LC 290). **5/5 consecutive independent sessions with severity ≤ 1 across 5 distinct days.** Core use: constant-time lookup for grouping, mapping symbols/characters to values. Two main sub-variants:
   - **Frequency counting** (LC 383): count character occurrences, compare frequency maps. Simple and clean — no over-engineering needed.
