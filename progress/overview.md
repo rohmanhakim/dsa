@@ -19,7 +19,7 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 |---------|--------|----------|-------|
 | Sliding Window | 4/5 sev≤1 | 10 total | 1 more independent pass |
 | Greedy (Observation) | 3/5 sev≤1 | 4 | 2 more |
-| BFS | 2/5 sev≤1 | 4 total | 3 more |
+| BFS | 3/5 sev≤1 | 5 total | 2 more |
 | Two Pointers | 2/5 sev≤1 | 4 total | 3 more |
 | Digit Manipulation | 2/4 sev≤1 | 4 total | 2 more |
 | Monotonic Stack | 2/5 sev≤1 | 4 total | 3 more |
