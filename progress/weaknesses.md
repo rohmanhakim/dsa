@@ -10,7 +10,7 @@ Currently guessing recurrence from example tables rather than deriving it from t
 ### 2. Over-Engineering / Overthinking
 Tendency to build data structures (maps, arrays) when a simpler built-in function or observation would suffice. Before coding, ask: "What's the minimum I need to compute?" Count your variables before submitting, and ask if each one is truly necessary.
 
-**Reinforced in:** LC 14, LC 1268, LC 2685, LC 1331, LC 3499, LC 669, LC 3345. Positive signals: self-corrected in LC 1268 and LC 3345 via difficulty heuristic ("easy problem → simpler solution exists").
+**Reinforced in:** LC 14, LC 1268, LC 2685, LC 1331, LC 3499, LC 669, LC 3345, LC 3702. LC 3702: built 2D DP table for a problem solvable in O(n) with a 3-case observation. Positive signals: self-corrected in LC 1268 and LC 3345 via difficulty heuristic ("easy problem → simpler solution exists").
 
 ### 3. Brute-Force Feasibility Check
 Spent ~1 hour on brute-force TLE approaches before recognizing the correct pattern. Root cause: not checking upfront whether brute force can work within the constraints.
@@ -24,6 +24,7 @@ Spent ~1 hour on brute-force TLE approaches before recognizing the correct patte
 - **LC 1358:** Initially tried prefix/suffix sum when sliding window was the right tool. Ask: "Is this a range query problem or a window property problem?"
 - **LC 3336:** Initially tried prefix GCD (range query) when the problem required counting pairs of subsequences (combinatorial DP). Subsequences are not contiguous — prefix structures don't capture the combinatorial nature. Ask: "Am I querying ranges, or counting assignments?"
 - **LC 1081:** Initially identified as DP when monotonic stack was correct.
+- **LC 3702:** Initially tried DP (running XOR subsequence) when the problem is a pure observation/classification problem. Ask: "Is the operation associative/commutative? If so, order doesn't matter — can I reason about the total and exclusion instead of building up?"
 
 ### 6. Greedy Instinct
 - **LC 2812:** Initially tried greedy pathfinding (pick highest-safety neighbor) which fails for "maximize the minimum" problems. Ask: "Is the locally optimal choice also globally optimal?"
@@ -66,6 +67,7 @@ Confusing table indices (1-indexed) with string indices (0-indexed). Remember: `
 
 ### XOR Pattern Recognition
 - Couldn't independently identify that XOR is the key for "pairs cancel with O(1) space" problems. Need to internalize: `x ⊕ x = 0` is the cancellation invariant.
+- **LC 3702:** Jumped to DP instead of recognizing XOR's commutative/associative properties reduce the problem to totalXor classification. Additional XOR properties to internalize: (1) `a ⊕ 0 = a`, (2) `a ⊕ a = 0`, (3) if `totalXor = 0` and you remove `x ≠ 0`, remaining XOR = `x`.
 
 ### Array Operations
 - **Ignoring shifting cost:** In LC 88, used sort.Search + shifting which appears O(n log n) but is O(n*m). Always analyze the full cost including data movement.
