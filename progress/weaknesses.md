@@ -29,6 +29,7 @@ Spent ~1 hour on brute-force TLE approaches before recognizing the correct patte
 ### 6. Greedy Instinct
 - **LC 2812:** Initially tried greedy pathfinding (pick highest-safety neighbor) which fails for "maximize the minimum" problems. Ask: "Is the locally optimal choice also globally optimal?"
 - **LC 486:** Initially tried greedy (always pick larger end) which fails because it ignores opponent's optimal response.
+- **LC 1536:** Initially tried greedy (minimize difference between left/right sums at each split). Fails because locally optimal split doesn't guarantee globally optimal score — full game tree must be explored via interval DP. "Stone Game" variants with "Alice divides, Bob chooses" structure are interval DP, not greedy. Ask: "Does my split at step k affect future steps?"
 
 ### 7. Solving by Mechanics vs Invariants
 Started with implementation mechanics ("what data moves where") instead of stating the invariant first. Root cause of over-engineering: starting with mechanics instead of "what property does my structure maintain?"
