@@ -1,7 +1,7 @@
 # Sliding Window
 
-**Status:** ⏳ 4/5 consecutive independent sessions with severity ≤ 1 across 4 distinct days (need 1 more for mastery).
-**Sessions:** 10 DB sessions (LC 1358 guided but never logged to DB).
+**Status:** ⏳ 0/5 within time limit. 5 consecutive sev≤1, but 3 of 5 exceeded time limits. Needs speed improvement for mastery.
+**Sessions:** 11 DB sessions (LC 1358 guided but never logged to DB).
 
 ## Seven Sub-Variants
 
@@ -26,6 +26,9 @@
 ### Shortest valid with lexicographic comparison
 **LC 2904** — shrink past leading zeros when `count == k`.
 
+### Counting subarray membership (frequency across all windows)
+**LC 3471** — count how many subarrays of size k contain each element. Maintain freq map across sliding windows. Key insight: element at position p belongs to `min(p+1, n-k+1, k)` subarrays. Also, for 1<k<n, only first/last elements can appear in exactly one subarray (editorial observation shortcut).
+
 ## Key Insight
 
 When a window is valid, all extensions are also valid (superset property). Two counting perspectives: count extensions right (`n-right`) or count extensions left (`left`).
@@ -41,3 +44,4 @@ When a window is valid, all extensions are also valid (superset property). Two c
 - **LC 2904:** Shrink past leading zeros when `count == k` optimizes both length and lexicographic order.
 - **LC 2958:** Clean "longest valid" implementation — inner `for freq[curr] > k` correctly checks only the newly added element. 5:24 solve time, well under 30-min target.
 - **LC 3090:** Clean "longest valid" with `freq[ch] > 2` threshold. Key insight: for "at most K occurrences" constraint, only the newly added character can violate window validity — shrinking only decreases other characters' counts, so they stay valid. 4:05 solve time.
+- **LC 3471:** Counting subarray membership. 22:49 solve time (over 15-min target). Code structure non-standard: re-increments elements from left→right-1 on each slide instead of decrement old / increment new. Works correctly but harder to reason about. Bonus observation: for 1<k<n, only first/last elements can appear in exactly one subarray. Weakness #2 (over-engineering) triggered — full sliding window unnecessary when a direct check suffices.
