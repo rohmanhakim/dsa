@@ -34,6 +34,7 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 | DAG Topo Sort + DP | 0/5 | 1 guided | Needs independent sessions |
 | Backward Two-Pointer Merge | 0/5 | 1 guided | Needs independent sessions |
 | Two Pointers (Fast/Slow) | 0/5 | 1 guided | Needs independent sessions |
+| Simulation | 1/5 sev≤1 | 1 total | 4 more |
 
 ## Top Weaknesses (compact)
 

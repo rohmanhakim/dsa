@@ -78,6 +78,7 @@ Canonical pattern names for the `session_patterns` junction table. The mentor (C
 | `Prefix Sum` | Cumulative sums for range queries | Range sum, subarray sum, difference array |
 | `Sparse Point Processing` | Process only constraint/event points, use formulas for gaps | Large input space (10⁹) with few events (10⁵) |
 | `Virtual/Sentinel Points` | Add artificial anchor points to avoid boundary special-casing | Edge cases that need special handling (dummy nodes, boundary guards) |
+| `Simulation` | Direct simulation of problem rules; translate description to code 1:1 | Problem defines explicit step-by-step operations; constraints allow O(n) or O(n²) |
 
 ## Migration Note
 
@@ -97,10 +98,12 @@ The `patterns` table in the database is now the source of truth for pattern defi
 
 ---
 
-*Last updated: 2026-07-15*
+*Last updated: 2026-08-20*
 - **2026-08-13**: Added `Segment Tree` (Data Structures category) for range queries with point updates. O(n) build, O(log n) update.
 
 ### Changelog
+
+- **2026-08-20**: Added `Simulation` (Other category) for direct simulation problems where the problem defines explicit step-by-step operations and no specialized DSA pattern applies.
 
 - **2026-07-22**: Added `Sparse Table` (Data Structures category) for static RMQ on arrays. O(n log n) build, O(1) query.
 - **2026-07-21**: Added `Greedy (Observation)` (Greedy category) for observation-based greedy: model operation net effect, derive formula, optimize.
