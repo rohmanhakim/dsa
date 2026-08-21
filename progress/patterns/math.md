@@ -17,3 +17,19 @@ Arithmetic series formulas, GCD properties, prefix max + GCD combination, inclus
 - **LC 3518:** K-th lexicographic permutation using product of binomial coefficients. **Critical insight:** factorial-based counting overflows for n > 20. The product-of-combinations approach with early termination at k avoids overflow entirely. **Palindrome symmetry:** only the left half needs to be constructed; the right half is the mirror.
 - **LC 2:** Carry-based digit addition with simultaneous linked list traversal. Max possible sum 9+9+1=19, so carry is always 0 or 1. Cleaner alternative: always create `current.Next` before advancing (dummy-head pattern) eliminates mid-loop nil guards.
 - **LC 2996:** Two-phase simulation: (1) find longest sequential prefix and compute sum, (2) find smallest missing integer ≥ sum using hash set + linear scan. Key learning: for "find smallest missing integer" problems, hash set + linear scan is the standard approach. **Weakness:** Time significantly over target (80:48 vs 15 min for LC Easy).
+- **LC 3116:** Inclusion-exclusion for counting multiples (used as secondary pattern with Binary Search on Answer). For each non-empty subset of denominations, compute LCM and add/subtract floor(x/LCM) based on subset size parity. **Key insight:** when counting "numbers divisible by at least one of [a,b,c,...]", inclusion-exclusion over all 2^n subsets is the standard technique. Skip subsets whose LCM exceeds x (contributes 0). Bitmask iteration over subsets is the mechanism; inclusion-exclusion is the math.
+
+## Sub-techniques
+
+### Inclusion-Exclusion
+
+**When to use:** Counting objects satisfying *at least one* of several conditions (union counting). The formula alternates between adding and subtracting intersections.
+
+**Signature:** "How many X are divisible by at least one of [a, b, c]?" or "How many X satisfy condition A or B or C?"
+
+**Mechanism:** Iterate over all non-empty subsets (bitmask 1 to 2^n - 1). For each subset:
+- Compute the combined constraint (e.g., LCM for divisibility)
+- Add floor(x / constraint) if subset size is odd
+- Subtract if subset size is even
+
+**Seen in:** LC 3312 (GCD pair counting, primary), LC 3116 (multiples counting, secondary). If this appears as primary in 3+ distinct contexts, consider splitting into its own pattern.

@@ -30,7 +30,7 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 | Minimax DP | 0/5 | 4 guided | Needs independent sessions |
 | BST | 0/5 | 2 guided | Needs independent sessions |
 | Segment Tree | 0/5 | 1 guided | Needs independent sessions |
-| Binary Search on Answer | 0/5 | 2 guided | Needs independent sessions |
+| Binary Search on Answer | 0/5 | 1 guided | Needs independent sessions |
 | DAG Topo Sort + DP | 0/5 | 1 guided | Needs independent sessions |
 | Backward Two-Pointer Merge | 0/5 | 1 guided | Needs independent sessions |
 | Two Pointers (Fast/Slow) | 0/5 | 1 guided | Needs independent sessions |
