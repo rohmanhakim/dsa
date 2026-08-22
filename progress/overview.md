@@ -21,7 +21,7 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 | Greedy (Observation) | 0/5 sev≤1 | 7 total | Streak broken (LC 2029 guided). Needs 5 independent passes |
 | BFS | 3/5 sev≤1 | 5 total | 2 more |
 | Two Pointers | 2/5 sev≤1 | 4 total | 3 more |
-| Digit Manipulation | 2/4 sev≤1 | 4 total | 2 more |
+| Digit Manipulation | 2/5 sev≤1 | 5 total | 3 more |
 | Monotonic Stack | 2/5 sev≤1 | 4 total | 3 more |
 | Prefix Sum | 1/5 sev≤1 | 5 total | 4 more independent |
 | Binary Lifting | 1/5 | 1 guided | Needs independent practice |
