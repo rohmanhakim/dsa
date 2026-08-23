@@ -25,6 +25,7 @@ Spent ~1 hour on brute-force TLE approaches before recognizing the correct patte
 - **LC 3336:** Initially tried prefix GCD (range query) when the problem required counting pairs of subsequences (combinatorial DP). Subsequences are not contiguous — prefix structures don't capture the combinatorial nature. Ask: "Am I querying ranges, or counting assignments?"
 - **LC 1081:** Initially identified as DP when monotonic stack was correct.
 - **LC 3702:** Initially tried DP (running XOR subsequence) when the problem is a pure observation/classification problem. Ask: "Is the operation associative/commutative? If so, order doesn't matter — can I reason about the total and exclusion instead of building up?"
+- **LC 1927:** Initially tried to simulate the game with prefix/suffix sums and complex branching logic. The problem is a game theory problem where optimal play reduces to a mathematical invariant. Ask: "What is the condition under which the second player can always match the first player's moves?" For game theory problems, always derive the invariant before trying to simulate.
 
 ### 6. Greedy Instinct
 - **LC 2812:** Initially tried greedy pathfinding (pick highest-safety neighbor) which fails for "maximize the minimum" problems. Ask: "Is the locally optimal choice also globally optimal?"

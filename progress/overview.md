@@ -11,13 +11,13 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 | DFS | 9/9 sev≤1 | 6+ | 10:24–86:56 |
 | Stack | 5/5 sev≤1 | 4+ | 12:59–43:40 |
 | Hash Map | 5/5 sev≤1 | 5 | Varies |
-| Math | 9/5 sev≤1 | 9 | 2:06–80:48 |
 
 ## Patterns In Progress
 
 | Pattern | Streak | Sessions | Needs |
 |---------|--------|----------|-------|
 | Sliding Window | 0/5 within time | 11 total | 3 of last 5 sev≤1 over time limit; needs speed improvement |
+| Math | 0/5 sev≤1 | 13 total (4 guided) | Streak broken (LC 1927 guided). Needs 5 independent passes |
 | Greedy (Observation) | 0/5 sev≤1 | 7 total | Streak broken (LC 2029 guided). Needs 5 independent passes |
 | BFS | 3/5 sev≤1 | 5 total | 2 more |
 | Two Pointers | 2/5 sev≤1 | 4 total | 3 more |

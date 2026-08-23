@@ -1,9 +1,9 @@
 # Math
 
-**Status:** ✅ Mastered — 9/5 consecutive independent sessions with severity ≤ 1 (9 distinct days). Guided sessions do not affect streak.
-**Sessions:** LC 3685 (ind, sev 0, 4:15), LC 3867 (ind, sev 0, 9:57), LC 3312 (guided, sev 3), LC 1979 (ind, sev 0, 2:08), LC 3513 (guided, sev 3), LC 628 (ind, sev 1, 56:54), LC 1464 (ind, sev 0, 2:06), LC 3518 (guided, sev 3), LC 3014 (ind, sev 1, 18:52), LC 3345 (ind, sev 1, 1:09:17), LC 2 (ind, sev 0, 17:58), LC 2996 (ind, sev 1, 80:48).
+**Status:** In Progress — 0/5 consecutive independent sessions with severity ≤ 1. Streak broken by LC 1927 (guided, sev 3). Needs 5 independent passes to re-certify.
+**Sessions:** LC 3685 (ind, sev 0, 4:15), LC 3867 (ind, sev 0, 9:57), LC 3312 (guided, sev 3), LC 1979 (ind, sev 0, 2:08), LC 3513 (guided, sev 3), LC 628 (ind, sev 1, 56:54), LC 1464 (ind, sev 0, 2:06), LC 3518 (guided, sev 3), LC 3014 (ind, sev 1, 18:52), LC 3345 (ind, sev 1, 1:09:17), LC 2 (ind, sev 0, 17:58), LC 2996 (ind, sev 1, 80:48), LC 1927 (guided, sev 3).
 
-Arithmetic series formulas, GCD properties, prefix max + GCD combination, inclusion-exclusion for GCD pair counting, Euclidean algorithm for GCD of extremes, closed-form answer based on input size, sort + candidate enumeration for max product, k-th lexicographic permutation construction via product of combinations, bounded enumeration for digit-product divisibility, carry-based digit addition for linked list number representation, and sequential prefix sum + hash set for missing integer search.
+Arithmetic series formulas, GCD properties, prefix max + GCD combination, inclusion-exclusion for GCD pair counting, Euclidean algorithm for GCD of extremes, closed-form answer based on input size, sort + candidate enumeration for max product, k-th lexicographic permutation construction via product of combinations, bounded enumeration for digit-product divisibility, carry-based digit addition for linked list number representation, sequential prefix sum + hash set for missing integer search, and game theory invariant derivation (optimal play reduces to a mathematical equation).
 
 ## Lessons
 
@@ -18,6 +18,7 @@ Arithmetic series formulas, GCD properties, prefix max + GCD combination, inclus
 - **LC 2:** Carry-based digit addition with simultaneous linked list traversal. Max possible sum 9+9+1=19, so carry is always 0 or 1. Cleaner alternative: always create `current.Next` before advancing (dummy-head pattern) eliminates mid-loop nil guards.
 - **LC 2996:** Two-phase simulation: (1) find longest sequential prefix and compute sum, (2) find smallest missing integer ≥ sum using hash set + linear scan. Key learning: for "find smallest missing integer" problems, hash set + linear scan is the standard approach. **Weakness:** Time significantly over target (80:48 vs 15 min for LC Easy).
 - **LC 3116:** Inclusion-exclusion for counting multiples (used as secondary pattern with Binary Search on Answer). For each non-empty subset of denominations, compute LCM and add/subtract floor(x/LCM) based on subset size parity. **Key insight:** when counting "numbers divisible by at least one of [a,b,c,...]", inclusion-exclusion over all 2^n subsets is the standard technique. Skip subsets whose LCM exceeds x (contributes 0). Bitmask iteration over subsets is the mechanism; inclusion-exclusion is the math.
+- **LC 1927:** Game theory problem where optimal play reduces to a mathematical invariant. Key formula: if total `?` marks are odd, Alice wins; if even, Bob wins iff `2*(n0-n1) = 9*(q1-q0)`. **Key insight:** instead of simulating the game, derive the condition under which the second player can always match the first player's moves. The `?` marks on both sides cancel out (Alice puts d, Bob puts d), and pairs on one side contribute exactly 9 (Alice puts d, Bob puts 9-d). This leads to a clean equation rather than a simulation. **Weakness:** initially tried to simulate the game with prefix/suffix sums and complex branching logic — pattern misidentification.
 
 ## Sub-techniques
 
