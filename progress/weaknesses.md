@@ -10,7 +10,7 @@ Currently guessing recurrence from example tables rather than deriving it from t
 ### 2. Over-Engineering / Overthinking
 Tendency to build data structures (maps, arrays) when a simpler built-in function or observation would suffice. Before coding, ask: "What's the minimum I need to compute?" Count your variables before submitting, and ask if each one is truly necessary.
 
-**Reinforced in:** LC 14, LC 1268, LC 2685, LC 1331, LC 3499, LC 669, LC 3345, LC 3702. LC 3702: built 2D DP table for a problem solvable in O(n) with a 3-case observation. Positive signals: self-corrected in LC 1268 and LC 3345 via difficulty heuristic ("easy problem → simpler solution exists").
+**Reinforced in:** LC 14, LC 1268, LC 2685, LC 1331, LC 3499, LC 669, LC 3345, LC 3702. LC 3702: built 2D DP table for a problem solvable in O(n) with a 3-case observation. LC 1872: overcomplicated stone game mechanics with suffix sums and nested loops instead of seeking the simpler prefix-sum reformulation. Positive signals: self-corrected in LC 1268 and LC 3345 via difficulty heuristic ("easy problem → simpler solution exists").
 
 ### 3. Brute-Force Feasibility Check
 Spent ~1 hour on brute-force TLE approaches before recognizing the correct pattern. Root cause: not checking upfront whether brute force can work within the constraints.
@@ -35,7 +35,7 @@ Spent ~1 hour on brute-force TLE approaches before recognizing the correct patte
 ### 7. Solving by Mechanics vs Invariants
 Started with implementation mechanics ("what data moves where") instead of stating the invariant first. Root cause of over-engineering: starting with mechanics instead of "what property does my structure maintain?"
 
-**Reinforced in:** LC 901, LC 14, LC 1268, LC 581. Before coding any monotonic structure, write one sentence: "My stack maintains ___ from bottom to top."
+**Reinforced in:** LC 901, LC 14, LC 1268, LC 581, LC 1872. LC 1872: jumped straight into simulating stone merges instead of stating the invariant ("remaining stones always form a suffix, leftmost value = some prefix sum"). Before coding any monotonic structure, write one sentence: "My stack maintains ___ from bottom to top." Before coding any game simulation, write one sentence: "The game state can be described as ___."
 
 ### 8. Modular Arithmetic / Operator Precedence with Percent
 Recurring bug in LC 3756 (4+ occurrences in one session). Go percent operator binds tighter than multiply and plus, so the percent MOD must wrap the entire expression. Also, 10e8 is a float64 literal in Go — always use 1_000_000_007 for integer MOD.

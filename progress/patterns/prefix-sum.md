@@ -1,7 +1,7 @@
 # Prefix Sum
 
 **Status:** ⏳ 1/5 consecutive independent sessions with severity ≤ 1 (1 distinct day).
-**Sessions:** 5 total (4 guided: LC 3756, LC 3532, LC 3534, LC 3312; 1 independent: LC 238).
+**Sessions:** 6 total (4 guided: LC 3756, LC 3532, LC 3534, LC 3312; 1 independent: LC 238; 1 secondary: LC 1872).
 
 Core idea: precompute cumulative values in O(n) to answer range queries in O(1).
 

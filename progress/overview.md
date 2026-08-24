@@ -27,7 +27,7 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 | Binary Lifting | 1/5 | 1 guided | Needs independent practice |
 | 1D Dynamic Programming | 0/5 | 11 total (10 guided) | Needs independent sessions |
 | 2D Dynamic Programming | 0/5 | 2 guided | Needs independent sessions |
-| Minimax DP | 0/5 | 4 guided | Needs independent sessions |
+| Minimax DP | 0/5 | 5 guided | Needs independent sessions |
 | BST | 0/5 | 2 guided | Needs independent sessions |
 | Segment Tree | 0/5 | 1 guided | Needs independent sessions |
 | Binary Search on Answer | 0/5 | 1 guided | Needs independent sessions |
