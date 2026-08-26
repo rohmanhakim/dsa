@@ -1,7 +1,7 @@
 # Sliding Window
 
-**Status:** ⏳ 0/5 within time limit. 5 consecutive sev≤1, but 3 of 5 exceeded time limits. Needs speed improvement for mastery.
-**Sessions:** 11 DB sessions (LC 1358 guided but never logged to DB).
+**Status:** ⏳ 3/5 within time limit. 6 consecutive sev≤1 (improving). Need 5 consecutive within time for mastery.
+**Sessions:** 12 DB sessions (LC 1358 guided but never logged to DB).
 
 ## Seven Sub-Variants
 
@@ -41,7 +41,7 @@ When a window is valid, all extensions are also valid (superset property). Two c
 - **LC 567:** Copy-pasted template from LC 438. Pattern recognition improving but speed needs work.
 - **LC 2831:** The `maxFreq` reframing eliminates recomputation. **Pattern:** "longest subarray after removing at most k elements" → `windowSize - maxFreq <= k`.
 - **LC 395:** Threshold-crossing counters (`countAtLeastK`) for non-monotonic validity.
-- **LC 2904:** Shrink past leading zeros when `count == k` optimizes both length and lexicographic order.
+- **LC 2904:** Shrink past leading zeros when count == k optimizes both length and lexicographic order. Re-attempt: 41:53 to 20:28, sev 1 to 0. The invariant that once ones reaches k it stays k (leading-zero removal preserves count) is the key insight that makes the final gate check correct.
 - **LC 2958:** Clean "longest valid" implementation — inner `for freq[curr] > k` correctly checks only the newly added element. 5:24 solve time, well under 30-min target.
 - **LC 3090:** Clean "longest valid" with `freq[ch] > 2` threshold. Key insight: for "at most K occurrences" constraint, only the newly added character can violate window validity — shrinking only decreases other characters' counts, so they stay valid. 4:05 solve time.
 - **LC 3471:** Counting subarray membership. 22:49 solve time (over 15-min target). Code structure non-standard: re-increments elements from left→right-1 on each slide instead of decrement old / increment new. Works correctly but harder to reason about. Bonus observation: for 1<k<n, only first/last elements can appear in exactly one subarray. Weakness #2 (over-engineering) triggered — full sliding window unnecessary when a direct check suffices.

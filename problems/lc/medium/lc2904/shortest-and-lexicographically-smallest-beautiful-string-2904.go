@@ -1,29 +1,38 @@
 package lc2904
 
-import (
-	"math"
-)
-
 func shortestBeautifulSubstring(s string, k int) string {
 	n := len(s)
 	left := 0
-	count := 0
-	shortestLen := math.MaxInt
-	best := ""
-	for right := range n {
-		count += int(s[right] - '0')
 
-		for (s[left] == '1' && count > k) || (s[left] == '0' && count == k) {
-			count -= int(s[left] - '0')
+	ones := 0
+	smallest := s
+
+	for right := range n {
+		ch := s[right]
+		if ch == '1' {
+			ones++
+		}
+
+		for ones > k || s[left] == '0' && left < right {
+			if s[left] == '1' {
+				ones--
+			}
 			left++
 		}
-		if count == k {
-			sub := s[left : right+1]
-			if len(sub) < shortestLen || (len(sub) == shortestLen && sub < best) {
-				shortestLen = len(sub)
-				best = sub
+
+		if ones == k {
+			candidate := s[left : right+1]
+
+			if len(candidate) < len(smallest) || len(candidate) == len(smallest) && candidate < smallest {
+				smallest = candidate
 			}
 		}
+
 	}
-	return best
+
+	if ones == k {
+		return smallest
+	} else {
+		return ""
+	}
 }

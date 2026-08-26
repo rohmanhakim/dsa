@@ -16,7 +16,7 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 
 | Pattern | Streak | Sessions | Needs |
 |---------|--------|----------|-------|
-| Sliding Window | 0/5 within time | 11 total | 3 of last 5 sev≤1 over time limit; needs speed improvement |
+| Sliding Window | 3/5 within time | 12 total | 6 consecutive sev<=1 but 2 of last 5 over time; improving |
 | Math | 0/5 sev≤1 | 13 total (4 guided) | Streak broken (LC 1927 guided). Needs 5 independent passes |
 | Greedy (Observation) | 0/5 sev≤1 | 7 total | Streak broken (LC 2029 guided). Needs 5 independent passes |
 | BFS | 3/5 sev≤1 | 5 total | 2 more |
