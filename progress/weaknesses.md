@@ -15,7 +15,7 @@ Tendency to build data structures (maps, arrays) when a simpler built-in functio
 ### 3. Brute-Force Feasibility Check
 Spent ~1 hour on brute-force TLE approaches before recognizing the correct pattern. Root cause: not checking upfront whether brute force can work within the constraints.
 
-**Action:** Add to pre-coding checklist: "How many items am I iterating over? If > 10^7, I need a smarter approach." If high is 10^9, iterating every number is O(10^9) — instant TLE. **Reinforced in LC 3345 (positive twist):** brute force IS the solution when bounded enumeration is O(10·log n).
+**Action:** Add to pre-coding checklist: "How many items am I iterating over? If > 10^7, I need a smarter approach." If high is 10^9, iterating every number is O(10^9) — instant TLE. **Reinforced in LC 3345 (positive twist):** brute force IS the solution when bounded enumeration is O(10·log n). **Reinforced in LC 3720:** started with DFS generating all permutations for n=300 (O(n!)) — constraint check would have immediately ruled this out (n=300 → O(n²) target).
 
 ### 4. Debug Print Left in Code (4 occurrences)
 `fmt.Println` / `fmt.Printf` left in code after solving. Occurred in LC 216, LC 66, LC 941, and LC 13. Before submission, **always scan every line** for `fmt.Print` and remove them.
