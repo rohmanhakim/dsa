@@ -18,7 +18,7 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 |---------|--------|----------|-------|
 | Sliding Window | 3/5 within time | 12 total | 6 consecutive sev<=1 but 2 of last 5 over time; improving |
 | Math | 0/5 sev≤1 | 13 total (4 guided) | Streak broken (LC 1927 guided). Needs 5 independent passes |
-| Greedy (Observation) | 0/5 sev≤1 | 8 total | Streak broken (LC 2029 guided, LC 3720 guided). Needs 5 independent passes |
+| Greedy (Observation) | 0/5 sev≤1 | 9 total (5 guided) | Streak broken (LC 3720 guided, LC 3734 guided). Needs 5 independent passes |
 | BFS | 3/5 sev≤1 | 5 total | 2 more |
 | Two Pointers | 2/5 sev≤1 | 4 total | 3 more |
 | Digit Manipulation | 2/5 sev≤1 | 5 total | 3 more |
@@ -41,7 +41,7 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 1. **Deriving recurrence from invariant** — 8+ documented struggles (1D DP)
 2. **Over-engineering / overthinking** — Building complex data structures when simpler solutions exist
 3. **Brute-force feasibility check** — Not checking constraint bounds first
-4. **Debug print left in code** — 4 occurrences (fmt.Println)
+4. **Debug print left in code** — 5 occurrences (fmt.Println)
 5. **Pattern misidentification** — Prefix/range-query vs combinatorial DP
 6. **Greedy instinct** — Picking greedy when minimax/binary-search is needed
 7. **Solving by mechanics vs invariants** — Starting with implementation instead of stating invariant
