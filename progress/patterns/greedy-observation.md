@@ -1,7 +1,7 @@
 # Greedy (Observation)
 
 **Status:** ⏳ 0/5 consecutive independent sessions with severity ≤ 1 (streak broken).
-**Sessions:** LC 3499 (ind, sev 1, 1:55:00), LC 3517 (ind, sev 0, 13:43), LC 3518 (guided, sev 3), LC 3016 (ind, sev 1, 39:01), LC 3702 (guided, sev 3), LC 2029 (guided, sev 3), LC 1386 (ind, sev 1, 1:45:34), LC 3720 (guided, sev 3), LC 3734 (guided, sev 3).
+**Sessions:** LC 3499 (ind, sev 1, 1:55:00), LC 3517 (ind, sev 0, 13:43), LC 3518 (guided, sev 3), LC 3016 (ind, sev 1, 39:01), LC 3702 (guided, sev 3), LC 2029 (guided, sev 3), LC 1386 (ind, sev 1, 1:45:34), LC 3720 (guided, sev 3), LC 3734 (guided, sev 3), LC 2948 (guided, sev 3).
 
 Model an operation's net effect as a formula, then optimize. Key insight: the net effect of a trade (or any complex operation) is often much simpler than the operation itself — the removed part is restored (net zero) and the actual gain comes from a smaller, identifiable component.
 
@@ -18,3 +18,7 @@ Model an operation's net effect as a formula, then optimize. Key insight: the ne
   2. **Feasibility check = largest completion:** If the LARGEST palindrome from a prefix can't beat target, no completion can. This is the same pattern as LC 3720.
   3. **Bug: running vs final state for mid detection.** Determined middle character inside the counting loop using running frequency (which flips odd/even per occurrence). Must use the **final** frequency array after the loop ends. General lesson: don't derive static properties from intermediate loop states.
   4. **Bug: missing "no placement" detection.** When the greedy inner loop tries all chars and none works, the outer loop continued silently. Always detect and handle the "no feasible character" case explicitly.
+- **LC 2948 (guided, sev 3):** Transitive swap grouping problem. Correctly identified sorting + segment detection approach (walk sorted array, break groups when consecutive difference > limit). Failed at final assembly: used global sorted indices for in-place swaps instead of pairing sorted values with sorted original indices within each group. **Key lessons:**
+  1. **Transitive swapping = grouping:** If A↔B and B↔C within limit, all three form an interchangeable group (any permutation achievable). Sorting values and checking consecutive diffs is the standard way to find these groups.
+  2. **Group assembly pattern:** Given a group of {values} and their {original indices}, sort the indices, then assign values in order (smallest value → smallest index). This is a reusable sub-pattern for "assign best to best position" problems.
+  3. **Gap in connecting data to output:** Had the right data structures (segments with values and indices) but couldn't bridge to final array construction. Practice need: given intermediate grouped data, explicitly state what the output assignment should look like before coding the assembly step.
