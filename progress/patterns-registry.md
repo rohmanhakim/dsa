@@ -80,6 +80,12 @@ Canonical pattern names for the `session_patterns` junction table. The mentor (C
 | `Virtual/Sentinel Points` | Add artificial anchor points to avoid boundary special-casing | Edge cases that need special handling (dummy nodes, boundary guards) |
 | `Simulation` | Direct simulation of problem rules; translate description to code 1:1 | Problem defines explicit step-by-step operations; constraints allow O(n) or O(n²) |
 
+### Linked List
+
+| Canonical Name | Description | When to Use |
+|---|---|---|
+| `Linked List` | Linked list traversal, prev/curr pointer tracking, node manipulation | Local maxima/minima in list, in-place node operations, list traversal without extra space |
+
 ## Migration Note
 
 The `patterns` table in the database is now the source of truth for pattern definitions. This registry is kept as a documentation reference. When adding a new pattern, insert it into the `patterns` table first, then update this registry.
