@@ -26,6 +26,7 @@ Spent ~1 hour on brute-force TLE approaches before recognizing the correct patte
 - **LC 1081:** Initially identified as DP when monotonic stack was correct.
 - **LC 3702:** Initially tried DP (running XOR subsequence) when the problem is a pure observation/classification problem. Ask: "Is the operation associative/commutative? If so, order doesn't matter — can I reason about the total and exclusion instead of building up?"
 - **LC 1927:** Initially tried to simulate the game with prefix/suffix sums and complex branching logic. The problem is a game theory problem where optimal play reduces to a mathematical invariant. Ask: "What is the condition under which the second player can always match the first player's moves?" For game theory problems, always derive the invariant before trying to simulate.
+- **LC 3568:** Initially tried TSP with precomputed pairwise BFS distances + bitmask DP. Failed because the energy constraint means the "cost" from A to B depends on remaining energy — can't precompute distances independently. Ask: "Does the cost between two nodes depend on a variable state?" If yes, incorporate that state into the BFS.
 
 ### 6. Greedy Instinct
 - **LC 2812:** Initially tried greedy pathfinding (pick highest-safety neighbor) which fails for "maximize the minimum" problems. Ask: "Is the locally optimal choice also globally optimal?"
@@ -53,6 +54,10 @@ Confusing table indices (1-indexed) with string indices (0-indexed). Remember: `
 
 ### BFS
 - **`continue` vs `if !visited`:** The `if visited[neighbor] { continue }` pattern conflates edge processing with enqueue control. Adopt `if !visited[neighbor] { enqueue }` as default.
+- **State-space BFS when resource constraint exists:** When the problem has a resource (energy, fuel) that affects feasibility, TSP / precomputed-distances DP fails. Must incorporate the resource into the BFS state. Use a pruning table (e.g. `bestResource[x][y][mask]`) and only enqueue if strictly better than previously seen.
+
+### Coordinate Convention
+- **Key ordering inconsistency:** Stored map keys as `{row, col}` but looked up as `{col, row}` — all items mapped to the same index. Establish and document a convention (e.g., always `{row, col}` or always `{x, y}`) and use it consistently in storage and lookup.
 
 ### Binary Lifting
 - **Template recall:** Had 2 bugs: wrong start position and missing guard condition. Action: practice the 3-line loop template until muscle memory.
