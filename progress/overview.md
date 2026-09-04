@@ -23,7 +23,7 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 | Two Pointers | 2/5 sev≤1 | 4 total | 3 more |
 | Digit Manipulation | 2/5 sev≤1 | 5 total | 3 more |
 | Monotonic Stack | 2/5 sev≤1 | 4 total | 3 more |
-| Prefix Sum | 1/5 sev≤1 | 5 total | 4 more independent |
+| Prefix Sum | 2/5 sev≤1 | 9 total (3 independent) | Needs 3 more consecutive independent sev≤1 passes across ≥3 distinct days. |
 | Binary Lifting | 1/5 | 1 guided | Needs independent practice |
 | 1D Dynamic Programming | 0/5 | 11 total (10 guided) | Needs independent sessions |
 | 2D Dynamic Programming | 0/5 | 2 guided | Needs independent sessions |
