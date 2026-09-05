@@ -1,7 +1,7 @@
 # Prefix Sum
 
-**Status:** ⏳ 2/5 consecutive independent sessions with severity ≤ 1 (2 distinct days).
-**Sessions:** 9 total (3 independent: LC 3903, LC 238, LC 3499; 6 guided/secondary: LC 3756, LC 3532, LC 3534, LC 3312, LC 581, LC 1872).
+**Status:** ⏳ 3/5 consecutive independent sessions with severity ≤ 1 (3 distinct days).
+**Sessions:** 10 total (4 independent: LC 3904, LC 3903, LC 238, LC 3499; 6 guided/secondary: LC 3756, LC 3532, LC 3534, LC 3312, LC 581, LC 1872).
 
 Core idea: precompute cumulative values in O(n) to answer range queries in O(1).
 
@@ -30,6 +30,7 @@ When constraints show n=10^5 and q=10^5, O(nq) is too slow — think prefix sums
 
 - **LC 238:** Clean implementation (7:24). Prefix/suffix product arrays are a direct generalization of prefix sums. Three-pass structure (build prefix, build suffix, combine) is clean and readable. The follow-up O(1) space solution combines the prefix pass into the result array and uses a single running suffix variable — good to know for interviews.
 - **LC 3903:** Built prefixLargest + suffixSmallest arrays to solve "instability score" (max prefix − min suffix) in O(n), beating editorial's O(n²) brute force. Good instinct to precompute running aggregates from both ends instead of rescanning. Space could be reduced to O(n) by keeping only suffix array and tracking prefix max as a variable during scan, but O(n) is fine here.
+- **LC 3904:** Follow-up to LC 3903 requiring O(n) algorithm. Same Variant E pattern — suffix min array + running prefix max. Solved independently in 5:50, clean implementation. Confirms strong command of this variant: precompute one direction as array, track the other as running variable during scan.
 
 ## Weakness
 Still requires guidance to recognize in complex variants.
