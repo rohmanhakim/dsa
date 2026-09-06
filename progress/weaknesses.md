@@ -45,7 +45,9 @@ Recurring bug in LC 3756 (4+ occurrences in one session). Go percent operator bi
 Tendency to reach for built-in functions (e.g., `bits.OnesCount`) when the problem is designed to teach an algorithmic pattern. For interview prep, always try to find the DP/algorithmic pattern first, then mention the built-in as a follow-up.
 
 ### 10. Index Alignment in DP
-Confusing table indices (1-indexed) with string indices (0-indexed). Remember: `dp[i][j]` uses `word1[i-1]` and `word2[j-1]`.
+Confusing table indices (1-indexed) with string indices (0-indexed). Remember: `dp[i][j]` uses `word1[i-1]` and `word2[j-1]`. **Also in 2D string DP:** the two strings have independent index spaces — `s[i-1]` vs `t[j-1]`, never mix them (e.g., writing `t[i-j]`). Always think of `i` and `j` as independent cursors over `s` and `t`.
+
+**Reinforced in:** LC 72, LC 115 (described match as `t[i-j]` instead of `t[j-1]`).
 
 ## Pattern-Specific Weaknesses
 
