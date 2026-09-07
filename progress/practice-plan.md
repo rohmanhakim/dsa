@@ -11,7 +11,7 @@
 
 ## High-Priority Gaps (0/5, many sessions but no independent mastery)
 
-7. **1D Dynamic Programming** — 11 sessions (10 guided). Need independent practice applying the two-question framework. Key: internalize recurrence derivation before coding.
+7. **1D Dynamic Programming** — 12 sessions (11 guided). Need independent practice applying the two-question framework. Key: internalize recurrence derivation before coding. LC 940 reinforced: for counting problems, state is a running total, not a range decomposition.
 
 ## Problem Queue
 

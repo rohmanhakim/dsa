@@ -1,7 +1,7 @@
 # 1D Dynamic Programming
 
 **Status:** ⏳ 0/5 sessions toward mastery (guided sessions don't count).
-**Sessions:** 11 total (LC 198 independent slow pass, LC 322 guided, LC 139 guided ×2, LC 300 guided, LC 213 guided, LC 91 guided, LC 3514 guided, LC 518 guided, LC 53 guided, LC 416 guided).
+**Sessions:** 12 total (LC 198 independent slow pass, LC 322 guided, LC 139 guided ×2, LC 300 guided, LC 213 guided, LC 91 guided, LC 3514 guided, LC 518 guided, LC 53 guided, LC 416 guided, LC 940 guided).
 
 ## Key Framework for Faster State Identification
 
@@ -31,6 +31,7 @@ Two sliding variables replace the full DP table for LC 198.
 - **LC 518:** Stuck on the recurrence for counting coin combinations. **Critical insight:** coins must be the outer loop and amounts the inner loop to count combinations (not permutations). If you iterate amounts outer and coins inner, you count permutations (1+2 and 2+1 counted separately). 5th documented struggle with deriving recurrence.
 - **LC 53:** Spent ~2 hours stuck. Mixed two state interpretations: "max subarray ending at i" vs "max subarray anywhere in nums[0..i]". The former gives a clean 2-candidate recurrence; the latter requires tracking two pieces of state. **Key lesson:** when choosing state definition, prefer the one that gives the simplest recurrence. 6th documented struggle.
 - **LC 416:** Initially pursued element-difference tracking — a valid-sounding but wrong framing. After guidance, correctly implemented 1D DP subset sum: `dp[j] = dp[j] || dp[j-num]` with backwards iteration. **Key lesson:** when the problem asks to split into two equal halves, reframe immediately as "find any subset summing to total/2." This is the boolean 0/1 knapsack. 8th documented struggle.
+- **LC 940:** Started with **2D interval DP** (`dp[i][j]` for substring `s[i..j]`) with complex inner dedup loop — wrong dimensionality entirely. After guidance, arrived at clean 1D running total: `dp = 2*dp - last[c]`. Struggled with: (1) identifying state as running total not interval, (2) understanding `last[c]` stores a **value** (snapshot) not an **index**, (3) MOD subtraction guard. **Key insight for counting problems:** when asked "count distinct X", the state is typically a cumulative total, not a range decomposition. The elegant formula `dp = 2*dp - last[c]` works because `-(-1)` gives `+1` for new characters automatically. 9th documented struggle with deriving recurrence.
 
 ## Weakness
-- **Deriving recurrence from invariant:** Currently guessing recurrence from the example tables rather than deriving it from the invariant. Practice habit: define invariant → derive recurrence → verify with examples. 8+ documented struggles (LC 198, LC 322, LC 139, LC 300, LC 518, LC 53, LC 1406, LC 1140).
+- **Deriving recurrence from invariant:** Currently guessing recurrence from the example tables rather than deriving it from the invariant. Practice habit: define invariant → derive recurrence → verify with examples. 9+ documented struggles (LC 198, LC 322, LC 139, LC 300, LC 518, LC 53, LC 1406, LC 1140, LC 940).

@@ -25,7 +25,7 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 | Monotonic Stack | 2/5 sev≤1 | 4 total | 3 more |
 | Prefix Sum | 3/5 sev≤1 | 10 total (4 independent) | Needs 2 more consecutive independent sev≤1 passes. 3 distinct days already met. |
 | Binary Lifting | 1/5 | 1 guided | Needs independent practice |
-| 1D Dynamic Programming | 0/5 | 11 total (10 guided) | Needs independent sessions |
+| 1D Dynamic Programming | 0/5 | 12 total (11 guided) | Needs independent sessions |
 | 2D Dynamic Programming | 0/5 | 4 guided | Needs independent sessions |
 | Minimax DP | 0/5 | 5 guided | Needs independent sessions |
 | BST | 0/5 | 2 guided | Needs independent sessions |
@@ -39,7 +39,7 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 
 ## Top Weaknesses (compact)
 
-1. **Deriving recurrence from invariant** — 8+ documented struggles (1D DP)
+1. **Deriving recurrence from invariant** — 9+ documented struggles (1D DP)
 2. **Over-engineering / overthinking** — Building complex data structures when simpler solutions exist
 3. **Brute-force feasibility check** — Not checking constraint bounds first
 4. **Debug print left in code** — 5 occurrences (fmt.Println)

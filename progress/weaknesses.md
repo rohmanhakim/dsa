@@ -2,15 +2,15 @@
 
 ## Recurring Issues (ranked by impact)
 
-### 1. Deriving Recurrence from Invariant (8+ struggles)
+### 1. Deriving Recurrence from Invariant (9+ struggles)
 Currently guessing recurrence from example tables rather than deriving it from the invariant. Practice habit: define invariant → derive recurrence → verify with examples. Two-sentence framework: (1) `dp[i]` **means** what? (2) `dp[i]` **depends on** what?
 
-**Reinforced in:** LC 198, LC 322, LC 139, LC 300, LC 518, LC 53, LC 1406, LC 1140. The two-question framework was the breakthrough for LC 322 — needs to be applied as the **first** step, not after trying combinations.
+**Reinforced in:** LC 198, LC 322, LC 139, LC 300, LC 518, LC 53, LC 1406, LC 1140, LC 940. The two-question framework was the breakthrough for LC 322 — needs to be applied as the **first** step, not after trying combinations.
 
 ### 2. Over-Engineering / Overthinking
 Tendency to build data structures (maps, arrays) when a simpler built-in function or observation would suffice. Before coding, ask: "What's the minimum I need to compute?" Count your variables before submitting, and ask if each one is truly necessary.
 
-**Reinforced in:** LC 14, LC 1268, LC 2685, LC 1331, LC 3499, LC 669, LC 3345, LC 3702, LC 3718. LC 3702: built 2D DP table for a problem solvable in O(n) with a 3-case observation. LC 3718: used binary search for membership checks on unsorted array when hash set is simpler. LC 1872: overcomplicated stone game mechanics with suffix sums and nested loops instead of seeking the simpler prefix-sum reformulation. Positive signals: self-corrected in LC 1268 and LC 3345 via difficulty heuristic ("easy problem → simpler solution exists").
+**Reinforced in:** LC 14, LC 1268, LC 2685, LC 1331, LC 3499, LC 669, LC 3345, LC 3702, LC 3718, LC 940. LC 3702: built 2D DP table for a problem solvable in O(n) with a 3-case observation. LC 3718: used binary search for membership checks on unsorted array when hash set is simpler. LC 1872: overcomplicated stone game mechanics with suffix sums and nested loops instead of seeking the simpler prefix-sum reformulation. LC 940: built 2D interval DP (`dp[i][j]`) with complex dedup loop when 1D running total suffices. Positive signals: self-corrected in LC 1268 and LC 3345 via difficulty heuristic ("easy problem → simpler solution exists").
 
 ### 3. Brute-Force Feasibility Check
 Spent ~1 hour on brute-force TLE approaches before recognizing the correct pattern. Root cause: not checking upfront whether brute force can work within the constraints.
