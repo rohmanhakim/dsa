@@ -20,6 +20,12 @@ the conversation alternates between two modes: **plan** (read-only analysis) and
 ### pre-flight check
 before every write operation (DB insert, file edit, script execution that modifies state), mentally confirm: "am I in act mode?" if the answer is no or uncertain, **stop and present the plan instead**.
 
+### hard rule: no writes until mode switch is confirmed
+- **do not assume act mode.** even if the user says "go ahead", "do it", "log it", or similar, wait for an explicit `<mode_notice>` switching to act mode.
+- **session logging is a write.** DB inserts (`INSERT`/`UPDATE`/`DELETE`), file edits to `progress/*.md`, pattern file updates, and `rm`/`mv`/`cp` are ALL writes. they must wait for act mode.
+- **when user asks "session plan?"** or "log this" or similar: present the full plan (SQL, file edits, severity assessment, mastery check results) and **STOP**. do not execute anything until the mode switches.
+- **if you already violated this**, acknowledge the mistake immediately and do not attempt to justify it.
+
 # progress tracking
 
 progress is tracked in a SQLite database at `progress/progress.db`. the schema is defined in `progress/schema.sql`.
