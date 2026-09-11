@@ -14,3 +14,19 @@ func Comb(n, r, cap int) int {
 	}
 	return res
 }
+
+// nPr
+func Perm(n, r, cap int) int {
+	if r > n {
+		return 0
+	}
+
+	res := 1
+	for i := 0; i < r; i++ {
+		res *= n - i
+		if res >= cap {
+			return cap
+		}
+	}
+	return res
+}
