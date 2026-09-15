@@ -6,7 +6,6 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 
 | Pattern | Streak | Distinct Days | Key Speed |
 |---------|--------|---------------|-----------|
-| Greedy (Intervals) | 5/5 sev≤1 | 5 | Varies |
 | Binary Search | 8/8 sev≤1 | 5+ | 5:40–90:04 |
 | DFS | 9/9 sev≤1 | 6+ | 10:24–86:56 |
 | Stack | 5/5 sev≤1 | 4+ | 12:59–43:40 |
@@ -16,6 +15,7 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 
 | Pattern | Streak | Sessions | Needs |
 |---------|--------|----------|-------|
+| Greedy (Intervals) | 0/5 | 5+1 (regression: guided sev=3 on lc2472) | Needs 3 consecutive independent sev≤1 across ≥2 days for re-certification |
 | Sliding Window | 3/5 within time | 12 total | 6 consecutive sev<=1 but 2 of last 5 over time; improving |
 | Math | 2/5 sev≤1 | 15 total (4 guided) | Needs 3 more consecutive independent sev≤1 passes across ≥3 distinct days. |
 | Greedy (Observation) | 1/5 sev≤1 | 11 total (6 guided) | Streak restarted (LC 2091 ind sev 0). Needs 4 more consecutive independent sev≤1. |
