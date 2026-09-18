@@ -57,3 +57,25 @@ func sort2D(s [][]string) {
 		}
 	})
 }
+
+func Equal1DUnordered[T comparable](a, b []T) bool {
+	if len(a) != len(b) {
+		return false
+	}
+
+	// Track frequencies of elements in slice a
+	counts := make(map[T]int, len(a))
+	for _, val := range a {
+		counts[val]++
+	}
+
+	// Subtract frequencies using slice b
+	for _, val := range b {
+		if counts[val] == 0 {
+			return false // Element not found or occurs too many times
+		}
+		counts[val]--
+	}
+
+	return true
+}
