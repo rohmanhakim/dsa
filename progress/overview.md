@@ -17,7 +17,7 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 |---------|--------|----------|-------|
 | Greedy (Intervals) | 0/5 | 6 total (2 guided: lc2472, lc1520) | Needs 3 consecutive independent sev≤1 across ≥2 days for re-certification |
 | Sliding Window | 3/5 within time | 12 total | 6 consecutive sev<=1 but 2 of last 5 over time; improving |
-| Math | 2/5 sev≤1 | 15 total (4 guided) | Needs 3 more consecutive independent sev≤1 passes across ≥3 distinct days. |
+| Math | 2/5 sev≤1 | 16 total (5 guided) | Needs 3 more consecutive independent sev≤1 passes across ≥3 distinct days. |
 | Greedy (Observation) | 1/5 sev≤1 | 11 total (6 guided) | Streak restarted (LC 2091 ind sev 0). Needs 4 more consecutive independent sev≤1. |
 | BFS | 0/5 sev≤1 | 6 total (2 guided) | Streak broken (LC 3568 guided). Needs 5 independent passes |
 | Two Pointers | 2/5 sev≤1 | 4 total | 3 more |
