@@ -2,16 +2,11 @@
 
 ## Immediate Priorities (closest to mastery)
 
-1. **Sliding Window** — 1 more independent pass needed (4/5, need 5th)
-2. **Greedy (Observation)** — 2 more independent passes needed (3/5)
-3. **BFS** — 3 more independent passes needed (2/5)
-4. **Two Pointers** — 3 more independent passes needed (2/5)
-5. **Digit Manipulation** — 2 more independent passes needed (2/4)
-6. **Monotonic Stack** — 3 more independent passes needed (2/5)
+All patterns are at 0/5 streak post-reset. Focus on getting first independent passes.
 
-## High-Priority Gaps (0/5, many sessions but no independent mastery)
-
-7. **1D Dynamic Programming** — 12 sessions (11 guided). Need independent practice applying the two-question framework. Key: internalize recurrence derivation before coding. LC 940 reinforced: for counting problems, state is a running total, not a range decomposition.
+1. **1D Dynamic Programming** — 3 guided sessions, 0 independent. Highest session count, most practice. Prioritize independent problems: LC 70 (Climbing Stairs), LC 198 (House Robber), LC 322 (Coin Change).
+2. **2D Dynamic Programming** — 2 guided sessions. Try LC 64 (Minimum Path Sum) or LC 62 (Unique Paths) independently.
+3. **Greedy (Intervals)** — 2 guided sessions. Try LC 435 (Non-overlapping Intervals) independently.
 
 ## Problem Queue
 
@@ -19,6 +14,8 @@
 - LC 5 - Longest Palindromic Substring (2D DP, different recurrence)
 - LC 64 - Minimum Path Sum (2D DP, simpler)
 - LC 142 - Linked List Cycle II — Floyd's Phase 2: finding the cycle start node (extends LC 141 pattern)
+- LC 70 - Climbing Stairs (1D DP, simplest entry point)
+- LC 198 - House Robber (1D DP, classic)
 
 ## String Matching Algorithms
 
