@@ -1,16 +1,58 @@
 # Segment Tree
 
-**Status:** ⏳ 0/5 sessions toward mastery (guided).
-**Sessions:** LC 2213 (guided, severity 3).
+**Status:** ⏳ 0/5 sessions toward mastery (guided sessions don't count).
+**Sessions:** 1 total (LC 3525 guided, severity 3).
 
-Binary tree for range queries and point updates. Each node stores interval metadata; merge combines children. Key template for problems requiring O(log n) point updates + O(1) range queries on dynamic data.
+## Core Concept
 
-## LC 2213 — Longest Substring of One Repeating Character
+Binary tree for range queries and point updates. Each node stores interval metadata; merge combines children.
 
-Segment tree storing (pre, suf, maxLen, leftChar, rightChar, iLen) per node. Merge rule: pre extends across boundary only if left child is fully uniform AND boundary chars match; suf extends symmetrically; maxLen = max(left.maxLen, right.maxLen, left.suf+right.pre if chars match).
+**When to use:** Need both point updates AND range queries. If only queries (no updates), use prefix sums.
 
-Three bugs caught: (1) unconditionally adding boundary run to maxLen regardless of char match, (2) not checking interval coverage for pre/suf extension, (3) Go zero-value bool is false — padding leaves need explicit isEmpty=true. Initially attempted interval/run tracking with Go slice (editorial Approach 2) which was O(n) per query due to slice shifting.
+## Node Structure (LC 3525 variant)
 
-## Key Lesson
+For problems tracking remainder distributions:
+- `pre[x]`: count of subarrays starting at left endpoint with product ≡ x (mod k)
+- `mul`: product of entire range (mod k)
 
-The merge function is the entire algorithm. Before coding, trace through 2-3 merge examples on paper to verify pre/suf/maxLen propagation. For segment trees with padding (non-power-of-2 lengths), always explicitly mark padding nodes.
+## Merge Operation
+
+Given left child `[l, m]` and right child `[m+1, r]`:
+
+1. **Subarrays staying in left:** use `left.pre` directly
+2. **Subarrays spanning into right:** shift `right.pre` by multiplying with `left.mul`
+   ```
+   combined_remainder = (left.mul * y) % k
+   spanning_pre[combined] += right.pre[y]
+   ```
+3. **Merged result:**
+   ```
+   merged.pre[i] = left.pre[i] + spanning_pre[i]
+   merged.mul = (left.mul * right.mul) % k
+   ```
+
+## Query Decomposition
+
+Standard segment tree query:
+1. Collect O(log n) canonical nodes that partition the range
+2. Merge them left-to-right with identity node
+3. Identity node: `mul = 1` (multiplicative identity), `pre = [0,...,0]`
+
+## Edge Cases
+
+- **Extra leaves:** When `n` (tree size) > `len(nums)`, initialize extra leaves to identity (`pre=zeros`, `mul=1`)
+- **Identity node:** Always initialize `pre: make([]int, k)` (not nil)
+
+## Complexity
+
+- Build: O(nk)
+- Update: O(k log n)
+- Query: O(k log n)
+- Space: O(nk)
+
+## Lessons
+
+- **LC 3525:** First segment tree problem. Key insight: k ≤ 5 allows tracking distributions. Merge operation is the core — understanding how spanning subarrays shift remainders by left.mul. Query decomposition requires collecting canonical nodes, not concatenating pre arrays.
+
+## Weakness
+- **New pattern** — needs more practice to build fluency with merge operations and query decomposition.

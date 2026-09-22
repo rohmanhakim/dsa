@@ -17,6 +17,7 @@ _No patterns mastered yet. DB reset 2026-09-12. All sessions since reset are gui
 | Math | 0/5 | 1 guided (lc1401) | Needs independent practice. |
 | Prefix Sum | 0/5 | 1 guided (lc1621, secondary) | Needs independent practice. |
 | Sliding Window | 0/5 | 1 guided (lc1477, secondary) | Needs independent practice. |
+| Segment Tree | 0/5 | 1 guided (lc3525) | Needs independent sessions. Key: merge operation shifts right child's pre by left.mul; query collects O(log n) canonical nodes. |
 
 ## Top Weaknesses (compact)
 
