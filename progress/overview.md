@@ -16,7 +16,7 @@ _No patterns mastered yet. DB reset 2026-09-12. All sessions since reset are gui
 | Binary Search | 0/5 | 1 guided (lc3414, secondary) | Needs independent practice. |
 | Math | 0/5 | 1 guided (lc1401) | Needs independent practice. |
 | Prefix Sum | 0/5 | 1 guided (lc1621, secondary) | Needs independent practice. |
-| Sliding Window | 0/5 | 1 guided (lc1477, secondary) | Needs independent practice. |
+| Sliding Window | 0/5 | 2 guided (lc1477 secondary, lc1658 primary) | Needs independent practice. Pattern recognition for "reduce to zero" problems. |
 | Segment Tree | 0/5 | 1 guided (lc3525) | Needs independent sessions. Key: merge operation shifts right child's pre by left.mul; query collects O(log n) canonical nodes. |
 
 ## Top Weaknesses (compact)
