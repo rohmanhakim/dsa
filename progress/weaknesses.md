@@ -28,6 +28,7 @@ Spent ~1 hour on brute-force TLE approaches before recognizing the correct patte
 - **LC 1927:** Initially tried to simulate the game with prefix/suffix sums and complex branching logic. The problem is a game theory problem where optimal play reduces to a mathematical invariant. Ask: "What is the condition under which the second player can always match the first player's moves?" For game theory problems, always derive the invariant before trying to simulate.
 - **LC 3568:** Initially tried TSP with precomputed pairwise BFS distances + bitmask DP. Failed because the energy constraint means the "cost" from A to B depends on remaining energy — can't precompute distances independently. Ask: "Does the cost between two nodes depend on a variable state?" If yes, incorporate that state into the BFS.
 - **LC 1658:** Initially tried DP for "minimum operations to reduce x to zero" when sliding window was correct. Ask: "Is this a subarray sum problem in disguise?"
+- **LC 1096:** Initially tried stack-based approach without clear plan for brace expansion. The problem is recursive grammar parsing with precedence rules. Ask: "Is this an expression parsing problem? What are the operators and their precedence?"
 
 ### 6. Greedy Instinct
 - **LC 2812:** Initially tried greedy pathfinding (pick highest-safety neighbor) which fails for "maximize the minimum" problems. Ask: "Is the locally optimal choice also globally optimal?"
