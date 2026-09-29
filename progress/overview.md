@@ -8,6 +8,7 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 |---------|--------|---------------|-----------|
 | DFS | 9/9 sev≤1 | 6+ | 10:24–86:56 |
 | Binary Search | 8/8 sev≤1 | 5+ | 5:40–90:04 |
+| Stack | 5/5 sev≤1 | 5 | 8:05–43:40 |
 | Greedy (Intervals) | 5/5 sev≤1 | 5 | 7:28–74:17 |
 | Hash Map | 4/4 sev≤1 | 4+ | 3:47–15:13 |
 
@@ -15,7 +16,6 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 
 | Pattern | Streak | Sessions | Needs |
 |---------|--------|----------|-------|
-| Stack | 4/4 sev≤1 | 4 total (0 guided) | 1 more sev≤1 pass across 3+ days (already has 4 distinct days) |
 | Sliding Window | 4/4 sev≤1 | 12 total (3 guided) | 1 more sev≤1 pass (already has 3 distinct days) |
 | Prefix Sum | 3/3 sev≤1 | 10 total (4 independent) | 2 more consecutive sev≤1 passes |
 | Two Pointers | 2/2 sev≤1 | 7 total (2 guided) | 3 more consecutive sev≤1 passes |
