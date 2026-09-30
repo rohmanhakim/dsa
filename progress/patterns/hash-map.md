@@ -1,7 +1,7 @@
 # Hash Map
 
 **Status:** ✅ Mastered — 5/5 consecutive independent sessions with severity ≤ 1 across 5 distinct days.
-**Sessions:** LC 383, LC 1331, LC 13, LC 49, LC 3731, LC 290
+**Sessions:** LC 383, LC 1331, LC 13, LC 49, LC 3731, LC 290, LC 1807 (secondary)
 
 Core use: constant-time lookup for grouping, mapping symbols/characters to values.
 
@@ -29,3 +29,4 @@ Character frequency array (26 counts) as hash map key for anagram grouping — O
 - **LC 49:** Character frequency array as key is more efficient than sorting each string. 26-int array is the canonical hash map key for anagram problems.
 - **LC 3731:** Sort + map for rank assignment (coordinate compression). Clean implementation.
 - **LC 290:** Bidirectional bijection with two hash maps. Early length check guard. Check the unmapped direction only when the forward map has no entry.
+- **LC 1807 (secondary):** Lookup table for bracket-key → value replacement (`kMap[key]`, comma-ok check → `"?"` fallback). Map build O(m), lookups O(1); the bracket parsing (stack/flag) was the primary pattern.
