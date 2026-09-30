@@ -2,7 +2,7 @@
 
 **Status:** ✅ Mastered — 5/5 consecutive independent sessions with severity ≤ 1 (5 distinct days).
 
-**Sessions:** LC 20, LC 150, LC 2211, LC 1190, LC 1614
+**Sessions:** LC 20, LC 150, LC 2211, LC 1190, LC 1614, LC 1111 (secondary)
 
 Core idea: LIFO data structure for balanced matching, expression evaluation, and simulation.
 
@@ -18,6 +18,7 @@ Core idea: LIFO data structure for balanced matching, expression evaluation, and
 - **LC 2211 key insight:** Post-loop logic is trickiest — an S at stack top acts as "barrier" trapping R's. **O(1) alternative missed:** structural observation simplifies to counting.
 - **LC 1190 key insight:** Stack naturally handles nested parentheses because LIFO ensures innermost pair is processed first. The "pop until `(`, reverse, push back" pattern is clean and generalizable.
 - **LC 1614 key insight:** For single bracket type + guaranteed valid input, use a counter (O(1) space). Stack is reserved for multiple bracket types or validity checking. Don't over-engineer.
+- **LC 1111 (secondary):** depth **counter** (not stack) suffices for single bracket type + valid input — extends the LC 1614 lesson. The struggle was the layer-split observation, not stack mechanics → tracked under Greedy (Observation).
 
 ## Speed
 LC 20: 9:43 (slow pass), LC 150: 20:56, LC 2211: 43:40 (slow pass), LC 1190: 8:05, LC 1614: 23:10 (slow pass).

@@ -1,7 +1,7 @@
 # Greedy (Observation)
 
-**Status:** ⏳ 1/5 consecutive independent sessions with severity ≤ 1.
-**Sessions:** LC 3499 (ind, sev 1, 1:55:00), LC 3517 (ind, sev 0, 13:43), LC 3518 (guided, sev 3), LC 3016 (ind, sev 1, 39:01), LC 3702 (guided, sev 3), LC 2029 (guided, sev 3), LC 1386 (ind, sev 1, 1:45:34), LC 3720 (guided, sev 3), LC 3734 (guided, sev 3), LC 2948 (guided, sev 3), LC 2091 (ind, sev 0, 16:48).
+**Status:** ⏳ 0/5 consecutive independent sessions with severity ≤ 1.
+**Sessions:** LC 3499 (ind, sev 1, 1:55:00), LC 3517 (ind, sev 0, 13:43), LC 3518 (guided, sev 3), LC 3016 (ind, sev 1, 39:01), LC 3702 (guided, sev 3), LC 2029 (guided, sev 3), LC 1386 (ind, sev 1, 1:45:34), LC 3720 (guided, sev 3), LC 3734 (guided, sev 3), LC 2948 (guided, sev 3), LC 2091 (ind, sev 0, 16:48), LC 1111 (guided, sev 3).
 
 Model an operation's net effect as a formula, then optimize. Key insight: the net effect of a trade (or any complex operation) is often much simpler than the operation itself — the removed part is restored (net zero) and the actual gain comes from a smaller, identifiable component.
 
@@ -23,3 +23,7 @@ Model an operation's net effect as a formula, then optimize. Key insight: the ne
   2. **Group assembly pattern:** Given a group of {values} and their {original indices}, sort the indices, then assign values in order (smallest value → smallest index). This is a reusable sub-pattern for "assign best to best position" problems.
   3. **Gap in connecting data to output:** Had the right data structures (segments with values and indices) but couldn't bridge to final array construction. Practice need: given intermediate grouped data, explicitly state what the output assignment should look like before coding the assembly step.
 - **LC 2091 (ind, sev 0, 16:48):** Removing min and max from array using front/back deletions. Correctly identified the three strategies (remove from both ends, remove both from front, remove both from back) and computed the minimum. Initially over-complicated with sorting (O(n log n)) when a linear scan (O(n)) suffices. Also had redundant if/else branching that could be collapsed by normalizing indices (l = min index, r = max index). **Key lesson:** When the problem involves two special elements and front/back removal, enumerate all strategies and take the minimum. Normalize indices upfront to avoid code duplication.
+- **LC 1111 (guided, sev 3):** Maximum nesting depth of two valid parentheses strings. Stuck between "computed max depth" and "assign each char to group A/B": first attempt built an item-stack that was pushed/popped but never used, had dead `average`/`a`/`b` vars, returned all-zeros. After guidance — layer/parity model: label each paren with its nesting layer (`)` = depth before decrement), then split layers by parity. **Key lessons:**
+  1. **Minimax via lower bound first:** a fully nested chain of depth D forces ≥ ⌈D/2⌉ by pigeonhole — converts "minimize the max" into "construct a split achieving the bound".
+  2. **Split layers, not characters:** a matching pair shares its layer, so any consistent layer→group assignment keeps pairs intact (both subsequences stay VPS).
+  3. **Parity cut guarantees the bound structurally:** odd layers → A (≤ ⌈D/2⌉), even → B (≤ ⌊D/2⌋) — no maxDepth needed. Threshold cut works too; for "any valid answer" problems, test the *contract*, not a specific array.
