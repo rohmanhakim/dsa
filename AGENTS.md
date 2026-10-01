@@ -328,6 +328,22 @@ the bar is lighter than initial mastery:
 - when writing for `approach_notes`, `weakness`, and `key_learning`, use markdown-formatted texts, and balance between conciseness and details. If there are many items in the information that you want to insert, make it into a markdown list. the goals are to make you better judge my current skill when asked and ease of querying when you need the data.
 - to avoid corrupted insert, make a habit to dump the query to a temporary file then run the SQL rather than querying in-place. you can always delete the temporary file later.
 - **pattern column rule:** the `session_patterns` junction table stores **ALL patterns** used in the session. use the exact canonical names from `progress/patterns-registry.md`. the `role` column distinguishes between primary (the pattern the user deliberately practiced) and secondary (supporting patterns). when logging a session, insert into `session_patterns` for each pattern used.
+- **session deletion rule:** when deleting a session, always delete its `session_patterns` rows **in the same transaction**. `session_patterns` has no `ON DELETE CASCADE`, so a bare `DELETE FROM sessions` leaves orphaned rows — and since SQLite reuses `max(id)+1` without `AUTOINCREMENT`, a stale orphan will silently attach itself to a future session with the reused id. example:
+
+```sql
+BEGIN;
+DELETE FROM session_patterns WHERE session_id = 135;
+DELETE FROM sessions WHERE id = 135;
+COMMIT;
+```
+
+  after any session deletion, verify no orphans remain:
+
+```sql
+SELECT COUNT(*) FROM session_patterns sp
+LEFT JOIN sessions s ON s.id = sp.session_id
+WHERE s.id IS NULL;
+```
 
 # miscellaneous
 
