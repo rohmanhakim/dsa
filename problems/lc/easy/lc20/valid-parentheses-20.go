@@ -1,30 +1,33 @@
 package lc20
 
 func isValid(s string) bool {
-	if len(s)%2 == 1 {
-		return false
-	}
 	stack := []rune{}
 
-	pair := func(a, b rune) bool {
-		br1 := a == '(' && b == ')'
-		br2 := a == '[' && b == ']'
-		br3 := a == '{' && b == '}'
-		return br1 || br2 || br3
-	}
-	for _, ch := range s {
-		if ch == '(' || ch == '[' || ch == '{' {
-			stack = append(stack, ch)
+	popAndCheckTop := func(topShould rune) bool {
+		if len(stack) > 0 && stack[len(stack)-1] == topShould {
+			stack = stack[:len(stack)-1]
+			return true
 		} else {
-			if len(stack) > 0 {
-				top := stack[len(stack)-1]
-				if !pair(top, ch) {
-					return false
-				}
-				stack = stack[:len(stack)-1]
-			} else {
+			return false
+		}
+	}
+
+	for _, ch := range s {
+		switch ch {
+		case ')':
+			if !popAndCheckTop('(') {
 				return false
 			}
+		case ']':
+			if !popAndCheckTop('[') {
+				return false
+			}
+		case '}':
+			if !popAndCheckTop('{') {
+				return false
+			}
+		default:
+			stack = append(stack, ch)
 		}
 	}
 	return len(stack) == 0
