@@ -1,7 +1,7 @@
 # DFS
 
-**Status:** ✅ Mastered — 9/9 consecutive independent sessions with severity ≤ 1 across 6+ distinct days.
-**Solved:** LC 104, LC 46, LC 17, LC 77, LC 2467, LC 200, LC 733, LC 1992, LC 39
+**Status:** ⚠️ Regressed (2026-10-02) — sev-3 guided session on LC 22 broke the 9/9 streak. Re-cert bar: 3 consecutive sev≤1 across 2 distinct days.
+**Solved:** LC 104, LC 46, LC 17, LC 77, LC 2467, LC 200, LC 733, LC 1992, LC 39, LC 22
 
 ## Variants
 
@@ -12,6 +12,8 @@
 Maintain visited set, iterate over unchecked elements, append/recurse/pop. Base case adds result when path is complete. `num` parameter enforces forward-only exploration for combinations.
 
 **LC 39 variant (reuse same element):** Pass `i` (not `i+1`) to recursive call to allow picking the same candidate again. No visited set needed — the `idx` parameter both prevents duplicate combinations and enables reuse. Prune branches where `total + candidates[i] > target`.
+
+**LC 22 variant (choice-gated generation, no visited set):** Build strings one char at a time with two branch gates derived from the prefix invariant `close <= open <= n`: recurse on `cur+"("` only if `openCount < n`, on `cur+")"` only if `closeCount < openCount`. Collect at `len == 2n` (both counts pinned to n) — the only node-killing `return` besides the base case. Critical distinction: *invalid state* (`close > open`) kills the whole node; *choice-limited* state (`open == n`) gates exactly ONE branch — using `return` for the latter silently drops every legal `)` placement. Go strings have no pop: pass `cur+"("`/`cur+")"` as call arguments, never mutate-then-recurse. Exploring `(` first yields lexicographic output for free.
 
 ### Grid DFS (2D visited array) — LC 200, LC 733, LC 1992
 `if invalid { return }` guard at start of DFS with boundary, visited, and target checks, then recurse 4 directions directly. Nested loop over grid finds unvisited land cells. No need for map/coord formatting — grid + visited array is sufficient.
@@ -33,7 +35,8 @@ Maintain visited set, iterate over unchecked elements, append/recurse/pop. Base 
 - **LC 77:** Slow pass (47:10) — combinations with `num` parameter for forward-only exploration. Clean but took time.
 - **LC 200:** Grid DFS for counting connected components. Used `lands` map + `getNeighbors` helper — over-engineered. Standard template: nested loop over grid, DFS with boundary+visited+target guard at top, recurse 4 directions directly. Need to internalize this template as a third DFS variant alongside tree DFS and backtracking DFS.
 - **LC 39:** Clean implementation (21:01). Combination Sum — backtracking DFS with element reuse. Key distinction from LC 46/17/77: pass `i` instead of `i+1` to allow unlimited reuse of the same candidate. No visited set needed since `idx` controls exploration scope. This is the third backtracking variant: (1) visited set for permutations (LC 46), (2) `i+1` for combinations (LC 77), (3) `i` for combinations with reuse (LC 39).
+- **LC 22:** Regressed session (guided, sev 3, 01:45:45 wall). Own attempt used insertion generation + sort/Compact dedup (over-generates → dedup hacks; closure-shared `depth` corrupted branch termination). Guided to forward-build backtracking, then 3 more debug rounds: rebound `cur` local (Go strings no pop), `open >= n` used as node-killer instead of branch gate, B-gate used `close > open` instead of `close < open`. Core lesson: classify each condition as *invalid state* vs *choice-limited* before coding it. Related to weakness #7 (mechanics before invariant).
 - **LC 1992:** Grid DFS for connected components with bounding box tracking. Same over-engineering as LC 200 — used `getNeighbors` helper that allocates a new slice on every call. Standard template recurses directly on 4 directions. Key insight missed: the rectangular property of farmland groups could be exploited for a greedy O(1) space solution (scan right and down from top-left corner to find bottom-right). Always check if the input has structural guarantees that enable a simpler approach.
 
 ## Speed
-LC 104: 20:47, LC 46: 34:15, LC 17: 17:51, LC 77: 47:10, LC 2467: 01:26:56, LC 200: 29:41, LC 733: 10:24, LC 1992: 26:23, LC 39: 21:01.
+LC 104: 20:47, LC 46: 34:15, LC 17: 17:51, LC 77: 47:10, LC 2467: 01:26:56, LC 200: 29:41, LC 733: 10:24, LC 1992: 26:23, LC 39: 21:01, LC 22: guided (01:45:45, not counted).

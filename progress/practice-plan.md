@@ -2,11 +2,10 @@
 
 ## Immediate Priorities (closest to mastery)
 
-All patterns are at 0/5 streak post-reset. Focus on getting first independent passes.
-
-1. **1D Dynamic Programming** — 3 guided sessions, 0 independent. Highest session count, most practice. Prioritize independent problems: LC 70 (Climbing Stairs), LC 198 (House Robber), LC 322 (Coin Change).
-2. **2D Dynamic Programming** — 2 guided sessions. Try LC 64 (Minimum Path Sum) or LC 62 (Unique Paths) independently.
-3. **Greedy (Intervals)** — 2 guided sessions. Try LC 435 (Non-overlapping Intervals) independently.
+1. **DFS re-certification (REGRESSED 2026-10-02)** — sev-3 on lc22 broke the 9/9 streak. Bar is light: **3 consecutive sev≤1 across 2 distinct days**. Use fresh backtracking *variants* (not permutations/combinations again): LC 78 (Subsets), LC 131 (Palindrome Partitioning), LC 51 (N-Queens), LC 79 (Word Search). One session per day — no same-day retries (contaminated sampling).
+2. **1D Dynamic Programming** — 3 guided sessions, 0 independent. Highest session count, most practice. Prioritize independent problems: LC 70 (Climbing Stairs), LC 198 (House Robber), LC 322 (Coin Change).
+3. **2D Dynamic Programming** — 2 guided sessions. Try LC 64 (Minimum Path Sum) or LC 62 (Unique Paths) independently.
+4. **Greedy (Intervals)** — 2 guided sessions. Try LC 435 (Non-overlapping Intervals) independently.
 
 ## Problem Queue
 

@@ -6,7 +6,6 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 
 | Pattern | Streak | Distinct Days | Key Speed |
 |---------|--------|---------------|-----------|
-| DFS | 9/9 sev≤1 | 6+ | 10:24–86:56 |
 | Binary Search | 8/8 sev≤1 | 5+ | 5:40–90:04 |
 | Stack | 7/7 sev≤1 | 7 | 8:05–43:40 |
 | Greedy (Intervals) | 5/5 sev≤1 | 5 | 7:28–74:17 |
@@ -25,6 +24,7 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 
 | Pattern | Streak | Sessions | Needs |
 |---------|--------|----------|-------|
+| DFS | 0/5 sev≤1 | 12 total (3 guided) | REGRESSED 2026-10-02 (sev 3, lc22). Re-cert: 3 sev≤1 across 2 days. |
 | Math | 0/5 sev≤1 | 16 total (5 guided) | Last 3 sev≤1 then sev 3 broke streak. Needs 5 consecutive independent sev≤1. |
 | Digit Manipulation | 0/5 sev≤1 | 7 total (2 guided) | Streak broken by guided session. Needs fresh 5 consecutive sev≤1. |
 | Greedy (Observation) | 0/5 sev≤1 | 16 total (10 guided) | Streak broken by guided sessions. Needs independent practice. |
@@ -47,7 +47,7 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 4. **Debug print left in code** — 6 occurrences (fmt.Println)
 5. **Pattern misidentification** — Prefix/range-query vs combinatorial DP
 6. **Greedy instinct** — Picking greedy when minimax/binary-search is needed
-7. **Solving by mechanics vs invariants** — Starting with implementation instead of stating invariant
+7. **Solving by mechanics vs invariants** — Starting with implementation instead of stating invariant (reinforced lc22)
 8. **Binary search indexing** — Confusion between returning index vs count (off-by-one errors)
 9. **Tie-breaking logic** — Not considering all cases when selecting final answer
 10. **Confusing dp state definition** — Not distinguishing "ending at i" vs "total so far" (lc3524)

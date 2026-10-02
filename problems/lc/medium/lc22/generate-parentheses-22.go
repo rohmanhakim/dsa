@@ -1,32 +1,26 @@
 package lc22
 
-import "fmt"
-
-func backtrack(n int, result *[]string, current string, openCount int, closeCount int) {
-	if len(current) == n*2 {
-		*result = append(*result, current)
-		return
-	}
-
-	if openCount < n {
-		backtrack(n, result, current+"(", openCount+1, closeCount)
-	}
-
-	if openCount > closeCount {
-		backtrack(n, result, current+")", openCount, closeCount+1)
-	}
-}
-
 func generateParenthesis(n int) []string {
-	result := []string{}
 
-	backtrack(n, &result, "", 0, 0)
+	var explore func(cur string, closeCount, openCount int)
 
-	return result
-}
+	res := []string{}
+	explore = func(cur string, closeCount, openCount int) {
+		if len(cur) == 2*n {
+			res = append(res, cur)
+			return
+		}
 
-func GenerateParentheses() {
-	n := 3
-	out := generateParenthesis(n)
-	fmt.Println(out)
+		if openCount < n {
+			explore(cur+"(", closeCount, openCount+1)
+		}
+
+		if closeCount < openCount {
+			explore(cur+")", closeCount+1, openCount)
+		}
+
+	}
+
+	explore("", 0, 0)
+	return res
 }

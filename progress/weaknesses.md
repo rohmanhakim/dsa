@@ -38,7 +38,7 @@ Spent ~1 hour on brute-force TLE approaches before recognizing the correct patte
 ### 7. Solving by Mechanics vs Invariants
 Started with implementation mechanics ("what data moves where") instead of stating the invariant first. Root cause of over-engineering: starting with mechanics instead of "what property does my structure maintain?"
 
-**Reinforced in:** LC 901, LC 14, LC 1268, LC 581, LC 1872. LC 1872: jumped straight into simulating stone merges instead of stating the invariant ("remaining stones always form a suffix, leftmost value = some prefix sum"). Before coding any monotonic structure, write one sentence: "My stack maintains ___ from bottom to top." Before coding any game simulation, write one sentence: "The game state can be described as ___."
+**Reinforced in:** LC 901, LC 14, LC 1268, LC 581, LC 1872, LC 22. LC 1872: jumped straight into simulating stone merges instead of stating the invariant ("remaining stones always form a suffix, leftmost value = some prefix sum"). Before coding any monotonic structure, write one sentence: "My stack maintains ___ from bottom to top." Before coding any game simulation, write one sentence: "The game state can be described as ___." LC 22: started coding an insertion generator + `depth` counter without ever stating what makes a prefix well-formed — cost 4 debug rounds and a guided session (broke DFS mastery). Before coding any backtracking generator, write one sentence: "A partial candidate is valid iff ___" and derive every guard from it.
 
 ### 8. Modular Arithmetic / Operator Precedence with Percent
 Recurring bug in LC 3756 (4+ occurrences in one session). Go percent operator binds tighter than multiply and plus, so the percent MOD must wrap the entire expression. Also, 10e8 is a float64 literal in Go — always use 1_000_000_007 for integer MOD.
@@ -55,6 +55,11 @@ Confusing table indices (1-indexed) with string indices (0-indexed). Remember: `
 **Reinforced in:** LC 72, LC 115 (described match as `t[i-j]` instead of `t[j-1]`).
 
 ## Pattern-Specific Weaknesses
+
+### Backtracking (LC 22)
+- **Node-killer vs branch-gate:** Repeatedly used a whole-node `return` for *choice-limited* conditions (`open == n`) that should gate exactly one branch — silently dropped every legal continuation through the other branch. Rule: a condition that says "this ONE move is unavailable" wraps that branch in `if`; only *invalid state* (`close > open`) may kill the node.
+- **Path state leaking out of the path:** Closure-shared `depth` counter (attempt 1) and mutate-then-recurse on `cur` (attempt 2 — Go strings have no pop, so `cur += "("` bled into branch B). Rule: all path state lives in parameters; build children as `cur+"("` / `cur+")"` at the call site.
+- **Dedup as a crutch:** `sort` + `slices.Compact` to clean an over-generating insertion scheme. If a generator needs dedup, its choice space is wrong — gate choices at the source instead.
 
 ### Binary Search
 - **Template confusion:** Not internalizing "closed vs half-open interval" framework. Action: practice templates back-to-back.
