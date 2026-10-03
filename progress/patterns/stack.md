@@ -2,7 +2,7 @@
 
 **Status:** ✅ Mastered — 7/7 consecutive independent sessions with severity ≤ 1 (7 distinct days).
 
-**Sessions:** LC 20 (×2), LC 150, LC 2211, LC 1190, LC 1614, LC 1807, LC 1111 (secondary)
+**Sessions:** LC 20 (×2), LC 150, LC 2211, LC 1190, LC 1614, LC 1807, LC 1111 (secondary), LC 32 (secondary)
 
 Core idea: LIFO data structure for balanced matching, expression evaluation, and simulation.
 
@@ -21,6 +21,7 @@ Core idea: LIFO data structure for balanced matching, expression evaluation, and
 - **LC 1614 key insight:** For single bracket type + guaranteed valid input, use a counter (O(1) space). Stack is reserved for multiple bracket types or validity checking. Don't over-engineer.
 - **LC 1807 key insight:** Pop-until-`(` + reverse extracts the key (same mechanic as LC 1190 — direct transfer). **But read the guarantees first:** "no nested brackets" + "every `(` matched" means a `capture` bool + key buffer (the editorial approach) needs **no stack at all**. Reaching for a stack by reflex on a bracket problem is over-engineering (weakness #2).
 - **LC 1111 (secondary):** depth **counter** (not stack) suffices for single bracket type + valid input — extends the LC 1614 lesson. The struggle was the layer-split observation, not stack mechanics → tracked under Greedy (Observation).
+- **LC 32 (secondary):** stack held **indices**, not chars — a closing `)` needs the matching `(` position to compute pair length and to stitch the block before the pair. Mechanics correct; the session's struggle was DP state derivation → tracked under 1D Dynamic Programming.
 
 ## Speed
 LC 20: 9:43 (slow pass) → 10:52 clean re-pass, LC 150: 20:56, LC 2211: 43:40 (slow pass), LC 1190: 8:05, LC 1614: 23:10 (slow pass), LC 1807: 13:25.

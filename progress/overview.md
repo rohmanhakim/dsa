@@ -31,7 +31,7 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 | BFS | 0/5 sev≤1 | 5 total (2 guided) | Streak broken by guided session (lc3568). Needs 5 independent passes. |
 | Linked List | 1/1 sev≤1 | 1 session | 4 more |
 | Simulation | 1/1 sev≤1 | 1 session | 4 more |
-| 1D Dynamic Programming | 0/5 | 15 total (13 guided) | Needs independent sessions. Key: recurrence derivation. |
+| 1D Dynamic Programming | 0/5 | 16 total (14 guided) | Needs independent sessions. Key: recurrence derivation. |
 | 2D Dynamic Programming | 0/5 | 4 guided | Needs independent sessions. |
 | Minimax DP | 0/5 | 4 guided | Needs independent sessions. |
 | BST | 0/5 | 2 guided | Needs independent sessions. |
@@ -41,7 +41,7 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 
 ## Top Weaknesses (compact)
 
-1. **Deriving recurrence from invariant** — 9+ documented struggles (1D DP)
+1. **Deriving recurrence from invariant** — 10+ documented struggles (1D DP)
 2. **Over-engineering / overthinking** — Building complex data structures when simpler solutions exist
 3. **Brute-force feasibility check** — Not checking constraint bounds first
 4. **Debug print left in code** — 6 occurrences (fmt.Println)
@@ -50,7 +50,7 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 7. **Solving by mechanics vs invariants** — Starting with implementation instead of stating invariant (reinforced lc22)
 8. **Binary search indexing** — Confusion between returning index vs count (off-by-one errors)
 9. **Tie-breaking logic** — Not considering all cases when selecting final answer
-10. **Confusing dp state definition** — Not distinguishing "ending at i" vs "total so far" (lc3524)
+10. **Confusing dp state definition** — Not distinguishing "ending at i" vs "total so far" (lc3524, lc32)
 
 → Full weaknesses: `progress/weaknesses.md`
 

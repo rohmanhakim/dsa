@@ -2,10 +2,10 @@
 
 ## Recurring Issues (ranked by impact)
 
-### 1. Deriving Recurrence from Invariant (9+ struggles)
+### 1. Deriving Recurrence from Invariant (10+ struggles)
 Currently guessing recurrence from example tables rather than deriving it from the invariant. Practice habit: define invariant → derive recurrence → verify with examples. Two-sentence framework: (1) `dp[i]` **means** what? (2) `dp[i]` **depends on** what?
 
-**Reinforced in:** LC 198, LC 322, LC 139, LC 300, LC 518, LC 53, LC 1406, LC 1140, LC 940. The two-question framework was the breakthrough for LC 322 — needs to be applied as the **first** step, not after trying combinations.
+**Reinforced in:** LC 198, LC 322, LC 139, LC 300, LC 518, LC 53, LC 1406, LC 1140, LC 940, LC 32. The two-question framework was the breakthrough for LC 322 — needs to be applied as the **first** step, not after trying combinations. LC 32: guessed `+2`/`max` mechanics from example tables for 2 hours before the state definition was fixed.
 
 ### 2. Over-Engineering / Overthinking
 Tendency to build data structures (maps, arrays) when a simpler built-in function or observation would suffice. Before coding, ask: "What's the minimum I need to compute?" Count your variables before submitting, and ask if each one is truly necessary.
@@ -48,6 +48,8 @@ Tendency to reach for built-in functions (e.g., `bits.OnesCount`) when the probl
 
 ### 10. Confusing DP State Definition
 Distinguishing "subarrays ending at i" from "total subarrays so far" — led to double-counting in LC 3524. When rolling DP, clarify: does dp[r] represent the count at the current step only, or accumulated across all steps? If both are needed, use two arrays (one for ending-at-i, one for running total).
+
+**Reinforced in:** LC 3524, LC 32. LC 32: `dp[i]` as a running max made the recurrence impossible to express (couldn't stitch `() + (())`); flipping to "longest valid **ending exactly at i**" forced the correct recurrence `dp[i] = (i-j) + dp[j]`. Rule: before writing any recurrence, write one sentence defining whether `dp[i]` is **local (ending here)** or **cumulative (so far)** — and pick local unless the problem asks for a total.
 
 ### 11. Index Alignment in DP
 Confusing table indices (1-indexed) with string indices (0-indexed). Remember: `dp[i][j]` uses `word1[i-1]` and `word2[j-1]`. **Also in 2D string DP:** the two strings have independent index spaces — `s[i-1]` vs `t[j-1]`, never mix them (e.g., writing `t[i-j]`). Always think of `i` and `j` as independent cursors over `s` and `t`.
