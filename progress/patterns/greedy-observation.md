@@ -1,7 +1,7 @@
 # Greedy (Observation)
 
 **Status:** ⏳ 0/5 consecutive independent sessions with severity ≤ 1.
-**Sessions:** LC 3499 (ind, sev 1, 1:55:00), LC 3517 (ind, sev 0, 13:43), LC 3518 (guided, sev 3), LC 3016 (ind, sev 1, 39:01), LC 3702 (guided, sev 3), LC 2029 (guided, sev 3), LC 1386 (ind, sev 1, 1:45:34), LC 3720 (guided, sev 3), LC 3734 (guided, sev 3), LC 2948 (guided, sev 3), LC 2091 (ind, sev 0, 16:48), LC 1111 (guided, sev 3).
+**Sessions:** LC 3499 (ind, sev 1, 1:55:00), LC 3517 (ind, sev 0, 13:43), LC 3518 (guided, sev 3), LC 3016 (ind, sev 1, 39:01), LC 3702 (guided, sev 3), LC 2029 (guided, sev 3), LC 1386 (ind, sev 1, 1:45:34), LC 3720 (guided, sev 3), LC 3734 (guided, sev 3), LC 2948 (guided, sev 3), LC 2091 (ind, sev 0, 16:48), LC 1111 (guided, sev 3), LC 678 (guided, sev 3).
 
 Model an operation's net effect as a formula, then optimize. Key insight: the net effect of a trade (or any complex operation) is often much simpler than the operation itself — the removed part is restored (net zero) and the actual gain comes from a smaller, identifiable component.
 
@@ -27,3 +27,8 @@ Model an operation's net effect as a formula, then optimize. Key insight: the ne
   1. **Minimax via lower bound first:** a fully nested chain of depth D forces ≥ ⌈D/2⌉ by pigeonhole — converts "minimize the max" into "construct a split achieving the bound".
   2. **Split layers, not characters:** a matching pair shares its layer, so any consistent layer→group assignment keeps pairs intact (both subsequences stay VPS).
   3. **Parity cut guarantees the bound structurally:** odd layers → A (≤ ⌈D/2⌉), even → B (≤ ⌊D/2⌋) — no maxDepth needed. Threshold cut works too; for "any valid answer" problems, test the *contract*, not a specific array.
+- **LC 678 (guided, sev 3):** Valid Parenthesis String with wildcard `*`. Two failed attempts: (1) total balance vs asterisk count — ignores ordering (`*)(` false positive); (2) single stack that destroyed unused `*`s while searching for `(`. After guidance: low/high range invariant — `[low, high]` = achievable open-counts; `*` widens the window (low-1 clamped at 0, high+1). **Key lessons:**
+  1. **Prefix property ≠ total count:** parenthesis validity depends on every prefix, never on final sums.
+  2. **Do not commit to one reading of a wildcard:** track the alive set (range of achievable states); eager irreversible choices kill valid interpretations.
+  3. **Negative open-count = dead reading, not a value:** the clamp at 0 on `low` encodes this; `high < 0` rejects when even the most generous reading dies.
+  4. **Guards must run after the update they validate:** `high < 0` checked at loop top missed the last character — `")"` returned true until the check moved below the switch.

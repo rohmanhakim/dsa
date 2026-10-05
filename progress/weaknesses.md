@@ -18,7 +18,7 @@ Spent ~1 hour on brute-force TLE approaches before recognizing the correct patte
 **Action:** Add to pre-coding checklist: "How many items am I iterating over? If > 10^7, I need a smarter approach." If high is 10^9, iterating every number is O(10^9) — instant TLE. **Reinforced in LC 3345 (positive twist):** brute force IS the solution when bounded enumeration is O(10·log n). **Reinforced in LC 3720:** started with DFS generating all permutations for n=300 (O(n!)) — constraint check would have immediately ruled this out (n=300 → O(n²) target).
 
 ### 4. Debug Print Left in Code (5 occurrences)
-`fmt.Println` / `fmt.Printf` left in code after solving. Occurred in LC 216, LC 66, LC 941, LC 13, and LC 3734. Before submission, **always scan every line** for `fmt.Print` and remove them.
+`fmt.Println` / `fmt.Printf` left in code after solving. Occurred in LC 216, LC 66, LC 941, LC 13, LC 3734, and LC 678. Before submission, **always scan every line** for `fmt.Print` and remove them.
 
 ### 5. Pattern Misidentification
 - **LC 1358:** Initially tried prefix/suffix sum when sliding window was the right tool. Ask: "Is this a range query problem or a window property problem?"
@@ -36,7 +36,7 @@ Spent ~1 hour on brute-force TLE approaches before recognizing the correct patte
 - **LC 1536:** Initially tried greedy (minimize difference between left/right sums at each split). Fails because locally optimal split doesn't guarantee globally optimal score — full game tree must be explored via interval DP. "Stone Game" variants with "Alice divides, Bob chooses" structure are interval DP, not greedy. Ask: "Does my split at step k affect future steps?"
 
 ### 7. Solving by Mechanics vs Invariants
-Started with implementation mechanics ("what data moves where") instead of stating the invariant first. Root cause of over-engineering: starting with mechanics instead of "what property does my structure maintain?"
+Started with implementation mechanics ("what data moves where") instead of stating the invariant first. **Reinforced in:** LC 678 (committed to one wildcard reading before stating the range invariant). Root cause of over-engineering: starting with mechanics instead of "what property does my structure maintain?"
 
 **Reinforced in:** LC 901, LC 14, LC 1268, LC 581, LC 1872, LC 22. LC 1872: jumped straight into simulating stone merges instead of stating the invariant ("remaining stones always form a suffix, leftmost value = some prefix sum"). Before coding any monotonic structure, write one sentence: "My stack maintains ___ from bottom to top." Before coding any game simulation, write one sentence: "The game state can be described as ___." LC 22: started coding an insertion generator + `depth` counter without ever stating what makes a prefix well-formed — cost 4 debug rounds and a guided session (broke DFS mastery). Before coding any backtracking generator, write one sentence: "A partial candidate is valid iff ___" and derive every guard from it.
 

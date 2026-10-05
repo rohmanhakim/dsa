@@ -27,7 +27,7 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 | DFS | 0/5 sev≤1 | 12 total (3 guided) | REGRESSED 2026-10-02 (sev 3, lc22). Re-cert: 3 sev≤1 across 2 days. |
 | Math | 0/5 sev≤1 | 16 total (5 guided) | Last 3 sev≤1 then sev 3 broke streak. Needs 5 consecutive independent sev≤1. |
 | Digit Manipulation | 0/5 sev≤1 | 7 total (2 guided) | Streak broken by guided session. Needs fresh 5 consecutive sev≤1. |
-| Greedy (Observation) | 0/5 sev≤1 | 16 total (10 guided) | Streak broken by guided sessions. Needs independent practice. |
+| Greedy (Observation) | 0/5 sev≤1 | 17 total (11 guided) | Streak broken by guided sessions. Needs independent practice. LC678 (guided, sev 3): wildcard range invariant learned. |
 | BFS | 0/5 sev≤1 | 5 total (2 guided) | Streak broken by guided session (lc3568). Needs 5 independent passes. |
 | Linked List | 1/1 sev≤1 | 1 session | 4 more |
 | Simulation | 1/1 sev≤1 | 1 session | 4 more |
@@ -42,12 +42,12 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 ## Top Weaknesses (compact)
 
 1. **Deriving recurrence from invariant** — 10+ documented struggles (1D DP)
-2. **Over-engineering / overthinking** — Building complex data structures when simpler solutions exist
+2. **Over-engineering / overthinking** — Building complex data structures when simpler solutions exist (lc678: committed to one wildcard reading instead of tracking the alive set)
 3. **Brute-force feasibility check** — Not checking constraint bounds first
-4. **Debug print left in code** — 6 occurrences (fmt.Println)
+4. **Debug print left in code** — 7 occurrences (fmt.Println)
 5. **Pattern misidentification** — Prefix/range-query vs combinatorial DP
 6. **Greedy instinct** — Picking greedy when minimax/binary-search is needed
-7. **Solving by mechanics vs invariants** — Starting with implementation instead of stating invariant (reinforced lc22)
+7. **Solving by mechanics vs invariants** — Starting with implementation instead of stating invariant (reinforced lc22, lc678)
 8. **Binary search indexing** — Confusion between returning index vs count (off-by-one errors)
 9. **Tie-breaking logic** — Not considering all cases when selecting final answer
 10. **Confusing dp state definition** — Not distinguishing "ending at i" vs "total so far" (lc3524, lc32)
