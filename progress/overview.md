@@ -7,7 +7,7 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 | Pattern | Streak | Distinct Days | Key Speed |
 |---------|--------|---------------|-----------|
 | Binary Search | 8/8 sev≤1 | 5+ | 5:40–90:04 |
-| Stack | 8/8 sev≤1 | 8 | 8:05–43:40 |
+| Stack | 9/9 sev≤1 | 9 | 8:05–43:40 |
 | Greedy (Intervals) | 5/5 sev≤1 | 5 | 7:28–74:17 |
 | Hash Map | 4/4 sev≤1 | 4+ | 3:47–15:13 |
 
