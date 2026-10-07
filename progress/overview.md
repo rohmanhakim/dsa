@@ -6,16 +6,12 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 
 | Pattern | Streak | Distinct Days | Key Speed |
 |---------|--------|---------------|-----------|
-| Binary Search | 8/8 sev≤1 | 5+ | 5:40–90:04 |
 | Stack | 9/9 sev≤1 | 9 | 8:05–43:40 |
-| Greedy (Intervals) | 5/5 sev≤1 | 5 | 7:28–74:17 |
 
 ## Patterns Near Mastery
 
 | Pattern | Streak | Sessions | Needs |
 |---------|--------|----------|-------|
-| Sliding Window | 4/4 sev≤1 | 12 total (3 guided) | 1 more sev≤1 pass (already has 3 distinct days) |
-| Prefix Sum | 3/3 sev≤1 | 10 total (4 independent) | 2 more consecutive sev≤1 passes |
 | Two Pointers | 2/2 sev≤1 | 7 total (2 guided) | 3 more consecutive sev≤1 passes |
 | Monotonic Stack | 2/2 sev≤1 | 4 total (2 guided) | 3 more consecutive sev≤1 passes |
 
@@ -23,19 +19,23 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 
 | Pattern | Streak | Sessions | Needs |
 |---------|--------|----------|-------|
-| DFS | 0/5 sev≤1 | 12 total (3 guided) | REGRESSED 2026-10-02 (sev 3, lc22). Re-cert: 3 sev≤1 across 2 days. |
-| Math | 0/5 sev≤1 | 16 total (5 guided) | Last 3 sev≤1 then sev 3 broke streak. Needs 5 consecutive independent sev≤1. |
-| Digit Manipulation | 0/5 sev≤1 | 7 total (2 guided) | Streak broken by guided session. Needs fresh 5 consecutive sev≤1. |
+| DFS | 0/5 sev≤1 | 14 total (3 guided) | REGRESSED 2026-10-02 (sev 3, lc22). Re-cert: 3 sev≤1 across 2 days. |
+| Binary Search | 0/5 sev≤1 (re-cert) | 12 total (4 guided) | REGRESSED 2026-09-12 (sev 3 secondary, lc3414; strict multi-pattern rule, backfilled 2026-10-08). Re-cert: 3 sev≤1 across 2 days. |
+| Greedy (Intervals) | 0/5 sev≤1 (re-cert) | 7 total (2 guided) | REGRESSED 2026-09-19 (sev 3, lc1520 + lc2472; backfilled 2026-10-08). Re-cert: 3 sev≤1 across 2 days. |
+| Math | 0/5 sev≤1 | 19 total (6 guided) | sev≤1 pair (lc3870, lc3871) wiped by guided lc1401 (sev 3) 6 days later. Needs 5 consecutive independent sev≤1. |
+| Digit Manipulation | 2/5 sev≤1 | 8 total (2 guided) | Rising: lc3550 + lc3622 sev≤1; chain stopped by lc3348 (sev 3). 3 more needed. |
 | Greedy (Observation) | 0/5 sev≤1 | 17 total (11 guided) | Streak broken by guided sessions. Needs independent practice. LC678 (guided, sev 3): wildcard range invariant learned. |
 | BFS | 0/5 sev≤1 | 5 total (2 guided) | Streak broken by guided session (lc3568). Needs 5 independent passes. |
 | Hash Map | 0/3 sev≤1 (re-cert) | 8 total (2 guided) | REGRESSED 2026-10-07 (sev 3, hr-icecream-parlor). Re-cert: 3 sev≤1 across 2 days. Was 4/4 — one shy of the bar. |
 | Linked List | 1/1 sev≤1 | 1 session | 4 more |
-| Simulation | 1/1 sev≤1 | 1 session | 4 more |
-| 1D Dynamic Programming | 0/5 | 16 total (14 guided) | Needs independent sessions. Key: recurrence derivation. |
-| 2D Dynamic Programming | 0/5 | 4 guided | Needs independent sessions. |
+| Simulation | 0/5 sev≤1 | 6 total (2 guided) | lc1096 (guided, sev 3) anchors streak at 0. Key: recursive grammar parsing with precedence (concatenation > union). |
+| Sliding Window | 0/5 sev≤1 | 14 total (5 guided) | Streak broken 2026-09-23 (sev 3, lc1658; also lc1477 secondary sev 3). Was 4/4 near mastery — needs fresh 5. |
+| Prefix Sum | 0/5 sev≤1 | 11 total (7 guided) | Streak broken by lc1621 (sev 3 secondary, strict multi-pattern rule). Was 3/3 — needs fresh 5. |
+| 1D Dynamic Programming | 0/5 | 19 total (17 guided) | Needs independent sessions. Key: recurrence derivation. |
+| 2D Dynamic Programming | 0/5 | 7 total (7 guided) | Needs independent sessions. |
 | Minimax DP | 0/5 | 4 guided | Needs independent sessions. |
 | BST | 0/5 | 2 guided | Needs independent sessions. |
-| Segment Tree | 0/5 | 1 guided | Needs independent sessions. |
+| Segment Tree | 0/5 | 2 total (2 guided) | Needs independent sessions. |
 | Binary Search on Answer | 0/5 | 1 guided | Needs independent sessions. |
 | Binary Lifting | 0/5 | 1 guided | Needs independent sessions. |
 

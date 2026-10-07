@@ -1,7 +1,7 @@
 # Digit Manipulation
 
 **Status:** ⏳ 2/5 consecutive independent sessions with severity ≤ 1 (2 distinct days).
-**Sessions:** LC 3754 (ind, sev 0), LC 1291 (ind, sev 2), LC 3536 (ind, sev 0, 6:14), LC 3348 (guided, sev 3), LC 3622 (ind, sev 0, 3:06).
+**Sessions:** LC 3754 (ind, sev 0), LC 1291 (ind, sev 2), LC 3536 (ind, sev 0, 6:14), LC 3348 (guided, sev 3), LC 3622 (ind, sev 0, 3:06), LC 3550 (ind, sev 0, 2:46, 2026-09-24, backfilled).
 
 ## Lessons
 

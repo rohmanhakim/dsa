@@ -1,7 +1,7 @@
 # Sliding Window
 
-**Status:** ⏳ 3/5 within time limit. 6 consecutive sev≤1 (improving). Need 5 consecutive within time for mastery.
-**Sessions:** 12 DB sessions (LC 1358 guided but never logged to DB).
+**Status:** ⚠️ Streak broken 2026-09-23 (lc1658, guided sev 3; also lc1477 secondary sev 3). Was 4/4 near mastery — data gap from the DB reset (2026-09-08..09-26) was backfilled 2026-10-08. Needs fresh 5 consecutive sev≤1.
+**Sessions:** 14 DB sessions (5 guided).
 
 ## Seven Sub-Variants
 
@@ -45,3 +45,8 @@ When a window is valid, all extensions are also valid (superset property). Two c
 - **LC 2958:** Clean "longest valid" implementation — inner `for freq[curr] > k` correctly checks only the newly added element. 5:24 solve time, well under 30-min target.
 - **LC 3090:** Clean "longest valid" with `freq[ch] > 2` threshold. Key insight: for "at most K occurrences" constraint, only the newly added character can violate window validity — shrinking only decreases other characters' counts, so they stay valid. 4:05 solve time.
 - **LC 3471:** Counting subarray membership. 22:49 solve time (over 15-min target). Code structure non-standard: re-increments elements from left→right-1 on each slide instead of decrement old / increment new. Works correctly but harder to reason about. Bonus observation: for 1<k<n, only first/last elements can appear in exactly one subarray. Weakness #2 (over-engineering) triggered — full sliding window unnecessary when a direct check suffices.
+
+## Backfill 2026-10-08 (DB-reset gap 2026-09-08..09-26)
+
+- **LC 1658 (guided, sev 3, primary, 2026-09-23):** "Reduce x from both ends" → complement subarray sum (target `total - x`); answer `n - longest` window. Tried DP first (pattern misidentification, weakness #5). **The window we want is the LONGEST, not the shortest — the optimization direction flips with the complement.** This sev-3 primary session broke the 4/4 near-mastery streak.
+- **LC 1477 (guided, sev 3, secondary, 2026-09-17):** sliding window finds candidate windows; 1D prefix-min DP (`dp[left-1]`) enforces non-overlap. Combination pattern: window + "best before the left edge". Under the strict multi-pattern rule this also counts against the streak.

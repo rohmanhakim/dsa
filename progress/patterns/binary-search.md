@@ -1,7 +1,7 @@
 # Binary Search
 
-**Status:** ✅ Mastered — 8/8 consecutive independent sessions with severity ≤ 1.
-**Solved:** LC 35, LC 704, LC 34, LC 278, LC 153, LC 162, LC 33, LC 3718
+**Status:** 🔄 In Progress — REGRESSED under strict multi-pattern rule (backfilled 2026-10-08). Was 8/8 mastered; lc3414 (2026-09-12, guided sev 3) used Binary Search as secondary (sort.Search predecessor lookup) — counted as not-maintained. Re-cert: 3 sev≤1 across 2 days.
+**Solved:** LC 35, LC 704, LC 34, LC 278, LC 153, LC 162, LC 33, LC 3718, LC 3414
 
 ## Core Decision
 
