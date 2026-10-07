@@ -1,7 +1,7 @@
 # Hash Map
 
-**Status:** ⏳ Re-certification after regression — 0/3 sev≤1 (0/2 days). REGRESSED 2026-10-07 (sev 3, hr-icecream-parlor: hint needed on two-sum recognition). Prior "✅ Mastered — 5/5" header was inconsistent with DB (actual primary streak was 4/4: lc1807 logged secondary).
-**Sessions:** LC 383, LC 1331, LC 13, LC 49, LC 3731, LC 290, LC 1807 (secondary), HR Ice Cream Parlor (guided, sev 3)
+**Status:** ⏳ Re-certification after regression — 1/3 sev≤1 (1/2 days). REGRESSED 2026-10-07 (sev 3, hr-icecream-parlor: hint needed on two-sum recognition). Re-cert same day: hr-missing-numbers sev 0 (frequency-difference variant, independent, 794s). Two-sum recognition remains the open weakness. Prior "✅ Mastered — 5/5" header was inconsistent with DB (actual primary streak was 4/4: lc1807 logged secondary).
+**Sessions:** LC 383, LC 1331, LC 13, LC 49, LC 3731, LC 290, LC 1807 (secondary), HR Ice Cream Parlor (guided, sev 3), HR Missing Numbers (independent, sev 0)
 
 Core use: constant-time lookup for grouping, mapping symbols/characters to values.
 
@@ -34,3 +34,4 @@ Find two distinct elements summing to a target on an **unsorted** array, return 
 - **LC 290:** Bidirectional bijection with two hash maps. Early length check guard. Check the unmapped direction only when the forward map has no entry.
 - **LC 1807 (secondary):** Lookup table for bracket-key → value replacement (`kMap[key]`, comma-ok check → `"?"` fallback). Map build O(m), lookups O(1); the bracket parsing (stack/flag) was the primary pattern.
 - **HR Ice Cream Parlor (sev 3, guided):** Sort + binary search over the price-value domain with per-iteration clone + delete for duplicates — over-engineered AND incorrect (`sort.Slice` comparator used `<=`, violating strict-weak-ordering). The complement map eliminated both failure modes at once. Recognition signal: "pair sums to target + unsorted + return original indices" → `map[value] = earlier index`. Regression cause: needed the hint — two-sum recognition is not yet automatic.
+- **HR Missing Numbers (sev 0, re-cert 1/3):** Frequency-difference variant: `missing(x) ⟺ count_brr(x) > count_arr(x)` — one map of arr-counts + decrement sweep + collect keys with negative counts. Latent edge case caught in review: numbers absent from `arr` entirely with multiplicity ≥2 in `brr` were appended once per occurrence (slice-append in else-branch), violating "include once"; fixed post-acceptance with set-based dedup (`map[int32]bool`) so both branches are idempotent, plus regression tests. Hash map version avoids the editorial's max−min ≤ 10000 array assumption; paid O(r log r) sort instead. Pattern recognized instantly — contrast same-day hr-icecream-parlor.

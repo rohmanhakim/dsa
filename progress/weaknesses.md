@@ -98,3 +98,7 @@ Confusing table indices (1-indexed) with string indices (0-indexed). Remember: `
 
 ### Two-Sum Recognition (HR Ice Cream Parlor)
 - **Sorting before asking "what lookup do I need":** On "pair sums to target, unsorted, return original indices," reached for sort + binary search over the price-value domain instead of a complement map. Recognition signal: pair-sum + unsorted + original indices → `map[value] = earlier index`, check complement before inserting current. Also: `sort.Slice` comparator must be strict weak ordering (`<`, never `<=`) — `<=` is a correctness bug on duplicates.
+
+### Frequency-Map Invariant (HR Missing Numbers)
+- **Edge-case trace gap:** the `if key in map { decrement } else { append }` split handled numbers present in `arr`, but the else-branch appended once per occurrence for numbers fully absent (arr=[100], brr=[100 200 200] → [200 200] instead of [200]), violating "include once". Caught in mentor review, fixed post-acceptance with set-based dedup + regression tests. Habit: trace one case per branch of every if/else before submitting.
+- **Positive:** frequency-difference recognition was instant (794s, within the 900s easy bar) the same day as the two-sum regression — the frequency variant is solid; two-sum recognition is the remaining gap.

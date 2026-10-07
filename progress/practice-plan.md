@@ -2,7 +2,7 @@
 
 ## Immediate Priorities (closest to mastery)
 
-1. **Hash Map re-certification (REGRESSED 2026-10-07)** — sev-3 on hr-icecream-parlor (hint needed on two-sum recognition) broke the 4/4 streak. Bar: **3 consecutive sev≤1 across 2 distinct days**. Fresh two-sum-family variants, different sub-variant each time: LC 1 (Two Sum — classic complement map), LC 560 (Subarray Sum Equals K — prefix sum + map), LC 454 (4Sum II — map of pair sums). One session per day — no same-day retries.
+1. **Hash Map re-certification (REGRESSED 2026-10-07)** — sev-3 on hr-icecream-parlor (hint needed on two-sum recognition) broke the 4/4 streak. Bar: **3 consecutive sev≤1 across 2 distinct days**. Progress: **1/3 sessions, day 1/2** — hr-missing-numbers sev 0 (frequency-difference variant, independent, same day as regression). Two-sum recognition still unproven: LC 1 (Two Sum — classic complement map), LC 560 (Subarray Sum Equals K — prefix sum + map), LC 454 (4Sum II — map of pair sums). One session per day — no same-day retries.
 2. **DFS re-certification (REGRESSED 2026-10-02)** — sev-3 on lc22 broke the 9/9 streak. Bar is light: **3 consecutive sev≤1 across 2 distinct days**. Use fresh backtracking *variants* (not permutations/combinations again): LC 78 (Subsets), LC 131 (Palindrome Partitioning), LC 51 (N-Queens), LC 79 (Word Search). One session per day — no same-day retries (contaminated sampling).
 3. **1D Dynamic Programming** — 3 guided sessions, 0 independent. Highest session count, most practice. Prioritize independent problems: LC 70 (Climbing Stairs), LC 198 (House Robber), LC 322 (Coin Change).
 4. **2D Dynamic Programming** — 2 guided sessions. Try LC 64 (Minimum Path Sum) or LC 62 (Unique Paths) independently.
