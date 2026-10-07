@@ -1,7 +1,7 @@
 # Hash Map
 
-**Status:** ✅ Mastered — 5/5 consecutive independent sessions with severity ≤ 1 across 5 distinct days.
-**Sessions:** LC 383, LC 1331, LC 13, LC 49, LC 3731, LC 290, LC 1807 (secondary)
+**Status:** ⏳ Re-certification after regression — 0/3 sev≤1 (0/2 days). REGRESSED 2026-10-07 (sev 3, hr-icecream-parlor: hint needed on two-sum recognition). Prior "✅ Mastered — 5/5" header was inconsistent with DB (actual primary streak was 4/4: lc1807 logged secondary).
+**Sessions:** LC 383, LC 1331, LC 13, LC 49, LC 3731, LC 290, LC 1807 (secondary), HR Ice Cream Parlor (guided, sev 3)
 
 Core use: constant-time lookup for grouping, mapping symbols/characters to values.
 
@@ -19,6 +19,9 @@ Sort + map for rank/coordinate compression. Hash Map supports the lookup, but so
 ### Canonical key for grouping (LC 49)
 Character frequency array (26 counts) as hash map key for anagram grouping — O(n·k) canonical approach.
 
+### Two-sum complement lookup (HR Ice Cream Parlor)
+Find two distinct elements summing to a target on an **unsorted** array, return original 1-based indices. Single pass: for each cost, complement = m − cost; look up complement in map of cost → earlier index; if found return (idx+1, i+1); else insert cost → i. O(n) time, O(n) space, no sorting. **Check-before-insert ordering is the invariant** that makes duplicates safe: the map holds only earlier indices, so complement == cost matches a different earlier occurrence — never the element itself. Contrast with Two Pointers (LC 167): same problem family, but sorted input enables the pointer version; unsorted input + index preservation demands the map.
+
 ## Decision Framework
 
 "Do I need to **count/compare frequencies**, **establish a bijection**, **look up ranks**, or **group by canonical form**?" All four are Hash Map applications but with different map structures.
@@ -30,3 +33,4 @@ Character frequency array (26 counts) as hash map key for anagram grouping — O
 - **LC 3731:** Sort + map for rank assignment (coordinate compression). Clean implementation.
 - **LC 290:** Bidirectional bijection with two hash maps. Early length check guard. Check the unmapped direction only when the forward map has no entry.
 - **LC 1807 (secondary):** Lookup table for bracket-key → value replacement (`kMap[key]`, comma-ok check → `"?"` fallback). Map build O(m), lookups O(1); the bracket parsing (stack/flag) was the primary pattern.
+- **HR Ice Cream Parlor (sev 3, guided):** Sort + binary search over the price-value domain with per-iteration clone + delete for duplicates — over-engineered AND incorrect (`sort.Slice` comparator used `<=`, violating strict-weak-ordering). The complement map eliminated both failure modes at once. Recognition signal: "pair sums to target + unsorted + return original indices" → `map[value] = earlier index`. Regression cause: needed the hint — two-sum recognition is not yet automatic.

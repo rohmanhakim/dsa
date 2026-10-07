@@ -9,7 +9,6 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 | Binary Search | 8/8 sev≤1 | 5+ | 5:40–90:04 |
 | Stack | 9/9 sev≤1 | 9 | 8:05–43:40 |
 | Greedy (Intervals) | 5/5 sev≤1 | 5 | 7:28–74:17 |
-| Hash Map | 4/4 sev≤1 | 4+ | 3:47–15:13 |
 
 ## Patterns Near Mastery
 
@@ -29,6 +28,7 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 | Digit Manipulation | 0/5 sev≤1 | 7 total (2 guided) | Streak broken by guided session. Needs fresh 5 consecutive sev≤1. |
 | Greedy (Observation) | 0/5 sev≤1 | 17 total (11 guided) | Streak broken by guided sessions. Needs independent practice. LC678 (guided, sev 3): wildcard range invariant learned. |
 | BFS | 0/5 sev≤1 | 5 total (2 guided) | Streak broken by guided session (lc3568). Needs 5 independent passes. |
+| Hash Map | 0/3 sev≤1 (re-cert) | 8 total (2 guided) | REGRESSED 2026-10-07 (sev 3, hr-icecream-parlor). Re-cert: 3 sev≤1 across 2 days. Was 4/4 — one shy of the bar. |
 | Linked List | 1/1 sev≤1 | 1 session | 4 more |
 | Simulation | 1/1 sev≤1 | 1 session | 4 more |
 | 1D Dynamic Programming | 0/5 | 16 total (14 guided) | Needs independent sessions. Key: recurrence derivation. |
