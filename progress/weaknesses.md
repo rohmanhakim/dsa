@@ -56,6 +56,9 @@ Confusing table indices (1-indexed) with string indices (0-indexed). Remember: `
 
 **Reinforced in:** LC 72, LC 115 (described match as `t[i-j]` instead of `t[j-1]`).
 
+### 12. Boundary Index Completeness
+Special-casing one boundary index without checking its mirror. **HR Sherlock and Array:** combine loop `i < n-1` never tested the last element; `i==0` special-cased (`suffix[i+1]==0`) but `i==n-1` (left sum vs empty right = 0) forgotten — `[0,0,5]` returns NO instead of YES; HR tests lacked the case so it was accepted. When special-casing an endpoint, always ask: "what does the condition look like at the *other* endpoint, and does my loop visit it?" Prefer uniform formulations (running-variable `rightSum = total - leftSum - arr[i]`) that handle all indices identically.
+
 ## Pattern-Specific Weaknesses
 
 ### Backtracking (LC 22)

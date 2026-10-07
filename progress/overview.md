@@ -30,7 +30,7 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 | Linked List | 1/1 sev≤1 | 1 session | 4 more |
 | Simulation | 0/5 sev≤1 | 6 total (2 guided) | lc1096 (guided, sev 3) anchors streak at 0. Key: recursive grammar parsing with precedence (concatenation > union). |
 | Sliding Window | 0/5 sev≤1 | 14 total (5 guided) | Streak broken 2026-09-23 (sev 3, lc1658; also lc1477 secondary sev 3). Was 4/4 near mastery — needs fresh 5. |
-| Prefix Sum | 0/5 sev≤1 | 11 total (7 guided) | Streak broken by lc1621 (sev 3 secondary, strict multi-pattern rule). Was 3/3 — needs fresh 5. |
+| Prefix Sum | 1/5 sev≤1 (fresh) | 12 total (7 guided) | Streak restarted 2026-10-07 (hr-sherlock-and-array, sev 1 slow pass; latent last-index bug noted). |
 | 1D Dynamic Programming | 0/5 | 19 total (17 guided) | Needs independent sessions. Key: recurrence derivation. |
 | 2D Dynamic Programming | 0/5 | 7 total (7 guided) | Needs independent sessions. |
 | Minimax DP | 0/5 | 4 guided | Needs independent sessions. |
