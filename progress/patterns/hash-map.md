@@ -1,7 +1,7 @@
 # Hash Map
 
 **Status:** ⏳ Re-certification after regression — 1/3 sev≤1 (1/2 days). REGRESSED 2026-10-07 (sev 3, hr-icecream-parlor: hint needed on two-sum recognition). Re-cert same day: hr-missing-numbers sev 0 (frequency-difference variant, independent, 794s). Two-sum recognition remains the open weakness. Prior "✅ Mastered — 5/5" header was inconsistent with DB (actual primary streak was 4/4: lc1807 logged secondary).
-**Sessions:** LC 383, LC 1331, LC 13, LC 49, LC 3731, LC 290, LC 1807 (secondary), HR Ice Cream Parlor (guided, sev 3), HR Missing Numbers (independent, sev 0)
+**Sessions:** LC 383, LC 1331, LC 13, LC 49, LC 3731, LC 290, LC 1807 (secondary), HR Ice Cream Parlor (guided, sev 3), HR Missing Numbers (independent, sev 0), LC 219 (secondary, sliding window)
 
 Core use: constant-time lookup for grouping, mapping symbols/characters to values.
 

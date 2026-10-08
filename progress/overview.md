@@ -26,10 +26,10 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 | Digit Manipulation | 2/5 sev≤1 | 8 total (2 guided) | Rising: lc3550 + lc3622 sev≤1; chain stopped by lc3348 (sev 3). 3 more needed. |
 | Greedy (Observation) | 0/5 sev≤1 | 17 total (11 guided) | Streak broken by guided sessions. Needs independent practice. LC678 (guided, sev 3): wildcard range invariant learned. |
 | BFS | 0/5 sev≤1 | 5 total (2 guided) | Streak broken by guided session (lc3568). Needs 5 independent passes. |
-| Hash Map | 1/3 sev≤1 (re-cert) | 9 total (2 guided) | REGRESSED 2026-10-07 (sev 3, hr-icecream-parlor). Re-cert 1/3, day 1/2: hr-missing-numbers sev 0 (freq-count variant). Two-sum recognition still open. |
+| Hash Map | 1/3 sev≤1 (re-cert) | 10 total (3 guided) | REGRESSED 2026-10-07 (sev 3, hr-icecream-parlor). Re-cert 1/3, day 1/2: hr-missing-numbers sev 0 (freq-count variant). Two-sum recognition still open. |
 | Linked List | 1/1 sev≤1 | 1 session | 4 more |
 | Simulation | 0/5 sev≤1 | 6 total (2 guided) | lc1096 (guided, sev 3) anchors streak at 0. Key: recursive grammar parsing with precedence (concatenation > union). |
-| Sliding Window | 0/5 sev≤1 | 14 total (5 guided) | Streak broken 2026-09-23 (sev 3, lc1658; also lc1477 secondary sev 3). Was 4/4 near mastery — needs fresh 5. |
+| Sliding Window | 0/5 sev≤1 | 15 total (6 guided) | Streak broken 2026-09-23 (sev 3, lc1658; also lc1477 secondary sev 3). lc219 sev 3 (2026-10-08): O(1) window-check lesson (LC 3/2958/3090) not retrieved — TLE from per-step full-map scan. Was 4/4 near mastery — needs fresh 5. |
 | Prefix Sum | 1/5 sev≤1 (fresh) | 12 total (7 guided) | Streak restarted 2026-10-07 (hr-sherlock-and-array, sev 1 slow pass; latent last-index bug noted). |
 | 1D Dynamic Programming | 0/5 | 19 total (17 guided) | Needs independent sessions. Key: recurrence derivation. |
 | 2D Dynamic Programming | 0/5 | 7 total (7 guided) | Needs independent sessions. |
