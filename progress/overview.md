@@ -28,7 +28,7 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 | BFS | 0/5 sev≤1 | 5 total (2 guided) | Streak broken by guided session (lc3568). Needs 5 independent passes. |
 | Hash Map | 1/3 sev≤1 (re-cert) | 10 total (3 guided) | REGRESSED 2026-10-07 (sev 3, hr-icecream-parlor). Re-cert 1/3, day 1/2: hr-missing-numbers sev 0 (freq-count variant). Two-sum recognition still open. |
 | Linked List | 1/1 sev≤1 | 1 session | 4 more |
-| Simulation | 0/5 sev≤1 | 6 total (2 guided) | lc1096 (guided, sev 3) anchors streak at 0. Key: recursive grammar parsing with precedence (concatenation > union). |
+| Simulation | 1/5 sev≤1 | 7 total (2 guided) | Streak restarted 2026-10-08 (lc4056 sev 0). lc1096 (guided sev 3) previously anchored at 0 — grammar parsing w/ precedence (concatenation > union) still the reference lesson there. |
 | Sliding Window | 0/5 sev≤1 | 15 total (6 guided) | Streak broken 2026-09-23 (sev 3, lc1658; also lc1477 secondary sev 3). lc219 sev 3 (2026-10-08): O(1) window-check lesson (LC 3/2958/3090) not retrieved — TLE from per-step full-map scan. Was 4/4 near mastery — needs fresh 5. |
 | Prefix Sum | 1/5 sev≤1 (fresh) | 12 total (7 guided) | Streak restarted 2026-10-07 (hr-sherlock-and-array, sev 1 slow pass; latent last-index bug noted). |
 | 1D Dynamic Programming | 0/5 | 19 total (17 guided) | Needs independent sessions. Key: recurrence derivation. |
