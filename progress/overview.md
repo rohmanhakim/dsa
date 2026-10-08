@@ -12,7 +12,7 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 
 | Pattern | Streak | Sessions | Needs |
 |---------|--------|----------|-------|
-| Two Pointers | 2/2 sev≤1 | 7 total (2 guided) | 3 more consecutive sev≤1 passes |
+| Two Pointers | 1/5 sev≤1 | 10 primary (5 guided) | Stale "2/2" corrected 2026-10-08: strict model had streak at 0 (lc3983 sev 3 anchor); LC 27 (Read/Write variant, sev 1) restarts it. Bar: 5 sev≤1 across 3 distinct days. |
 | Monotonic Stack | 2/2 sev≤1 | 4 total (2 guided) | 3 more consecutive sev≤1 passes |
 
 ## Patterns In Progress
