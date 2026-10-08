@@ -21,7 +21,7 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 |---------|--------|----------|-------|
 | DFS | 0/5 sev≤1 | 14 total (3 guided) | REGRESSED 2026-10-02 (sev 3, lc22). Re-cert: 3 sev≤1 across 2 days. |
 | Binary Search | 0/5 sev≤1 (re-cert) | 12 total (4 guided) | REGRESSED 2026-09-12 (sev 3 secondary, lc3414; strict multi-pattern rule, backfilled 2026-10-08). Re-cert: 3 sev≤1 across 2 days. |
-| Greedy (Intervals) | 0/5 sev≤1 (re-cert) | 7 total (2 guided) | REGRESSED 2026-09-19 (sev 3, lc1520 + lc2472; backfilled 2026-10-08). Re-cert: 3 sev≤1 across 2 days. |
+| Greedy (Intervals) | 0/5 sev≤1 (re-cert) | 8 total (3 guided) | REGRESSED 2026-09-19 (sev 3, lc1520 + lc2472; backfilled 2026-10-08). Re-cert: 3 sev≤1 across 2 days. HR hackerland-radio-transmitters (guided sev 3): wrong-model formula attempt; rightmost-in-range greedy learned. |
 | Math | 0/5 sev≤1 | 19 total (6 guided) | sev≤1 pair (lc3870, lc3871) wiped by guided lc1401 (sev 3) 6 days later. Needs 5 consecutive independent sev≤1. |
 | Digit Manipulation | 2/5 sev≤1 | 8 total (2 guided) | Rising: lc3550 + lc3622 sev≤1; chain stopped by lc3348 (sev 3). 3 more needed. |
 | Greedy (Observation) | 0/5 sev≤1 | 17 total (11 guided) | Streak broken by guided sessions. Needs independent practice. LC678 (guided, sev 3): wildcard range invariant learned. |
