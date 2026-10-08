@@ -1,7 +1,7 @@
 # Binary Search
 
-**Status:** 🔄 In Progress — REGRESSED under strict multi-pattern rule (backfilled 2026-10-08). Was 8/8 mastered; lc3414 (2026-09-12, guided sev 3) used Binary Search as secondary (sort.Search predecessor lookup) — counted as not-maintained. Re-cert: 3 sev≤1 across 2 days.
-**Solved:** LC 35, LC 704, LC 34, LC 278, LC 153, LC 162, LC 33, LC 3718, LC 3414
+**Status:** 🔄 In Progress — REGRESSED under strict multi-pattern rule (backfilled 2026-10-08). Was 8/8 mastered; lc3414 (2026-09-12, guided sev 3) used Binary Search as secondary (sort.Search predecessor lookup) — counted as not-maintained. Re-cert: 3 sev≤1 across 2 days. **Re-cert progress: 1/3 sev≤1, day 1/2 (lc350, 2026-10-08).**
+**Solved:** LC 35, LC 704, LC 34, LC 278, LC 153, LC 162, LC 33, LC 3718, LC 3414, LC 350
 
 ## Core Decision
 
@@ -28,7 +28,17 @@ LC33 (Search in Rotated Sorted Array) initially attempted single-pass "detect wh
 **When to use which:** Single-pass is more elegant but requires mastery of 3-4 case conditions. Two-phase is safer when under time pressure or when the rotation boundary logic is causing bugs. Practice both to build fluency.
 
 ## Speed
-LC 35: 14:59, LC 704: 7:04, LC 34: 28:49, LC 278: 5:40, LC 153: 17:48, LC 162: 52:19 (slow — edge-case overhead from suboptimal template choice), LC 33: 90:04 (slow — struggled with single-pass approach before settling on two-phase), LC 3718: 10:55
+LC 35: 14:59, LC 704: 7:04, LC 34: 28:49, LC 278: 5:40, LC 153: 17:48, LC 162: 52:19 (slow — edge-case overhead from suboptimal template choice), LC 33: 90:04 (slow — struggled with single-pass approach before settling on two-phase), LC 3718: 10:55, LC 350: 14:10
+
+## Sorted-Array Intersection (LC 350)
+
+Sort one array, binary search per element of the other, delete on match to preserve multiplicity. Closed-interval template applied cleanly. Three follow-up takeaways:
+
+1. **Both arrays already sorted** → two pointers O(n+m). Skipping the sort alone still leaves n binary searches + O(k·m) deletion cost.
+2. **Asymmetric sizes** → sort the SMALL array, binary search per element of the large one. Log factor becomes log|m| instead of log|n|, so total behaves closer to O(n).
+3. **Disk / limited memory** → you cannot load/sort/hash the on-disk array, so the index must be built on whichever array fits in memory, then the disk array is streamed against it.
+
+**Complexity gotcha:** `slices.Delete` mid-array is O(m) per match → worst-case O(n·m) extra. Fine at n ≤ 1000, but the two-pointer finish eliminates it entirely.
 
 ## When NOT to Use Binary Search
 
