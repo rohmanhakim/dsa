@@ -6,7 +6,7 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 
 | Pattern | Streak | Distinct Days | Key Speed |
 |---------|--------|---------------|-----------|
-| Stack | 9/9 sev≤1 | 9 | 8:05–43:40 |
+| Stack | 10/10 sev≤1 | 10 | 8:05–43:40 |
 
 ## Patterns Near Mastery
 

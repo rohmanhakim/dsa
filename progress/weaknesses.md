@@ -59,6 +59,11 @@ Confusing table indices (1-indexed) with string indices (0-indexed). Remember: `
 ### 12. Boundary Index Completeness
 Special-casing one boundary index without checking its mirror. **HR Sherlock and Array:** combine loop `i < n-1` never tested the last element; `i==0` special-cased (`suffix[i+1]==0`) but `i==n-1` (left sum vs empty right = 0) forgotten — `[0,0,5]` returns NO instead of YES; HR tests lacked the case so it was accepted. When special-casing an endpoint, always ask: "what does the condition look like at the *other* endpoint, and does my loop visit it?" Prefer uniform formulations (running-variable `rightSum = total - leftSum - arr[i]`) that handle all indices identically.
 
+### 13. Output-Emission Structure in Counter Solutions
+When the invariant/counter is found quickly but the solution still stalls, the gap is often *where to emit output*, not the approach. **LC 1021:** had `balance` immediately, but assumed a counter solution has ONE global append site — spent ~20 min (of 26:10 on an easy) hunting for it. Unlock: derive the emit condition *per branch* from the invariant — each branch asks "is this char interior (depth ≥ 1)?" — `(` appended when `balance > 1` after increment, `)` appended when `balance > 0` after decrement. Rule: when a counter tracks state, write one emit condition per branch ("emit when ___") instead of searching for a single emit point.
+
+**Reinforced in:** LC 1021.
+
 ## Pattern-Specific Weaknesses
 
 ### Backtracking (LC 22)

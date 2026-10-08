@@ -1,8 +1,8 @@
 # Stack
 
-**Status:** ✅ Mastered — 9/9 consecutive independent sessions with severity ≤ 1 (9 distinct days).
+**Status:** ✅ Mastered — 10/10 consecutive independent sessions with severity ≤ 1 (10 distinct days).
 
-**Sessions:** LC 20 (×2), LC 150, LC 2211, LC 1190, LC 1614, LC 1807, LC 856, LC 921, LC 1111 (secondary), LC 32 (secondary), LC 678 (secondary)
+**Sessions:** LC 20 (×2), LC 150, LC 2211, LC 1190, LC 1614, LC 1807, LC 856, LC 921, LC 1021, LC 1111 (secondary), LC 32 (secondary), LC 678 (secondary)
 
 Core idea: LIFO data structure for balanced matching, expression evaluation, and simulation.
 
@@ -14,6 +14,7 @@ Core idea: LIFO data structure for balanced matching, expression evaluation, and
 - **LC 1190 (Reverse Substrings Between Each Pair of Parentheses):** Push chars onto stack; on `)`, pop and reverse until `(`, then push reversed chars back. Nested parentheses handled naturally by LIFO — innermost reversed first. O(n²) time due to repeated reversals, O(n) space.
 - **LC 1807 (Evaluate the Bracket Pairs of a String):** Push chars onto stack; on `)`, pop until `(`, reverse → key, then hash-map lookup (`kMap[key]` or `"?"`). No nesting guaranteed, so pop-until-`(` isolates the key exactly. A `capture` flag writes chars outside brackets directly to the builder. O(n+m) time, O(n+m) space.
 - **LC 921 (Minimum Add to Make Parentheses Valid):** No stack needed — two counters in one pass: `unclosedLeft` (unmatched `(`, decremented by a `)` when > 0) and `unclosedRight` (orphaned `)` with no opener). Answer = sum of both leftovers. Exactly the editorial's open-bracket counter; O(n) time, O(1) space.
+- **LC 1021 (Remove Outermost Parentheses):** single pass, depth counter — no stack. Outermost chars of each primitive sit exactly on the depth 0↔1 boundary: `(` appended only when `balance > 1` (after increment), `)` appended only when `balance > 0` (after decrement). O(n) time, O(1) space; matches editorial Approach 2 (Counting). Second clean transfer of the "single bracket type ⇒ counter" lesson (after LC 921) — weakness #2 did not trigger.
 
 ## Key Lessons
 
@@ -26,6 +27,7 @@ Core idea: LIFO data structure for balanced matching, expression evaluation, and
 - **LC 678 (secondary):** LIFO mechanics were sound; the failure was the wildcard invariant — the single-stack search irreversibly consumed `*`s while looking for `(`, and the end-check never paired leftover `(` with a newer `*`. Tracked under Greedy (Observation). Logged secondary (not primary) so the mastered streak is not nuked by a wrong-tool instinct — judgment recorded 2026-10-04.
 - **LC 921 (primary):** went straight to the counter (not a stack) on a bracket problem — the LC 1614 / 1111 / 1807 "single bracket type ⇒ counter" lesson applied **without prompting**, and the two-counter split (leftover openers vs orphaned closers) matched the editorial exactly in 8:48 (sev 0). Weakness #2 (stack-by-reflex over-engineering) did not trigger. Nit: `unclosedRight` name reads as a mirror of `unclosedLeft` but means "needs an added `(`" — ambiguous names slow re-reads.
 - **LC 856 (primary):** pop-until-`(` mechanic transferred cleanly from LC 1190/1807 — stack evaluator correct in 22:12 (sev 0). **Missed O(1) observation:** each `()` contributes 2^(# enclosing pairs), so a depth counter (`score += 1 << (depth-1)` at each `()` close) solves it in O(1) space; user re-derived and implemented it post-session (verified vs recursive reference on all balanced strings ≤ len 10). **Lesson:** verify the anchor example before generalizing — a mis-computed `((()))`=8 (actually 4) produced a 2^3 formula that was off by one.
+- **LC 1021 (primary):** counter instinct and invariant were immediate, but spent ~20 min on *output structure* — assumed a counter solution has ONE global append site. Unlock: emit **per-branch**; each branch asks "is this char interior (depth ≥ 1)?" — `(` appended when `balance > 1` after increment, `)` appended when `balance > 0` after decrement. Rule: when a counter tracks state, derive one emit condition per branch from the invariant instead of hunting for a single emit point. Guard placement note: `)` decrements *before* the check so the outer closer lands at 0 and is excluded; `(` checks *after* incrementing so the outer opener sees 1 and is excluded.
 
 ## Speed
-LC 20: 9:43 (slow pass) → 10:52 clean re-pass, LC 150: 20:56, LC 2211: 43:40 (slow pass), LC 1190: 8:05, LC 1614: 23:10 (slow pass), LC 1807: 13:25, LC 856: 22:12, LC 921: 8:48.
+LC 20: 9:43 (slow pass) → 10:52 clean re-pass, LC 150: 20:56, LC 2211: 43:40 (slow pass), LC 1190: 8:05, LC 1614: 23:10 (slow pass), LC 1807: 13:25, LC 856: 22:12, LC 921: 8:48, LC 1021: 26:10 (slow pass).
