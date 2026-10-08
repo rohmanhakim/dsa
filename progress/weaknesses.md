@@ -95,6 +95,9 @@ When the invariant/counter is found quickly but the solution still stalls, the g
 ### Graph Structure Claims
 - **Accepting unverified proofs:** In LC 3534, accepted "diameter ≤ 2" without tracing a counterexample. Always construct the worst-case example and trace through it before committing to a structural claim. LC 856: mis-computed `((()))`=8 (it is 4) and fitted a 2^3 formula to the bad number — verify the anchor example by hand before generalizing from it.
 
+### Graph DFS Visited-Marking (LC 1971)
+- **Conditional marking inside the neighbor loop:** `visited[curr] = true` was placed inside `for ne := range neighbors` guarded by `if !visited[ne]` — a node whose neighbors were all already visited never got marked and was re-explored from other parents (cycle 0-1-3-2-0 with isolated dest → dfs(2) ran twice). LC still accepted because the bug only wastes work, never flips the answer — **passing tests is not proof of a sound template.** **Invariant:** visited tracks *curr's* state — "I have arrived here, this node is spent" — so mark on arrival at the top of dfs, after the destination check (which also guarantees dest itself is never flagged and skipped). Mechanically-vs-invariant issue: see weakness #7.
+
 ### XOR Pattern Recognition
 - Couldn't independently identify that XOR is the key for "pairs cancel with O(1) space" problems. Need to internalize: `x ⊕ x = 0` is the cancellation invariant.
 - **LC 3702:** Jumped to DP instead of recognizing XOR's commutative/associative properties reduce the problem to totalXor classification. Additional XOR properties to internalize: (1) `a ⊕ 0 = a`, (2) `a ⊕ a = 0`, (3) if `totalXor = 0` and you remove `x ≠ 0`, remaining XOR = `x`.

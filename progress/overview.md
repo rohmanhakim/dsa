@@ -19,7 +19,7 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 
 | Pattern | Streak | Sessions | Needs |
 |---------|--------|----------|-------|
-| DFS | 0/5 sev≤1 | 14 total (3 guided) | REGRESSED 2026-10-02 (sev 3, lc22). Re-cert: 3 sev≤1 across 2 days. |
+| DFS | 1/3 sev≤1 (re-cert, day 1/2) | 15 total (3 guided) | Re-cert after REGRESSED 2026-10-02 (sev 3, lc22): lc1971 sev 1 (2026-10-08) = 1/3, day 1/2. Needs 2 more sev≤1 across ≥1 more day. |
 | Binary Search | 1/3 sev≤1 (re-cert, day 1/2) | 13 total (4 guided) | Re-cert: lc350 sev 0 (2026-10-08) = 1/3, day 1/2. Needs 2 more sev≤1 across ≥1 more day. |
 | Greedy (Intervals) | 0/5 sev≤1 (re-cert) | 8 total (3 guided) | REGRESSED 2026-09-19 (sev 3, lc1520 + lc2472; backfilled 2026-10-08). Re-cert: 3 sev≤1 across 2 days. HR hackerland-radio-transmitters (guided sev 3): wrong-model formula attempt; rightmost-in-range greedy learned. |
 | Math | 0/5 sev≤1 | 19 total (6 guided) | sev≤1 pair (lc3870, lc3871) wiped by guided lc1401 (sev 3) 6 days later. Needs 5 consecutive independent sev≤1. |
