@@ -40,6 +40,11 @@ import re
 import sys
 from pathlib import Path
 
+try:
+    import levels
+except ImportError:  # standalone copy without levels.py next to it
+    levels = None
+
 
 def die(msg) -> None:
     """Print error message and exit."""
@@ -288,6 +293,8 @@ def main():
     print(f"Package:     {package}", file=sys.stderr)
     if inner_func:
         print(f"Solution fn: {inner_func}()", file=sys.stderr)
+    if levels:
+        levels.print_goal(solution_path)
 
     # Check for existing test file
     test_file = solution_path.with_name(solution_path.stem + "_test.go")

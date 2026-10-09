@@ -17,20 +17,22 @@ Currently focused on **LeetCode** (a few early Codeforces / AtCoder problems rem
 ```
 problems/
   lc/{easy,medium,hard}/lc<id>/   # LeetCode, one directory per problem
-  cf/d800/                        # Codeforces (early problems)
-  ac/abs/                         # AtCoder Beginner Contest (early problems)
+  hr/{easy,medium}/               # HackerRank
+  cf/d800/                        # Codeforces (rating directories)
+  ac/{easy,medium,hard}/<task-id>/ # AtCoder (tier dirs; task-id = abc086_a)
 progress/
   progress.db                     # SQLite tracker (gitignored — local only)
   schema.sql                      # DB schema: problems, patterns, sessions, session_patterns
   migrations/                     # Incremental schema changes
   patterns/                       # Per-pattern performance notes
   patterns-registry.md            # Canonical pattern names (source of truth for logging)
+  levels.md                       # Difficulty tiers & severity-0 time goals (source of truth for lc/hr/cf/ac)
   queries/                        # Reusable SQL: mastery streaks, regression checks, recency
   overview.md                     # Living summary: mastered patterns, weaknesses, priorities
   practice-plan.md                # Current focus + problem queue
   weaknesses.md                   # Detailed weakness log
 notes/patterns/                   # Concept notes per pattern (Obsidian-friendly markdown)
-scripts/                          # Helpers: random-problem.py, hhmmss_to_seconds.py, ...
+scripts/                          # Harnesses: gengen/hrgen/acgen · lookup: levels.py, acdiff.py · helpers: random-problem.py, ...
 AGENTS.md                         # Mentor instructions (mode discipline, severity model, workflow)
 ```
 
@@ -60,7 +62,7 @@ Every session is logged into `progress.db` with two axes: **how I solved it** an
 | 2 | Wrong pattern — pursued a bad approach before recovering |
 | 3 | Hint-needed — couldn't identify the approach without help |
 
-**Difficulty time limits** (for severity 0): LC easy → 15 min · LC medium → 30 min · LC hard → 60 min.
+**Difficulty time limits** (for severity 0): per tier — easy → 15 min · medium → 30 min · hard → 60 min — for **lc/hr/cf/ac** alike; see `progress/levels.md` (single source of truth, `scripts/levels.py` resolves any problem path).
 
 **Sessions can carry multiple patterns** via a `session_patterns` junction table (primary = the pattern deliberately practiced, secondary = supporting). Each pattern is judged on its own merits — a bad binary-search attempt doesn't retroactively taint a clean DP session.
 
@@ -87,7 +89,24 @@ Solving sessions run under `AGENTS.md`, which enforces:
 go test ./...                     # run all problem tests
 go test ./problems/lc/easy/lc125/ # a single problem
 python3 scripts/random-problem.py # pull a practice problem from the queue
+python3 scripts/levels.py dir problems/ac/easy/abc086_a  # tier + severity-0 goal
+python3 scripts/acdiff.py abc086_a                        # AtCoder difficulty → tier (placement)
 ```
+
+### Test Harnesses
+
+Solutions are verified with generated Go tests. Run the generator **inside the
+problem directory**, paste the platform's sample I/O (Ctrl+D to finish), then
+`go test`:
+
+| Platform | Generator | Paste format |
+|----------|-----------|--------------|
+| LeetCode | `python3 ../../../../scripts/gengen.py` | `Input:` / `Output:` pairs from the LC console |
+| HackerRank | `python3 ../../../../scripts/hrgen.py` | `=== input ===` / `=== output ===` blocks |
+| AtCoder / Codeforces | `python3 ../../../../scripts/acgen.py` | `=== input ===` / `=== output ===` blocks (stdin→stdout) |
+
+Each generator prints the severity-0 goal for the problem's tier (from
+`progress/levels.md`).
 
 `progress/progress.db` is gitignored and intentionally local — copy `schema.sql` (and apply migrations in order) to bootstrap a fresh tracker.
 

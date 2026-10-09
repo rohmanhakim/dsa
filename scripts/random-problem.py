@@ -5,6 +5,11 @@ import os
 import sys
 import random
 
+try:
+    import levels
+except ImportError:  # standalone copy without levels.py next to it
+    levels = None
+
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROBLEMS_DIR = os.path.join(SCRIPT_DIR, os.pardir, "problems")
 EXCLUDED_FILE = os.path.join(SCRIPT_DIR, "excluded-problems.txt")
@@ -47,7 +52,10 @@ def main():
         sys.exit(1)
 
     chosen = random.choice(candidates)
-    print(os.path.join("problems", rel_path, chosen))
+    rel = os.path.join("problems", rel_path, chosen)
+    print(rel)
+    if levels:
+        levels.print_goal(rel)
 
 
 if __name__ == "__main__":

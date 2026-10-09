@@ -4,3 +4,4 @@ progress/progress.db
 progress/progress.db-shm
 .gitignore
 progress/progress.db-wal
+__pycache__/

@@ -1,4 +1,4 @@
-package acabc081a
+package abc081a
 
 import (
 	"fmt"
@@ -11,11 +11,11 @@ func PlacingMarbles() {
 	count := 0
 	left := 0
 	right := len(inp) - 1
-	for left < right {
+	for left <= right {
 		if inp[left] == '1' {
 			count++
 		}
-		if inp[right] == '1' {
+		if left != right && inp[right] == '1' {
 			count++
 		}
 		left++

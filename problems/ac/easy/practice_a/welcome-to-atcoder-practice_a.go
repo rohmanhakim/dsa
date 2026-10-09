@@ -1,4 +1,4 @@
-package acpracticeA
+package practicea
 
 import (
 	"fmt"

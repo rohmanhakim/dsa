@@ -188,11 +188,8 @@ ORDER BY s.date DESC;
 ### General Performance tracking
 - first, take note of the pattern i used in this session to solve the problem.
 - then check if i solved it by myself (independently) or using your guide (guided)
-- then check the difficulty of this problem. you can check it under which directory the current problem is placed under (for example, for LeetCode: "easy", "medium". For CodeForces: "d800", "d1000").
-- if i solved the problem independently, check my reported time-to-get-accepted. then based on that, the goal time limit is:
-  - LC easy or CF 800-900: should be solved in 15 minutes or less
-  - LC medium or CF 1000-1100: should be solved in 30 minutes or less
-  - LC hard or CF 1200-beyond: sould be solved in 1 hour or less
+- then check the difficulty of this problem from its directory: `lc`, `hr` and `ac` use tier directories (`easy`, `medium`, `hard`); `cf` uses rating directories (`d800`, `d1000`).
+- if i solved the problem independently, check my reported time-to-get-accepted against the severity-0 goal for that platform+tier. the goals live in `progress/levels.md` (single source of truth for lc/hr/cf/ac) — read it on demand, or run `python3 scripts/levels.py dir <problem-dir>`. the test harnesses print the goal too.
 - assign severity to the session based on the severity scale above.
 - determine mastery status using the unified model below (see "mastery criteria").
 - when a pattern is moved to "patterns mastered" from "patterns in progress", don't forget to delete that entry in the "patterns in progress"
@@ -211,11 +208,7 @@ this is the single source of truth for regression detection and mastery promotio
 
 ### difficulty time limits
 
-| difficulty | max time for severity 0 |
-|------------|------------------------|
-| LC easy / CF 800-1100 | 900s (15 min) |
-| LC medium / CF 1200-1400 | 1800s (30 min) |
-| LC hard / CF 1500+ | 3600s (60 min) |
+severity-0 time goals per platform+tier live in `progress/levels.md` (single source of truth covering lc/hr/cf/ac). read that file on demand when judging a session — never rely on a memorized copy. `python3 scripts/levels.py dir <problem-dir>` resolves the goal for a path, and every test harness prints it while generating tests.
 
 ### mastery criteria (initial)
 
@@ -224,7 +217,7 @@ to promote a pattern from "patterns in progress" to "patterns mastered", ALL of 
 | criterion | SQL-verifiable query |
 |-----------|---------------------|
 | 5 consecutive sessions on the pattern, all severity ≤ 1 | Recursive CTE counting backwards from most recent session, stops at first severity > 1 (see `progress/queries/mastery-streak-check.sql`) |
-| All 5 within the time limit for their difficulty | each `time_to_accepted` ≤ threshold for that session's difficulty |
+| All 5 within the time limit for their difficulty | each `time_to_accepted` ≤ threshold for that platform+tier (thresholds: `progress/levels.md`) |
 | Sessions span at least 3 distinct calendar days | `COUNT(DISTINCT date) >= 3` across the qualifying streak |
 
 SQL to check mastery readiness (read `progress/queries/mastery-streak-check.sql` for details) :
