@@ -25,7 +25,7 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 | Math | 0/5 sev≤1 | 19 total (6 guided) | sev≤1 pair (lc3870, lc3871) wiped by guided lc1401 (sev 3) 6 days later. Needs 5 consecutive independent sev≤1. |
 | Digit Manipulation | 2/5 sev≤1 | 8 total (2 guided) | Rising: lc3550 + lc3622 sev≤1; chain stopped by lc3348 (sev 3). 3 more needed. |
 | Greedy (Observation) | 0/5 sev≤1 | 17 total (11 guided) | Streak broken by guided sessions. Needs independent practice. LC678 (guided, sev 3): wildcard range invariant learned. |
-| BFS | 0/5 sev≤1 | 5 total (2 guided) | Streak broken by guided session (lc3568). Needs 5 independent passes. |
+| BFS | 1/5 sev≤1 | 6 total (2 guided) | Streak restarted 2026-10-09 (lc463 sev 1 slow pass, 22:44 > 15-min easy target). Needs 4 more sev≤1 across ≥2 more days. |
 | Hash Map | 1/3 sev≤1 (re-cert) | 10 total (3 guided) | REGRESSED 2026-10-07 (sev 3, hr-icecream-parlor). Re-cert 1/3, day 1/2: hr-missing-numbers sev 0 (freq-count variant). Two-sum recognition still open. |
 | Linked List | 1/1 sev≤1 | 1 session | 4 more |
 | Simulation | 1/5 sev≤1 | 7 total (2 guided) | Streak restarted 2026-10-08 (lc4056 sev 0). lc1096 (guided sev 3) previously anchored at 0 — grammar parsing w/ precedence (concatenation > union) still the reference lesson there. |
