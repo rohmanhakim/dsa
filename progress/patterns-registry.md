@@ -60,6 +60,7 @@ Canonical pattern names for the `session_patterns` junction table. The mentor (C
 | `Monotonic Stack` | Next greater/smaller element | Daily temperatures, stock span, histogram |
 | `BST` | Binary Search Tree properties: in-order = sorted order, search, insert, validate | BST-specific problems: min/max diff, validate, search, kth smallest, LCA in BST |
 | `Segment Tree` | Binary tree for range queries and point updates. Each node stores interval metadata; merge combines children | Dynamic string/array updates with range queries (longest repeated substring, range max, etc.)
+| `Heap (Priority Queue)` | Min/max heap; keep only the k largest/smallest with a size-bounded heap | Kth largest/smallest in a stream, top-k selection, Dijkstra, scheduling by priority |
 
 ### Math
 
@@ -108,6 +109,8 @@ The `patterns` table in the database is now the source of truth for pattern defi
 - **2026-08-13**: Added `Segment Tree` (Data Structures category) for range queries with point updates. O(n) build, O(log n) update.
 
 ### Changelog
+
+- **2026-10-10**: Added `Heap (Priority Queue)` (Data Structures category) for k-largest/kth-element stream problems. Min-heap bounded to size k; root = kth largest. O(log k) per op.
 
 - **2026-08-20**: Added `Simulation` (Other category) for direct simulation problems where the problem defines explicit step-by-step operations and no specialized DSA pattern applies.
 
