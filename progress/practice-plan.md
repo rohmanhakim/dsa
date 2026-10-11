@@ -18,6 +18,7 @@
 - LC 142 - Linked List Cycle II — Floyd's Phase 2: finding the cycle start node (extends LC 141 pattern)
 - LC 70 - Climbing Stairs (1D DP, simplest entry point)
 - LC 198 - House Robber (1D DP, classic)
+- LC 347 - Top K Frequent Elements (heap next rep — frequency-ordered heap, new sub-variant after lc215 sev 0)
 
 ## String Matching Algorithms
 

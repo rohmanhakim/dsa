@@ -5,25 +5,15 @@ import (
 	"fmt"
 )
 
-type KMaxHeap []int
+type minHeap []int
 
-func (h KMaxHeap) Len() int {
-	return len(h)
-}
-
-func (h KMaxHeap) Less(i, j int) bool {
-	return h[i] > h[j]
-}
-
-func (h KMaxHeap) Swap(i, j int) {
-	h[i], h[j] = h[j], h[i]
-}
-
-func (h *KMaxHeap) Push(x any) {
+func (h minHeap) Len() int           { return len(h) }
+func (h minHeap) Less(i, j int) bool { return h[i] < h[j] }
+func (h minHeap) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
+func (h *minHeap) Push(x any) {
 	*h = append(*h, x.(int))
 }
-
-func (h *KMaxHeap) Pop() any {
+func (h *minHeap) Pop() any {
 	old := *h
 	n := len(old)
 	val := old[n-1]
@@ -33,22 +23,21 @@ func (h *KMaxHeap) Pop() any {
 
 func findKthLargest(nums []int, k int) int {
 
-	h := &KMaxHeap{}
-	heap.Init(h)
+	h := minHeap([]int{})
+	heap.Init(&h)
 
-	for _, n := range nums {
-		heap.Push(h, n)
+	for _, num := range nums {
+		heap.Push(&h, num)
+
+		if len(h) > k {
+			heap.Pop(&h)
+		}
 	}
 
-	res := 0
-	for range k {
-		res = heap.Pop(h).(int)
-	}
-
-	return res
+	return h[0]
 }
 
-func KthLargestElementInAnArray() {
+func LC215() {
 	nums := []int{3, 2, 3, 1, 2, 4, 5, 5, 6}
 	k := 4
 	out := findKthLargest(nums, k)

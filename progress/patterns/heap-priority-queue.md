@@ -1,6 +1,6 @@
 # Heap (Priority Queue)
 
-**Status:** In Progress — 0/5 sev≤1 streak
+**Status:** In Progress — 1/5 sev≤1 streak (day 1)
 
 ## Description
 
@@ -12,6 +12,7 @@ A heap gives O(log n) push/pop and O(1) access to the min (or max) element. The 
 |------|---------|------------|----------|------|--------|-------------|
 | 2026-10-10 | lc703 | easy | 3 (hint) | 0 | guided | Never call the interface's raw `Push`/`Pop` directly — go through the `heap` package |
 | 2026-10-10 | abc234d | easy | 3 (hint) | 0 | guided | Invariant: heap must hold *exactly* the k largest of the prefix — missing eviction → root decays to prefix min |
+| 2026-10-11 | lc215 | medium | 0 | 7:03 | independent | **First cold rep** — both prior lessons applied unprompted: size-k invariant + `heap.Pop(&h)` correct, inverted sizing recalled |
 
 ## Lessons Learned
 
@@ -34,6 +35,7 @@ A heap gives O(log n) push/pop and O(1) access to the min (or max) element. The 
 5. **Merge k sorted lists** (lc23): heap of one pointer per list, size k
 6. **Streaming median** (lc295): two heaps — max-heap lower half + min-heap upper half
 7. **Dijkstra / uniform-cost search**: priority queue ordered by distance
+8. **Static-array kth largest** (lc215): single pass over the whole array with the same size-k min-heap (push-then-evict) — no streaming, no sorting; O(n log k)
 
 ## Weaknesses
 

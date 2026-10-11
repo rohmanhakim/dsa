@@ -36,7 +36,7 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 | Minimax DP | 0/5 | 4 guided | Needs independent sessions. |
 | BST | 0/5 | 2 guided | Needs independent sessions. |
 | Segment Tree | 0/5 | 2 total (2 guided) | Needs independent sessions. |
-| Heap (Priority Queue) | 0/5 sev≤1 | 2 sessions (2 guided) | 2× guided sev 3: lc703 (raw `h.Pop()` vs `heap.Pop(&h)`), abc234d (missed size-k eviction → root decayed to prefix min). Right pattern both times; invariant not yet second nature — **next heap rep must be cold/independent** (e.g. lc215, lc347). |
+| Heap (Priority Queue) | 1/5 sev≤1 | 3 total (2 guided) | lc215 sev 0 (2026-10-11): first cold/independent rep, 7:03 — both prior lessons applied unprompted. 4 more sev≤1 across ≥2 more days (next: lc347). |
 | Binary Search on Answer | 0/5 | 1 guided | Needs independent sessions. |
 | Binary Lifting | 0/5 | 1 guided | Needs independent sessions. |
 
