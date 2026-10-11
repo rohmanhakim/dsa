@@ -1,6 +1,6 @@
 # Heap (Priority Queue)
 
-**Status:** In Progress — 1/5 sev≤1 streak (day 1)
+**Status:** In Progress — 0/5 sev≤1 (streak reset by lc373 guided sev 3 on 2026-10-11; prior best 1/5 from lc215)
 
 ## Description
 
@@ -13,6 +13,7 @@ A heap gives O(log n) push/pop and O(1) access to the min (or max) element. The 
 | 2026-10-10 | lc703 | easy | 3 (hint) | 0 | guided | Never call the interface's raw `Push`/`Pop` directly — go through the `heap` package |
 | 2026-10-10 | abc234d | easy | 3 (hint) | 0 | guided | Invariant: heap must hold *exactly* the k largest of the prefix — missing eviction → root decays to prefix min |
 | 2026-10-11 | lc215 | medium | 0 | 7:03 | independent | **First cold rep** — both prior lessons applied unprompted: size-k invariant + `heap.Pop(&h)` correct, inverted sizing recalled |
+| 2026-10-11 | lc373 | medium | 3 (hint) | 0 | guided | TLE from exhaustive m·n candidate generation despite correct size-k filter; learned sorted-rows merge (#5) and the lazy-generation ladder to #7 |
 
 ## Lessons Learned
 
@@ -25,6 +26,9 @@ A heap gives O(log n) push/pop and O(1) access to the min (or max) element. The 
   2. **conditional replace-root**: `if x > h[0] { h[0] = x; heap.Fix(&h, 0) }`. Skipping when `x ≤ root` saves a log op; overwriting the root with a *larger* value only needs sift-down, which `Fix` does.
 - **State the loop boundaries from the invariant, not by trial.** Off-by-one symptom: duplicate element pushed by two loops. Check: exactly `n−k+1` answers printed, each element pushed exactly once.
 - **Root decay diagnosis:** if answers drift toward the global minimum, the heap contains the whole prefix — the size-k eviction is missing or misplaced (this was abc234d's core bug).
+- **Selection vs generation (lc373).** A size-bounded heap fixes *filtering*, not *producing*. When k ≪ m·n (10⁴ vs 10¹⁰), the scan that generates candidates is the TLE — replace enumerate-then-filter with generate-on-demand. Check the constraint product *before* designing (weakness #3).
+- **Sorted grid → sorted rows → heap-merge (lc373, variant #5).** Rows of `nums1[i]+nums2[j]` are sorted: seed the heap with the first column `(i,0)`, pop k times, push `(i,j+1)` on each pop. No visited set — each row advances linearly. Heap stays O(m); seed the *shorter* array as rows → O(min(m,n)).
+- **`Less` must be strict.** `<=` on ties makes `Less(i,j)` and `Less(j,i)` both true → unspecified sort output. Write `if a.sum != b.sum { return a.sum < b.sum }; return a.a < b.a`.
 
 ## Variants
 
@@ -36,8 +40,10 @@ A heap gives O(log n) push/pop and O(1) access to the min (or max) element. The 
 6. **Streaming median** (lc295): two heaps — max-heap lower half + min-heap upper half
 7. **Dijkstra / uniform-cost search**: priority queue ordered by distance
 8. **Static-array kth largest** (lc215): single pass over the whole array with the same size-k min-heap (push-then-evict) — no streaming, no sorting; O(n log k)
+9. **k smallest pairs from two sorted arrays** (lc373): heap-merge of sorted rows — seed first column, advance col on pop, heap O(m); refinement = lazy Dijkstra frontier (#7) with visited set, heap O(k), O(k log k)
 
 ## Weaknesses
 
 - **Debug prints during development** — `fmt.Println` of heap state on every op (weakness #4; 8th occurrence lc703, 9th abc234d first draft — both removed before finishing)
 - **Missing/misplaced size-k eviction** — heap grows to hold the whole prefix, root becomes the prefix minimum, answers decay toward the global min (abc234d). Detection heuristic: "are answers drifting to 1?"
+- **Constraint check skipped before designing the scan** — lc373 diagonal wavefront ignored m·n = 10¹⁰ (weakness #3). Also: non-strict `<=` inside `Less` on sum ties (lc373, flagged twice).

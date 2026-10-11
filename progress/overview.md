@@ -36,7 +36,7 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 | Minimax DP | 0/5 | 4 guided | Needs independent sessions. |
 | BST | 0/5 | 2 guided | Needs independent sessions. |
 | Segment Tree | 0/5 | 2 total (2 guided) | Needs independent sessions. |
-| Heap (Priority Queue) | 1/5 sev≤1 | 3 total (2 guided) | lc215 sev 0 (2026-10-11): first cold/independent rep, 7:03 — both prior lessons applied unprompted. 4 more sev≤1 across ≥2 more days (next: lc347). |
+| Heap (Priority Queue) | 0/5 sev≤1 | 4 total (3 guided) | Reset 2026-10-11 (lc373 guided sev 3: m·n generation TLE despite correct size-k filter — selection vs generation lesson). Anchor: lc215 sev 0, 7:03. Needs 5 sev≤1 across ≥2 days (next: lc347, or lc373 Path B frontier re-attempt). |
 | Binary Search on Answer | 0/5 | 1 guided | Needs independent sessions. |
 | Binary Lifting | 0/5 | 1 guided | Needs independent sessions. |
 
