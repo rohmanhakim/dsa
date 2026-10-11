@@ -11,6 +11,7 @@ A heap gives O(log n) push/pop and O(1) access to the min (or max) element. The 
 | Date | Problem | Difficulty | Severity | Time | Status | Key Learning |
 |------|---------|------------|----------|------|--------|-------------|
 | 2026-10-10 | lc703 | easy | 3 (hint) | 0 | guided | Never call the interface's raw `Push`/`Pop` directly — go through the `heap` package |
+| 2026-10-10 | abc234d | easy | 3 (hint) | 0 | guided | Invariant: heap must hold *exactly* the k largest of the prefix — missing eviction → root decays to prefix min |
 
 ## Lessons Learned
 
@@ -18,16 +19,23 @@ A heap gives O(log n) push/pop and O(1) access to the min (or max) element. The 
 - **State the invariant**: "the min-heap holds the k largest elements of the entire stream → root = kth largest." The bug showed up as every answer returning the global minimum (got `[3 3 3 3 3]` instead of `[4 5 5 8 8]`).
 - **One push → at most one eviction.** A `for range h.Len()-k` loop is dead complexity; an `if h.Len() > k` suffices.
 - **Min-heap for kth-largest, max-heap for kth-smallest** — inverted sizing is the whole idea, don't reach for a max-heap when asked for largest.
+- **Two ways to maintain the size-k invariant (abc234d), same end state:**
+  1. **push-then-evict**: `heap.Push` unconditionally, then `if h.Len() > k { heap.Pop(&h) }`. No comparison guard needed — if the new element is unworthy it just pops itself.
+  2. **conditional replace-root**: `if x > h[0] { h[0] = x; heap.Fix(&h, 0) }`. Skipping when `x ≤ root` saves a log op; overwriting the root with a *larger* value only needs sift-down, which `Fix` does.
+- **State the loop boundaries from the invariant, not by trial.** Off-by-one symptom: duplicate element pushed by two loops. Check: exactly `n−k+1` answers printed, each element pushed exactly once.
+- **Root decay diagnosis:** if answers drift toward the global minimum, the heap contains the whole prefix — the size-k eviction is missing or misplaced (this was abc234d's core bug).
 
 ## Variants
 
 1. **Kth largest in a stream** (lc703): min-heap of size k, root = answer
-2. **Kth smallest in a stream**: max-heap of size k (or min-heap of size n-k+1)
-3. **Top-k frequent** (lc347): heap ordered by frequency instead of value
-4. **Merge k sorted lists** (lc23): heap of one pointer per list, size k
-5. **Streaming median** (lc295): two heaps — max-heap lower half + min-heap upper half
-6. **Dijkstra / uniform-cost search**: priority queue ordered by distance
+2. **Prefix k-th max** (abc234d): for each prefix i≥k, root of the size-k min-heap = k-th largest of the prefix — works because the prefix only grows
+3. **Kth smallest in a stream**: max-heap of size k (or min-heap of size n-k+1)
+4. **Top-k frequent** (lc347): heap ordered by frequency instead of value
+5. **Merge k sorted lists** (lc23): heap of one pointer per list, size k
+6. **Streaming median** (lc295): two heaps — max-heap lower half + min-heap upper half
+7. **Dijkstra / uniform-cost search**: priority queue ordered by distance
 
 ## Weaknesses
 
-- **Debug prints during development** — `fmt.Println` of heap state on every op (removed before finishing; weakness #4, 8th occurrence)
+- **Debug prints during development** — `fmt.Println` of heap state on every op (weakness #4; 8th occurrence lc703, 9th abc234d first draft — both removed before finishing)
+- **Missing/misplaced size-k eviction** — heap grows to hold the whole prefix, root becomes the prefix minimum, answers decay toward the global min (abc234d). Detection heuristic: "are answers drifting to 1?"

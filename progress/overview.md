@@ -36,7 +36,7 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 | Minimax DP | 0/5 | 4 guided | Needs independent sessions. |
 | BST | 0/5 | 2 guided | Needs independent sessions. |
 | Segment Tree | 0/5 | 2 total (2 guided) | Needs independent sessions. |
-| Heap (Priority Queue) | 0/5 sev≤1 | 1 session | Registered 2026-10-10 (lc703, guided sev 3): right approach (size-k min-heap), but raw `h.Pop()` vs `heap.Pop(&h)` broke the invariant. Needs 5 consecutive independent sev≤1. |
+| Heap (Priority Queue) | 0/5 sev≤1 | 2 sessions (2 guided) | 2× guided sev 3: lc703 (raw `h.Pop()` vs `heap.Pop(&h)`), abc234d (missed size-k eviction → root decayed to prefix min). Right pattern both times; invariant not yet second nature — **next heap rep must be cold/independent** (e.g. lc215, lc347). |
 | Binary Search on Answer | 0/5 | 1 guided | Needs independent sessions. |
 | Binary Lifting | 0/5 | 1 guided | Needs independent sessions. |
 
