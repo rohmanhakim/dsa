@@ -19,6 +19,7 @@
 - LC 70 - Climbing Stairs (1D DP, simplest entry point)
 - LC 198 - House Robber (1D DP, classic)
 - LC 347 - Top K Frequent Elements (heap next rep — frequency-ordered heap, new sub-variant after lc215 sev 0)
+- LC 1514 - Path with Maximum Probability (Dijkstra next rep — multiplicative/max combine operator, fresh sub-variant after lc743 sev 0)
 
 ## String Matching Algorithms
 

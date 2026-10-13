@@ -36,7 +36,7 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 | Minimax DP | 0/5 | 4 guided | Needs independent sessions. |
 | BST | 0/5 | 2 guided | Needs independent sessions. |
 | Segment Tree | 0/5 | 2 total (2 guided) | Needs independent sessions. |
-| Heap (Priority Queue) | 0/5 sev≤1 | 6 total (5 guided) | Reset 2026-10-11 (lc373 guided sev 3: m·n generation TLE despite correct size-k filter — selection vs generation lesson). lc1631 guided sev 3 (2026-10-12): minimax Dijkstra — 3 wrong cost models before invariant stated. cf1473e guided sev 3 (2026-10-13): state-expansion Dijkstra, d2400 **AC** — 4 failure modes cataloged (cost model → relaxation guard ×3 → mixed I/O). Anchor: lc215 sev 0, 7:03. Needs 5 sev≤1 across ≥2 days (next: lc347, or lc373 Path B frontier re-attempt). |
+| Heap (Priority Queue) | 1/5 sev≤1 | 7 total (5 guided) | Streak started 2026-10-13 (lc743 sev 0, independent 28:57 within 30-min goal) — **first independent Dijkstra**: early-exit-on-pop + stale guard correct; n−1 re-runs instead of 1 run + max. Needs 4 more sev≤1 across ≥2 more days (next: lc347, or fresh additive-Dijkstra variant like lc1514). |
 | Binary Search on Answer | 0/5 | 1 guided | Needs independent sessions. |
 | Binary Lifting | 0/5 | 1 guided | Needs independent sessions. |
 
