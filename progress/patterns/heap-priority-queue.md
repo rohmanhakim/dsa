@@ -1,6 +1,6 @@
 # Heap (Priority Queue)
 
-**Status:** In Progress — 0/5 sev≤1 (streak reset by lc373 guided sev 3 on 2026-10-11; prior best 1/5 from lc215; lc1631 guided sev 3 on 2026-10-12 — still no live streak)
+**Status:** In Progress — 0/5 sev≤1 (streak reset by lc373 guided sev 3 on 2026-10-11; prior best 1/5 from lc215; lc1631 guided sev 3 on 2026-10-12; cf1473e guided sev 3 on 2026-10-13 (AC, d2400) — still no live streak)
 
 ## Description
 
@@ -15,6 +15,7 @@ A heap gives O(log n) push/pop and O(1) access to the min (or max) element. The 
 | 2026-10-11 | lc215 | medium | 0 | 7:03 | independent | **First cold rep** — both prior lessons applied unprompted: size-k invariant + `heap.Pop(&h)` correct, inverted sizing recalled |
 | 2026-10-11 | lc373 | medium | 3 (hint) | 0 | guided | TLE from exhaustive m·n candidate generation despite correct size-k filter; learned sorted-rows merge (#5) and the lazy-generation ladder to #7 |
 | 2026-10-12 | lc1631 | medium | 3 (hint) | 0 | guided | Minimax Dijkstra (variant #7): 3 wrong cost models before the invariant was stated — sum → `|h−effort|` → last-edge-only; fix = candidate `max(edge, effortSoFar)` |
+| 2026-10-13 | cf1473e | d2400 | 3 (hint) | 0 | guided | State-expansion Dijkstra (variant #7): non-additive `sum−max+min` → 4·n states `(v, subUsed, addUsed)`; 3 rounds of relaxation bugs + I/O bug; AC after fixes |
 
 ## Lessons Learned
 
@@ -33,6 +34,10 @@ A heap gives O(log n) push/pop and O(1) access to the min (or max) element. The 
 - **Dijkstra's combine operator is the problem's cost operator (lc1631).** Textbook Dijkstra *adds* weights; minimax paths take `max(edgeWeight, effortSoFar)`. Writing `nd := curr.dist + ...` by muscle memory computes the wrong quantity entirely (sum-of-heights gave 11 instead of 2). The invariant sentence "`effort[r][c]` = min over paths of max edge weight" *dictates* the combine — state it before coding.
 - **Edge weight comes from two *cells*, never from a cell and the path total.** `|h[nr][nc] − curr.effort|` mixes units (cell height vs accumulated effort) and lets effort *decrease* along a path — impossible for a max of non-negatives. Monotonicity (extending a path never lowers effort) is exactly what makes "first pop of the target is final" valid; if values can drop mid-path, the cost model is wrong.
 - **Coincidence passes (lc1631 ex1–3).** Storing only the last-edge weight passed the first three examples because the minimizing path's last edge happened to equal its max; a single-row 7-edge case exposed it. Passing given examples ≠ correct invariant — find the case where the coincidence breaks.
+- **Non-additive path cost with a fixed # of special ops → flag bits in the state (cf1473e).** `sum−max+min` can't be a Dijkstra scalar — "have I spent my subtract/add yet?" is finite state (2 bits → 4·n nodes). Enumerate *spend decisions* per edge (normal `w`, sub `0`, add `2w`, both `w`), chain flags with OR (`ns := curr.subUsed | spendSub` — monotone, never un-spends), and let the PQ decide *when* to spend. Answer = `dist[v][1][1]`, extracted in a post-pass (pop order ≠ vertex order).
+- **Relaxation contract: ONE strict condition gates write AND push.** `if newCost < dist[dest][ns][na]` — both the table write and the heap push live under it. Guarding against the wrong cell (`dist[curr.node][1][1]`) caused two failure modes in one run: silent pruning of all progress (only start-adjacent vertex answered) *and* equal-cost re-push ping-pong → infinite loop. This is the invariant-vs-mechanics weakness (4th occurrence, same family as lc1631).
+- **Verify the spec against your checker, not just your code (cf1473e).** A local brute-force enumerator enforcing *simple* paths flagged the Dijkstra as wrong (15 vs 16) — but the statement allows repeated edge indices, and a walk repeating a cheap edge (`0-3-4-3-2-1`) legitimately beats every simple path. The checker enforced a stricter spec than the problem. When a trusted oracle disagrees with your code, suspect the oracle's reading of the spec first.
+- **One I/O channel end-to-end (cf1473e).** `bufio.Reader` for the header + `fmt.Scanf` for the body → the reader slurped stdin into its 4KB buffer, `Scanf` bypassed it, hit EOF, read 0 edges, printed sentinels. Each API alone is correct; the *mix* is fatal. Use `Fscan`/`Fprintln` on one buffered pair for input and output. Local harness caught it before a wasted CF attempt.
 
 ## Variants
 
@@ -43,6 +48,7 @@ A heap gives O(log n) push/pop and O(1) access to the min (or max) element. The 
 5. **Merge k sorted lists** (lc23): heap of one pointer per list, size k
 6. **Streaming median** (lc295): two heaps — max-heap lower half + min-heap upper half
 7. **Dijkstra / uniform-cost search**: priority queue ordered by distance — the combine operator must match the problem's cost: `+` for additive shortest path, `max(edgeWeight, effortSoFar)` for minimax (lc1631 path-with-minimum-effort)
+   - *Sub-variant: state expansion* — when the cost isn't additive but involves a fixed number of "special ops" (subtract max / add min), add monotone flag bits to the state: `(v, subUsed, addUsed)` → 4·n nodes, branch per legal spend, answer `dist[v][1][1]` (cf1473e, d2400)
 8. **Static-array kth largest** (lc215): single pass over the whole array with the same size-k min-heap (push-then-evict) — no streaming, no sorting; O(n log k)
 9. **k smallest pairs from two sorted arrays** (lc373): heap-merge of sorted rows — seed first column, advance col on pop, heap O(m); refinement = lazy Dijkstra frontier (#7) with visited set, heap O(k), O(k log k)
 
@@ -51,3 +57,5 @@ A heap gives O(log n) push/pop and O(1) access to the min (or max) element. The 
 - **Debug prints during development** — `fmt.Println` of heap state on every op (weakness #4; 8th occurrence lc703, 9th abc234d first draft — both removed before finishing)
 - **Missing/misplaced size-k eviction** — heap grows to hold the whole prefix, root becomes the prefix minimum, answers decay toward the global min (abc234d). Detection heuristic: "are answers drifting to 1?"
 - **Constraint check skipped before designing the scan** — lc373 diagonal wavefront ignored m·n = 10¹⁰ (weakness #3). Also: non-strict `<=` inside `Less` on sum ties (lc373, flagged twice).
+- **Invariant-vs-mechanics in Dijkstra relaxation** (cf1473e, 3 debug rounds): destination-state flags replaced instead of OR-chained; guard tested `dist[curr.node][1][1]` while writing `dist[dest][ns][na]`; missing base cost. Symptom range from "answers stuck at MaxInt" to a zero-cost infinite loop. Fix discipline: state the cell being updated, make the condition test exactly that cell.
+- **Mixed buffered/unbuffered I/O** (cf1473e, new failure mode): `Fscan` + `Scanf` mix silently reads nothing from stdin. Detection heuristic: *every* answer equals the sentinel → suspect input, not algorithm.

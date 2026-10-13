@@ -36,7 +36,7 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 | Minimax DP | 0/5 | 4 guided | Needs independent sessions. |
 | BST | 0/5 | 2 guided | Needs independent sessions. |
 | Segment Tree | 0/5 | 2 total (2 guided) | Needs independent sessions. |
-| Heap (Priority Queue) | 0/5 sev≤1 | 5 total (4 guided) | Reset 2026-10-11 (lc373 guided sev 3: m·n generation TLE despite correct size-k filter — selection vs generation lesson). lc1631 guided sev 3 (2026-10-12): minimax Dijkstra — 3 wrong cost models before invariant stated. Anchor: lc215 sev 0, 7:03. Needs 5 sev≤1 across ≥2 days (next: lc347, or lc373 Path B frontier re-attempt). |
+| Heap (Priority Queue) | 0/5 sev≤1 | 6 total (5 guided) | Reset 2026-10-11 (lc373 guided sev 3: m·n generation TLE despite correct size-k filter — selection vs generation lesson). lc1631 guided sev 3 (2026-10-12): minimax Dijkstra — 3 wrong cost models before invariant stated. cf1473e guided sev 3 (2026-10-13): state-expansion Dijkstra, d2400 **AC** — 4 failure modes cataloged (cost model → relaxation guard ×3 → mixed I/O). Anchor: lc215 sev 0, 7:03. Needs 5 sev≤1 across ≥2 days (next: lc347, or lc373 Path B frontier re-attempt). |
 | Binary Search on Answer | 0/5 | 1 guided | Needs independent sessions. |
 | Binary Lifting | 0/5 | 1 guided | Needs independent sessions. |
 
@@ -48,7 +48,7 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 4. **Debug print left in code** — 7 occurrences (fmt.Println)
 5. **Pattern misidentification** — Prefix/range-query vs combinatorial DP
 6. **Greedy instinct** — Picking greedy when minimax/binary-search is needed
-7. **Solving by mechanics vs invariants** — Starting with implementation instead of stating invariant (reinforced lc22, lc678, lc1631)
+7. **Solving by mechanics vs invariants** — Starting with implementation instead of stating invariant (reinforced lc22, lc678, lc1631, cf1473e)
 8. **Binary search indexing** — Confusion between returning index vs count (off-by-one errors)
 9. **Tie-breaking logic** — Not considering all cases when selecting final answer
 10. **Confusing dp state definition** — Not distinguishing "ending at i" vs "total so far" (lc3524, lc32)
