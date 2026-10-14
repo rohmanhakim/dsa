@@ -36,7 +36,7 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 | Minimax DP | 0/5 | 4 guided | Needs independent sessions. |
 | BST | 0/5 | 2 guided | Needs independent sessions. |
 | Segment Tree | 0/5 | 2 total (2 guided) | Needs independent sessions. |
-| Heap (Priority Queue) | 1/5 sev≤1 | 7 total (5 guided) | Streak started 2026-10-13 (lc743 sev 0, independent 28:57 within 30-min goal) — **first independent Dijkstra**: early-exit-on-pop + stale guard correct; n−1 re-runs instead of 1 run + max. Needs 4 more sev≤1 across ≥2 more days (next: lc347, or fresh additive-Dijkstra variant like lc1514). |
+| Heap (Priority Queue) | 2/5 sev≤1 | 8 total (5 guided) | Streak: lc743 sev 0 (2026-10-13) + lc1334 sev 0 (2026-10-14, 22:19, 2nd independent Dijkstra) — days 2/3. Needs 3 more sev≤1 across ≥1 more day. Watch: n≤100 → Floyd-Warshall fingerprint for all-pairs (lc1334). |
 | Binary Search on Answer | 0/5 | 1 guided | Needs independent sessions. |
 | Binary Lifting | 0/5 | 1 guided | Needs independent sessions. |
 

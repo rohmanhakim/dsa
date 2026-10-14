@@ -1,6 +1,6 @@
 # Heap (Priority Queue)
 
-**Status:** In Progress — 1/5 sev≤1 (streak started 2026-10-13, lc743 sev 0, day 1/3; first independent Dijkstra)
+**Status:** In Progress — 2/5 sev≤1 (streak 2026-10-13 → 2026-10-14, lc743 + lc1334, days 2/3; Dijkstra variant recognition solidifying)
 
 ## Description
 
@@ -17,6 +17,7 @@ A heap gives O(log n) push/pop and O(1) access to the min (or max) element. The 
 | 2026-10-12 | lc1631 | medium | 3 (hint) | 0 | guided | Minimax Dijkstra (variant #7): 3 wrong cost models before the invariant was stated — sum → `|h−effort|` → last-edge-only; fix = candidate `max(edge, effortSoFar)` |
 | 2026-10-13 | cf1473e | d2400 | 3 (hint) | 0 | guided | State-expansion Dijkstra (variant #7): non-additive `sum−max+min` → 4·n states `(v, subUsed, addUsed)`; 3 rounds of relaxation bugs + I/O bug; AC after fixes |
 | 2026-10-13 | lc743 | medium | 0 | 28:57 | independent | **First independent Dijkstra** — early exit on dest pop + stale guard correct; n−1 per-destination re-runs instead of 1 run + max |
+| 2026-10-14 | lc1334 | medium | 0 | 22:19 | independent | **2nd independent Dijkstra** — all-sources counting variant; lc743 mechanics (heap API, stale guard) transferred unprompted; missed n≤100 → Floyd-Warshall fingerprint |
 
 ## Lessons Learned
 
@@ -42,6 +43,7 @@ A heap gives O(log n) push/pop and O(1) access to the min (or max) element. The 
 - **Early exit on pop is valid in Dijkstra (lc743).** The first pop of a node from a min-heap is its final distance (any cheaper entry would have been popped first), so returning `dist[dest]` the moment `dest` surfaces is safe and saves work when only one destination matters.
 - **"All nodes reached" = max over single-source dist (lc743).** When the question asks the time until *every* node is reached, ONE Dijkstra from the source fills the whole `dist[]` — the answer is `max(dist)` (or −1 if any entry is unreachable). Re-running Dijkstra per destination is O(n·E log V) vs O(E log V); it only passed because n ≤ 100.
 - **Always init `dist[src] = 0` (lc743).** The per-destination loop skipped `i == k-1`, masking that the source's dist stayed `MaxInt` — a single-run version would have broken immediately.
+- **n ≤ 100 + all-pairs question → Floyd-Warshall is the clean default (lc1334).** Three nested loops, no heap boilerplate, answer matrix falls out in ~10 lines. n Dijkstras pass but are the heavier tool: O(n·E log n) vs O(n³). Detection: a count/aggregate is needed from *every* source, not one.
 
 ## Variants
 
@@ -54,6 +56,7 @@ A heap gives O(log n) push/pop and O(1) access to the min (or max) element. The 
 7. **Dijkstra / uniform-cost search**: priority queue ordered by distance — the combine operator must match the problem's cost: `+` for additive shortest path, `max(edgeWeight, effortSoFar)` for minimax (lc1631 path-with-minimum-effort)
    - *Sub-variant: state expansion* — when the cost isn't additive but involves a fixed number of "special ops" (subtract max / add min), add monotone flag bits to the state: `(v, subUsed, addUsed)` → 4·n nodes, branch per legal spend, answer `dist[v][1][1]` (cf1473e, d2400)
    - *Sub-variant: all-nodes answer* — one run from source, answer = `max(dist)` (or −1 on any unreachable node); early exit on pop only when a single destination matters (lc743 network-delay-time)
+   - *Sub-variant: all-sources counting* — n runs, NO early exit (answer needs full `dist[]` per source), count nodes with `dist ≤ threshold`; tie-break by index. For n ≤ 100, prefer Floyd-Warshall O(n³) instead (lc1334)
 8. **Static-array kth largest** (lc215): single pass over the whole array with the same size-k min-heap (push-then-evict) — no streaming, no sorting; O(n log k)
 9. **k smallest pairs from two sorted arrays** (lc373): heap-merge of sorted rows — seed first column, advance col on pop, heap O(m); refinement = lazy Dijkstra frontier (#7) with visited set, heap O(k), O(k log k)
 
@@ -65,3 +68,5 @@ A heap gives O(log n) push/pop and O(1) access to the min (or max) element. The 
 - **Invariant-vs-mechanics in Dijkstra relaxation** (cf1473e, 3 debug rounds): destination-state flags replaced instead of OR-chained; guard tested `dist[curr.node][1][1]` while writing `dist[dest][ns][na]`; missing base cost. Symptom range from "answers stuck at MaxInt" to a zero-cost infinite loop. Fix discipline: state the cell being updated, make the condition test exactly that cell.
 - **Mixed buffered/unbuffered I/O** (cf1473e, new failure mode): `Fscan` + `Scanf` mix silently reads nothing from stdin. Detection heuristic: *every* answer equals the sentinel → suspect input, not algorithm.
 - **Per-destination re-run instead of reusing the single-source result** (lc743, sev 0 but inefficient): ran Dijkstra n−1 times with early exit; O(n·E log V) passes only because n ≤ 100. Detection heuristic: "does the question ask about ONE destination or ALL of them?" — ALL → one run + `max(dist)`.
+- **Dead `heap.Init` boilerplate** (lc1334): called on a 1-element heap seeded via `heap.Push` — Init only matters when filling the slice directly. Unexamined copy-paste instinct; know why it exists before typing it.
+- **Map adjacency for indexed nodes** (lc1334, style): `map[int][]edge` when cities are `0..n-1` — `make([][]edge, n)` is cheaper and idiomatic. Map adjacency is for *named* (string/sparse) nodes.
