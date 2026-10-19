@@ -1,83 +1,89 @@
 package lc994
 
-import "fmt"
-
 func orangesRotting(grid [][]int) int {
-	rows := len(grid)
-	cols := len(grid[0])
+	/*
+		BFS Problem
+
+		count fresh oranges upfront
+
+		loop grid
+			when encounter rotten orange put to queue
+			when encounter fresh orange increase counter
+
+		begin BFS
+			dequeue front evaluate neighbors
+			exhaust queue : loop to the number of queue length
+		    level is minute elapsed
+			fresh oranges on 4-directional cells are the neighbors
+			if encounter fresh orange, decrease fresh orange counter
+			at the end of loop advance level
+
+		for possible case, fresh orange counter will be 0 in that case return level
+
+		for impossible case:
+
+			2 1 1
+			0 1 1
+			1 0 1
+
+		fresh orange counter will not return 0 , then return -1
+	*/
+
+	freshOrange := 0
+
+	m := len(grid)
+	n := len(grid[0])
+
+	queue := [][]int{}
+	for i := range m {
+		for j := range n {
+			if grid[i][j] == 1 {
+				freshOrange++
+			} else if grid[i][j] == 2 {
+				queue = append(queue, []int{i, j})
+			}
+		}
+	}
+
+	if len(queue) == 0 {
+		if freshOrange > 0 {
+			return -1
+		} else {
+			return 0
+		}
+	}
+
+	level := -1
+
 	dirs := [][]int{
-		{0, 1},
-		{1, 0},
-		{-1, 0},
-		{0, -1},
-	}
-	type orange struct {
-		row int
-		col int
-	}
-	queue := []orange{}
-	fresh := 0
-
-	for i := 0; i < rows; i++ {
-		for j := 0; j < cols; j++ {
-			switch grid[i][j] {
-			case 2:
-				queue = append(queue, orange{row: i, col: j})
-			case 1:
-				fresh++
-			}
-		}
+		{0, 1}, {1, 0}, {0, -1}, {-1, 0},
 	}
 
-	if fresh == 0 {
-		return 0
-	}
-
-	getNeighbors := func(row, col int) []orange {
-		neighbors := []orange{}
-		for _, d := range dirs {
-			nRow := row + d[0]
-			nCol := col + d[1]
-
-			if nRow >= 0 && nRow < rows && nCol >= 0 && nCol < cols && grid[nRow][nCol] == 1 { //&& !rotten[nRow][nCol] {
-				neighbors = append(neighbors, orange{row: nRow, col: nCol})
-			}
-		}
-		return neighbors
-	}
-
-	elapsed := -1 // trick start at -1
 	for len(queue) > 0 {
-		elapsed++ // increment elapsed here, when the level actually enqueues something
-		level := len(queue)
 
-		for i := 0; i < level; i++ {
+		for range len(queue) {
 			front := queue[0]
+
 			queue = queue[1:]
 
-			neighbors := getNeighbors(front.row, front.col)
+			for _, d := range dirs {
+				nr := d[0] + front[0]
+				nc := d[1] + front[1]
 
-			for _, n := range neighbors {
-				grid[n.row][n.col] = 2
-				fresh--
-				queue = append(queue, n)
+				if nr >= 0 && nr < m && nc >= 0 && nc < n && grid[nr][nc] == 1 {
+					freshOrange--
+					grid[nr][nc] = 2
+					queue = append(queue, []int{nr, nc})
+				}
 			}
 		}
+
+		level++
 	}
 
-	if fresh > 0 {
-		return -1
+	if freshOrange == 0 {
+		return level
 	}
 
-	return elapsed
-}
-
-func RottingOranges() {
-	grid := [][]int{{0}}
-	for _, g := range grid {
-		fmt.Println(g)
-	}
-	fmt.Println("")
-	out := orangesRotting(grid)
-	fmt.Println(out)
+	return -1
 }

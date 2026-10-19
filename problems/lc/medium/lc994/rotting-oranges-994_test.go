@@ -31,6 +31,23 @@ func TestRottingOranges(t *testing.T) {
 			grid: [][]int{{0}},
 			want: 0,
 		},
+		{
+			name: "example 5",
+			grid: [][]int{{0, 1}},
+			want: -1,
+		},
+
+		{
+			name: "example 6",
+			grid: [][]int{{2, 1, 1}, {1, 1, 1}, {0, 1, 2}},
+			want: 2,
+		},
+
+		{
+			name: "example 7",
+			grid: [][]int{{2, 1, 1}, {1, 1, 1}, {1, 1, 1}},
+			want: 4,
+		},
 	}
 
 	for _, tt := range tests {
