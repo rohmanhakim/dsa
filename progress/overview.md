@@ -20,7 +20,7 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 | Pattern | Streak | Sessions | Needs |
 |---------|--------|----------|-------|
 | DFS | 1/3 sev≤1 (re-cert, day 1/2) | 15 total (3 guided) | Re-cert after REGRESSED 2026-10-02 (sev 3, lc22): lc1971 sev 1 (2026-10-08) = 1/3, day 1/2. Needs 2 more sev≤1 across ≥1 more day. |
-| Binary Search | 1/3 sev≤1 (re-cert, day 1/2) | 13 total (4 guided) | Re-cert: lc350 sev 0 (2026-10-08) = 1/3, day 1/2. Needs 2 more sev≤1 across ≥1 more day. |
+| Binary Search | 1/3 sev≤1 (re-cert, day 1/2) | 14 total (4 guided) | Re-cert: lc350 sev 0 (2026-10-08) = 1/3, day 1/2. lc875 sev 1 (2026-10-19) was secondary (answer-space primary) → not counted; needs 2 more **primary** sev≤1 across ≥1 more day. |
 | Greedy (Intervals) | 0/5 sev≤1 (re-cert) | 8 total (3 guided) | REGRESSED 2026-09-19 (sev 3, lc1520 + lc2472; backfilled 2026-10-08). Re-cert: 3 sev≤1 across 2 days. HR hackerland-radio-transmitters (guided sev 3): wrong-model formula attempt; rightmost-in-range greedy learned. |
 | Math | 0/5 sev≤1 | 19 total (6 guided) | sev≤1 pair (lc3870, lc3871) wiped by guided lc1401 (sev 3) 6 days later. Needs 5 consecutive independent sev≤1. |
 | Digit Manipulation | 2/5 sev≤1 | 8 total (2 guided) | Rising: lc3550 + lc3622 sev≤1; chain stopped by lc3348 (sev 3). 3 more needed. |
@@ -37,7 +37,7 @@ Compact index. Per-pattern details are in `progress/patterns/<name>.md`.
 | BST | 0/5 | 2 guided | Needs independent sessions. |
 | Segment Tree | 0/5 | 2 total (2 guided) | Needs independent sessions. |
 | Heap (Priority Queue) | 2/5 sev≤1 | 8 total (5 guided) | Streak: lc743 sev 0 (2026-10-13) + lc1334 sev 0 (2026-10-14, 22:19, 2nd independent Dijkstra) — days 2/3. Needs 3 more sev≤1 across ≥1 more day. Watch: n≤100 → Floyd-Warshall fingerprint for all-pairs (lc1334). |
-| Binary Search on Answer | 0/5 | 1 guided | Needs independent sessions. |
+| Binary Search on Answer | 1/5 sev≤1 | 2 total (1 guided) | First independent pass: lc875 sev 1 slow (2026-10-19, 34:28 vs 30:00). Needs 4 more sev≤1 across ≥2 more days (bar: 5 across 3 days). Watch: form-selection overhead. |
 | Binary Lifting | 0/5 | 1 guided | Needs independent sessions. |
 
 ## Top Weaknesses (compact)

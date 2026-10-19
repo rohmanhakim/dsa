@@ -17,8 +17,8 @@ Spent ~1 hour on brute-force TLE approaches before recognizing the correct patte
 
 **Action:** Add to pre-coding checklist: "How many items am I iterating over? If > 10^7, I need a smarter approach." If high is 10^9, iterating every number is O(10^9) — instant TLE. **Reinforced in LC 3345 (positive twist):** brute force IS the solution when bounded enumeration is O(10·log n). **Reinforced in LC 3720:** started with DFS generating all permutations for n=300 (O(n!)) — constraint check would have immediately ruled this out (n=300 → O(n²) target). **Reinforced in HR Ice Cream Parlor:** committed to O(m·n) (value-domain loop + per-iteration clone) without checking n/m bounds — the constraint table row "n ≤ 10⁶ → O(n) hash map" applied. **LC 219:** correct O(n)-window logic but the validity check was O(map) per step → O(n²) TLE. Cost each *step's* check against constraints, not just the outer loop: n ≤ 10⁵ needs O(n) total, so any per-step helper must be O(1) amortized.
 
-### 4. Debug Print Left in Code (5 occurrences)
-`fmt.Println` / `fmt.Printf` left in code after solving. Occurred in LC 216, LC 66, LC 941, LC 13, LC 3734, and LC 678. Before submission, **always scan every line** for `fmt.Print` and remove them.
+### 4. Debug Print Left in Code (7 occurrences)
+`fmt.Println` / `fmt.Printf` left in code after solving. Occurred in LC 216, LC 66, LC 941, LC 13, LC 3734, LC 678, and LC 875 (`fmt.Println(mid, res)` left in submitted code). Root cause: using prints to step through loop iterations instead of tracing on paper first. Before submission, **always scan every line** for `fmt.Print` and remove them.
 
 ### 5. Pattern Misidentification
 - **LC 1358:** Initially tried prefix/suffix sum when sliding window was the right tool. Ask: "Is this a range query problem or a window property problem?"

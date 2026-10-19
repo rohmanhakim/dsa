@@ -1,7 +1,7 @@
 # Binary Search
 
-**Status:** 🔄 In Progress — REGRESSED under strict multi-pattern rule (backfilled 2026-10-08). Was 8/8 mastered; lc3414 (2026-09-12, guided sev 3) used Binary Search as secondary (sort.Search predecessor lookup) — counted as not-maintained. Re-cert: 3 sev≤1 across 2 days. **Re-cert progress: 1/3 sev≤1, day 1/2 (lc350, 2026-10-08).**
-**Solved:** LC 35, LC 704, LC 34, LC 278, LC 153, LC 162, LC 33, LC 3718, LC 3414, LC 350
+**Status:** 🔄 In Progress — REGRESSED under strict multi-pattern rule (backfilled 2026-10-08). Was 8/8 mastered; lc3414 (2026-09-12, guided sev 3) used Binary Search as secondary (sort.Search predecessor lookup) — counted as not-maintained. Re-cert: 3 sev≤1 across 2 days. **Re-cert progress: 1/3 sev≤1, day 1/2 (lc350, 2026-10-08).** lc875 (2026-10-19, sev 1) logged as secondary → does not advance re-cert.
+**Solved:** LC 35, LC 704, LC 34, LC 278, LC 153, LC 162, LC 33, LC 3718, LC 3414, LC 350, LC 875 (secondary — primary was Binary Search on Answer)
 
 ## Core Decision
 
@@ -28,7 +28,7 @@ LC33 (Search in Rotated Sorted Array) initially attempted single-pass "detect wh
 **When to use which:** Single-pass is more elegant but requires mastery of 3-4 case conditions. Two-phase is safer when under time pressure or when the rotation boundary logic is causing bugs. Practice both to build fluency.
 
 ## Speed
-LC 35: 14:59, LC 704: 7:04, LC 34: 28:49, LC 278: 5:40, LC 153: 17:48, LC 162: 52:19 (slow — edge-case overhead from suboptimal template choice), LC 33: 90:04 (slow — struggled with single-pass approach before settling on two-phase), LC 3718: 10:55, LC 350: 14:10
+LC 35: 14:59, LC 704: 7:04, LC 34: 28:49, LC 278: 5:40, LC 153: 17:48, LC 162: 52:19 (slow — edge-case overhead from suboptimal template choice), LC 33: 90:04 (slow — struggled with single-pass approach before settling on two-phase), LC 3718: 10:55, LC 350: 14:10, LC 875: 34:28 (slow vs 30:00 lc-medium goal — answer-space form selection cost 4:28)
 
 ## Sorted-Array Intersection (LC 350)
 
@@ -46,4 +46,5 @@ Binary search is powerful but not always the right tool. **LC 3718:** Used binar
 
 ## Weaknesses
 - **Template confusion:** Spent significant time deciding between `left <= right` vs `left < right`, `right = mid` vs `right = mid - 1`. Root cause: not internalizing the "closed vs half-open interval" framework. **Action:** Practice LC 704 (Template 1), LC 34 (both templates), LC 278 (Template 2 variant) back-to-back to build muscle memory.
+- **Form selection overhead on answer-space search (LC 875):** 4:28 of 34:28 spent deriving "the correct form" instead of recalling both valid forms (closed+minK vs half-open+`right=mid`). **Action:** for min-feasible problems, commit to one canonical form at recognition time, before touching code.
 - **Single-pass rotated detection:** Cannot reliably implement the "detect which half is sorted, then decide" approach for rotated arrays. The case analysis (comparing `nums[mid]` with `nums[left]` and `nums[right]`) is error-prone. **Action:** Revisit when tackling LC 154 (find min with duplicates), LC 81 (search with duplicates). For now, two-phase approach is a valid alternative.
